@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>✈️ Flight Booking – пошук та бронювання</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="images/favicon.ico" />
+</head>
+<body>
+
+    <!-- ============================================================
+    ШАПКА (HEADER)
+    ============================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Flight Booking</span>
+            </div>
+            <div class="auth-buttons">
+                <!-- Відображення імені користувача -->
+                <span id="userDisplay" style="display:none; margin-right:15px;"></span>
+
+                <!-- Кнопки аутентифікації -->
+                <button id="loginBtn" class="btn-secondary">Увійти</button>
+                <button id="registerBtn" class="btn-secondary">Реєстрація</button>
+                <button id="logoutBtn" style="display:none;" class="btn-secondary">Вийти</button>
+
+                <!-- Кнопка адмін-панелі (показується тільки для адміністраторів) -->
+                <button id="adminPanelBtn" style="display:none;" class="btn-secondary" onclick="goToAdmin()">👑 Адмін</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    СЕКЦІЯ ПОШУКУ (flight-search)
+    ============================================================ -->
+    <section class="search-section">
+        <div class="container">
+            <h1>Знайдіть найкращі авіаквитки</h1>
+            <form id="searchForm" class="search-form">
+                <div class="form-group">
+                    <label for="origin">✈️ Звідки</label>
+                    <input type="text" id="origin" placeholder="Київ" value="Київ" required />
+                </div>
+                <div class="form-group">
+                    <label for="destination">🎯 Куди</label>
+                    <input type="text" id="destination" placeholder="Львів" value="Львів" required />
+                </div>
+                <div class="form-group">
+                    <label for="date">📅 Дата</label>
+                    <input type="date" id="date" />
+                </div>
+                <button type="submit" class="btn-primary">🔍 Пошук</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    СЕКЦІЯ РЕЗУЛЬТАТІВ (flight-search)
+    ============================================================ -->
+    <section class="results-section">
+        <div class="container">
+            <h2 id="resultsTitle">Доступні рейси</h2>
+            <div id="flightList" class="flight-list">
+                <!-- Рейси завантажуються через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    МОДАЛКА ВХОДУ (user-auth)
+    ============================================================ -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>🔐 Вхід</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Ім'я користувача</label>
+                    <input type="text" id="loginUsername" required />
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" required />
+                </div>
+                <button type="submit" class="btn-primary">Увійти</button>
+                <p style="margin-top:10px; text-align:center;">
+                    Немає акаунта? <a href="#" id="switchToRegister">Зареєструватися</a>
+                </p>
+            </form>
+            <div id="loginResult" class="auth-result"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    МОДАЛКА РЕЄСТРАЦІЇ (user-auth)
+    ============================================================ -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister">&times;</span>
+            <h2>📝 Реєстрація</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Ім'я користувача</label>
+                    <input type="text" id="regUsername" required />
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" required />
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" required />
+                    <small>Мінімум 8 символів, велика/мала літера, цифра, спецсимвол</small>
+                </div>
+                <div class="form-group">
+                    <label for="regFullName">Повне ім'я (опціонально)</label>
+                    <input type="text" id="regFullName" />
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Телефон (опціонально)</label>
+                    <input type="tel" id="regPhone" placeholder="+380501234567" />
+                </div>
+                <button type="submit" class="btn-primary">Зареєструватися</button>
+                <p style="margin-top:10px; text-align:center;">
+                    Вже є акаунт? <a href="#" id="switchToLogin">Увійти</a>
+                </p>
+            </form>
+            <div id="registerResult" class="auth-result"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    МОДАЛКА БРОНЮВАННЯ (booking-system)
+    ============================================================ -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeBooking">&times;</span>
+            <h2>✈️ Бронювання квитків</h2>
+
+            <!-- Інформація про рейс -->
+            <div id="bookingInfo" class="booking-info"></div>
+
+            <form id="bookingForm">
+                <!-- Пасажири -->
+                <div id="passengersContainer">
+                    <label>Пасажири</label>
+                    <div class="passenger-entry">
+                        <input type="text" class="passenger-name" placeholder="ПІБ пасажира" required />
+                        <input type="text" class="passenger-passport" placeholder="Номер паспорта (AA123456)" required />
+                    </div>
+                </div>
+                <button type="button" id="addPassengerBtn" class="btn-secondary">+ Додати пасажира</button>
+
+                <!-- Нотатки -->
+                <div class="form-group">
+                    <label for="bookingNotes">Нотатки (опціонально)</label>
+                    <textarea id="bookingNotes" rows="2" placeholder="Особливі побажання..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" id="bookBtn">Забронювати</button>
+            </form>
+
+            <div id="bookingResult" style="display:none; margin-top:1rem;"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    МОДАЛКА ОПЛАТИ (payment-integration)
+    ============================================================ -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closePayment">&times;</span>
+            <h2>💳 Оплата</h2>
+
+            <!-- Інформація про бронювання -->
+            <div id="paymentInfo" class="booking-info"></div>
+
+            <form id="paymentForm">
+                <input type="hidden" id="paymentBookingId" />
+
+                <!-- Вибір методу оплати -->
+                <div class="form-group">
+                    <label>Метод оплати</label>
+                    <div class="payment-methods">
+                        <label><input type="radio" name="paymentMethod" value="card" checked /> 💳 Картка</label>
+                        <label><input type="radio" name="paymentMethod" value="google_pay" /> 📱 Google Pay</label>
+                        <label><input type="radio" name="paymentMethod" value="apple_pay" /> 🍎 Apple Pay</label>
+                        <label><input type="radio" name="paymentMethod" value="bank_transfer" /> 🏦 Переказ</label>
+                    </div>
+                </div>
+
+                <!-- Дані картки (показуються тільки для методу "card") -->
+                <div id="cardForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Номер картки</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cardExpiry">Термін дії</label>
+                            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" />
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCvv">CVV</label>
+                            <input type="password" id="cardCvv" placeholder="123" maxlength="4" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardholderName">Ім'я власника</label>
+                        <input type="text" id="cardholderName" placeholder="IVAN PETRENKO" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="payBtn">💳 Оплатити</button>
+            </form>
+
+            <div id="paymentResult" style="display:none; margin-top:1rem;"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    ФУТЕР
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Flight Booking Service &bull;
+                <a href="https://github.com/your-username/flight-booking-service" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    ПІДКЛЮЧЕННЯ JavaScript
+    ============================================================ -->
+    <script src="js/app.js"></script>
+
+    <!-- Глобальна функція для переходу в адмін-панель -->
+    <script>
+        function goToAdmin() {
+            if (window.app && window.app.currentUser && window.app.currentUser.is_admin) {
+                window.location.href = 'admin.html';
+            } else {
+                alert('У вас немає прав адміністратора');
+            }
+        }
+    </script>
+
+</body>
+</html>
