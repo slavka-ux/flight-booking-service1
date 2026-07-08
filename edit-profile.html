@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагування профілю — FlyBooking</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --color-secondary: #0f172a;
+            --color-white: #ffffff;
+            --color-gray-50: #f8fafc;
+            --color-gray-100: #f1f5f9;
+            --color-gray-200: #e2e8f0;
+            --color-gray-300: #cbd5e1;
+            --color-gray-400: #94a3b8;
+            --color-gray-500: #64748b;
+            --color-gray-600: #475569;
+            --color-gray-700: #334155;
+            --color-gray-800: #1e293b;
+            --color-gray-900: #0f172a;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --radius-full: 9999px;
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 72px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-gray-50);
+            color: var(--color-gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            background: var(--color-white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-gray-900);
+            text-decoration: none;
+        }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text span { color: var(--color-primary); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-family);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+        .btn-outline:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-success {
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--color-danger);
+            color: var(--color-white);
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-block { width: 100%; justify-content: center; }
+
+        /* Page */
+        .page {
+            padding: 3rem 0;
+            min-height: calc(100vh - var(--header-height) - 80px);
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-gray-500);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition);
+            margin-bottom: 1.5rem;
+        }
+        .back-home:hover {
+            color: var(--color-primary);
+        }
+
+        .profile-card {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-card .title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .profile-card .subtitle {
+            color: var(--color-gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        .profile-card .title span {
+            background: var(--color-primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .avatar-upload {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--color-gray-50);
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .avatar-upload .info {
+            flex: 1;
+        }
+        .avatar-upload .info .name {
+            font-weight: 600;
+        }
+        .avatar-upload .info .hint {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            margin-bottom: 0.25rem;
+        }
+        .form-label .required {
+            color: var(--color-danger);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            font-family: var(--font-family);
+            font-size: 0.875rem;
+            color: var(--color-gray-800);
+            background: var(--color-gray-50);
+            border: 2px solid var(--color-gray-200);
+            border-radius: var(--radius);
+            transition: all var(--transition);
+            min-height: 44px;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: var(--color-white);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        .form-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+            margin-top: 0.25rem;
+        }
+
+        .form-error {
+            font-size: 0.75rem;
+            color: var(--color-danger);
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .form-error.visible { display: block; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-gray-200);
+        }
+
+        .password-toggle { position: relative; }
+        .password-toggle .toggle-btn {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--color-gray-400);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        .password-toggle .toggle-btn:hover { color: var(--color-gray-600); }
+
+        .divider {
+            height: 1px;
+            background: var(--color-gray-200);
+            margin: 1.5rem 0;
+        }
+
+        .danger-zone {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .danger-zone .title {
+            color: var(--color-danger);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .danger-zone .desc {
+            font-size: 0.875rem;
+            color: var(--color-gray-500);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-gray-900);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 0 1.5rem;
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color var(--transition);
+            font-size: 0.75rem;
+        }
+        .footer-bottom-links a:hover { color: var(--color-white); }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .avatar-upload {
+                flex-direction: column;
+                text-align: center;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                width: 100%;
+            }
+            .profile-card {
+                padding: 1.5rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-bottom-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✈️</span>
+            <span class="logo-text">Fly<span>Booking</span></span>
+        </a>
+        <div id="navUser"></div>
+    </div>
+</header>
+
+<!-- Page -->
+<main class="page">
+    <div class="container">
+        <a href="profile.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Назад до профілю
+        </a>
+
+        <div class="profile-card">
+            <h1 class="title">Редагування <span>профілю</span></h1>
+            <p class="subtitle">Оновіть свої особисті дані та налаштування</p>
+
+            <form id="editProfileForm" onsubmit="handleSubmit(event)">
+                <!-- Аватар -->
+                <div class="avatar-upload">
+                    <div class="avatar-preview" id="avatarPreview">ОК</div>
+                    <div class="info">
+                        <div class="name" id="userDisplayName">Олена Коваленко</div>
+                        <div class="hint">
+                            <i class="fas fa-info-circle"></i> Натисніть кнопку нижче, щоб змінити фото
+                        </div>
+                        <button type="button" class="btn btn-outline btn-sm" style="margin-top:0.5rem;" onclick="showToast('🖼️ Вибір фото відкрито', 'info')">
+                            <i class="fas fa-camera"></i> Змінити фото
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Особисті дані -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editFirstName" class="form-label">
+                            Ім'я <span class="required">*</span>
+                        </label>
+                        <input type="text" id="editFirstName" class="form-input" placeholder="Ваше ім'я" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastName" class="form-label">
+                            Прізвище <span class="required">*</span>
+                        </label>
+                        <input type="text" id="editLastName" class="form-input" placeholder="Ваше прізвище" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEmail" class="form-label">
+                        Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="editEmail" class="form-input" placeholder="your@email.com" required disabled>
+                    <div class="form-hint">
+                        <i class="fas fa-lock"></i> Email не можна змінити. Зв'яжіться з підтримкою для зміни.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editPhone" class="form-label">
+                        Телефон
+                    </label>
+                    <input type="tel" id="editPhone" class="form-input" placeholder="+38 (XXX) XXX-XX-XX">
+                </div>
+
+                <!-- Зміна паролю -->
+                <div class="divider"></div>
+
+                <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">
+                    <i class="fas fa-key" style="color:var(--color-primary);"></i> Зміна паролю
+                </h3>
+
+                <div class="form-group">
+                    <label for="editCurrentPassword" class="form-label">Поточний пароль</label>
+                    <div class="password-toggle">
+                        <input type="password" id="editCurrentPassword" class="form-input" placeholder="Введіть поточний пароль">
+                        <button type="button" class="toggle-btn" onclick="togglePassword('editCurrentPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editNewPassword" class="form-label">Новий пароль</label>
+                        <div class="password-toggle">
+                            <input type="password" id="editNewPassword" class="form-input" placeholder="Мінімум 8 символів">
+                            <button type="button" class="toggle-btn" onclick="togglePassword('editNewPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editConfirmPassword" class="form-label">Підтвердіть пароль</label>
+                        <div class="password-toggle">
+                            <input type="password" id="editConfirmPassword" class="form-input" placeholder="Повторіть пароль">
+                            <button type="button" class="toggle-btn" onclick="togglePassword('editConfirmPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-error" id="editError">Паролі не співпадають</div>
+
+                <!-- Кнопки -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="window.location.href='profile.html'">
+                        <i class="fas fa-times"></i> Скасувати
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                        <i class="fas fa-save"></i> Зберегти зміни
+                    </button>
+                </div>
+            </form>
+
+            <!-- Небезпечна зона -->
+            <div class="danger-zone">
+                <div class="title">
+                    <i class="fas fa-exclamation-triangle"></i> Небезпечна зона
+                </div>
+                <p class="desc">Видаліть свій акаунт та всі пов'язані з ним дані. Цю дію не можна скасувати.</p>
+                <button class="btn btn-danger" onclick="deleteAccount()">
+                    <i class="fas fa-trash"></i> Видалити акаунт
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-bottom">
+        <div class="footer-bottom-links">
+            <a href="#">Політика конфіденційності</a>
+            <a href="#">Умови використання</a>
+            <a href="#">Cookies</a>
+        </div>
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+            &copy; 2026 FlyBooking. Всі права захищено.
+        </p>
+    </div>
+</footer>
+
+<!-- Toast Container -->
+<div id="toastContainer" style="position:fixed;bottom:2rem;right:2rem;z-index:5000;display:flex;flex-direction:column;gap:0.5rem;max-width:400px;"></div>
+
+<script>
+    (function() {
+        // ============================
+        // 1. USER
+        // ============================
+        function getUser() {
+            return JSON.parse(localStorage.getItem('flybooking_user'));
+        }
+
+        function setUser(user) {
+            localStorage.setItem('flybooking_user', JSON.stringify(user));
+        }
+
+        function removeUser() {
+            localStorage.removeItem('flybooking_user');
+        }
+
+        const user = getUser();
+        if (!user) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        // ============================
+        // 2. ЗАПОВНЕННЯ ФОРМИ
+        // ============================
+        document.getElementById('editFirstName').value = user.firstName || '';
+        document.getElementById('editLastName').value = user.lastName || '';
+        document.getElementById('editEmail').value = user.email || '';
+        document.getElementById('userDisplayName').textContent = `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email;
+
+        const initials = (user.firstName?.charAt(0) || '') + (user.lastName?.charAt(0) || '');
+        document.getElementById('avatarPreview').textContent = initials || 'U';
+
+        // Header
+        document.getElementById('navUser').innerHTML = `
+            <span style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--color-gray-700);">
+                <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${initials || 'U'}</span>
+                ${user.firstName || 'Користувач'}
+            </span>
+        `;
+
+        // ============================
+        // 3. TOGGLE PASSWORD
+        // ============================
+        window.togglePassword = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        };
+
+        // ============================
+        // 4. SUBMIT
+        // ============================
+        window.handleSubmit = function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('editFirstName').value.trim();
+            const lastName = document.getElementById('editLastName').value.trim();
+            const currentPassword = document.getElementById('editCurrentPassword').value;
+            const newPassword = document.getElementById('editNewPassword').value;
+            const confirmPassword = document.getElementById('editConfirmPassword').value;
+            const errorEl = document.getElementById('editError');
+            const saveBtn = document.getElementById('saveBtn');
+
+            if (!firstName || !lastName) {
+                errorEl.textContent = 'Ім\'я та прізвище обов\'язкові';
+                errorEl.classList.add('visible');
+                return;
+            }
+
+            // Перевірка паролю
+            if (newPassword || confirmPassword) {
+                if (newPassword !== confirmPassword) {
+                    errorEl.textContent = 'Паролі не співпадають';
+                    errorEl.classList.add('visible');
+                    return;
+                }
+                if (newPassword.length < 8) {
+                    errorEl.textContent = 'Пароль має містити мінімум 8 символів';
+                    errorEl.classList.add('visible');
+                    return;
+                }
+                if (!currentPassword) {
+                    errorEl.textContent = 'Введіть поточний пароль для зміни';
+                    errorEl.classList.add('visible');
+                    return;
+                }
+                // Демо-перевірка поточного паролю
+                if (currentPassword !== 'password123') {
+                    errorEl.textContent = 'Невірний поточний пароль';
+                    errorEl.classList.add('visible');
+                    return;
+                }
+            }
+
+            errorEl.classList.remove('visible');
+
+            // Оновлюємо дані
+            const updatedUser = {
+                ...user,
+                firstName: firstName,
+                lastName: lastName
+            };
+            setUser(updatedUser);
+
+            // Зберігаємо телефон (для демо - просто показуємо)
+            const phone = document.getElementById('editPhone').value;
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Збереження...';
+
+            setTimeout(() => {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Зберегти зміни';
+                showToast('✅ Профіль успішно оновлено!', 'success');
+                // Оновлюємо ім'я в хедері
+                const newInitials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+                document.getElementById('avatarPreview').textContent = newInitials || 'U';
+                document.getElementById('userDisplayName').textContent = `${firstName} ${lastName}`;
+                document.getElementById('navUser').innerHTML = `
+                    <span style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--color-gray-700);">
+                        <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${newInitials || 'U'}</span>
+                        ${firstName}
+                    </span>
+                `;
+                // Очищаємо поля паролю
+                document.getElementById('editCurrentPassword').value = '';
+                document.getElementById('editNewPassword').value = '';
+                document.getElementById('editConfirmPassword').value = '';
+            }, 1000);
+        };
+
+        // ============================
+        // 5. DELETE ACCOUNT
+        // ============================
+        window.deleteAccount = function() {
+            if (confirm('⚠️ Ви впевнені, що хочете видалити свій акаунт? Цю дію не можна скасувати!')) {
+                if (confirm('Введіть "ВИДАЛИТИ" для підтвердження.')) {
+                    const confirmText = prompt('Введіть "ВИДАЛИТИ" щоб підтвердити видалення:');
+                    if (confirmText === 'ВИДАЛИТИ') {
+                        removeUser();
+                        showToast('🗑️ Акаунт видалено', 'error');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    } else {
+                        showToast('❌ Підтвердження не вірне', 'error');
+                    }
+                }
+            }
+        };
+
+        // ============================
+        // 6. TOAST
+        // ============================
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                color: white;
+                font-weight: 500;
+                font-size: 0.875rem;
+                box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+                animation: slideUp 0.3s ease;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#2563eb'};
+            `;
+            toast.textContent = message;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        };
+
+        console.log('✏️ Сторінка редагування профілю завантажена');
+    })();
+</script>
+
+</body>
+</html>
