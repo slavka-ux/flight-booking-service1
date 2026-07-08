@@ -213,6 +213,14 @@
             font-size: 0.875rem;
         }
 
+        .user-menu-btn .user-name {
+            display: inline-block;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .user-menu-btn .chevron {
             font-size: 0.75rem;
             color: var(--color-gray-400);
@@ -969,7 +977,7 @@
                 <div class="user-dropdown-wrapper">
                     <button class="user-menu-btn" id="userMenuBtn">
                         <span class="avatar">${initials}</span>
-                        <span>${user.firstName}</span>
+                        <span class="user-name">${user.firstName}</span>
                         <i class="fas fa-chevron-down chevron"></i>
                     </button>
                     <div class="user-dropdown" id="userDropdown">
