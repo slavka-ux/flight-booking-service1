@@ -2162,7 +2162,6 @@
 
             // Функція для парсингу введеного тексту
             function parseInput(text) {
-                // Шукаємо збіг за назвою або кодом
                 const trimmed = text.trim().toLowerCase();
                 if (!trimmed) return null;
 
@@ -2189,7 +2188,8 @@
                 let filtered = [];
 
                 if (!trimmed) {
-                    filtered = cities.slice(0, 8);
+                    // Показуємо ВСІ міста, якщо нічого не введено
+                    filtered = [...cities];
                 } else {
                     filtered = cities.filter(c =>
                         c.name.toLowerCase().includes(trimmed) ||
@@ -2219,11 +2219,13 @@
                 updateDropdown(val);
             });
 
-            // Обробник фокусу - показуємо список
+            // Обробник фокусу - показуємо ВСІ міста
             input.addEventListener('focus', function() {
-                if (this.value.trim()) {
-                    updateDropdown(this.value);
+                const val = this.value;
+                if (val.trim()) {
+                    updateDropdown(val);
                 } else {
+                    // Показуємо всі міста при фокусі
                     updateDropdown('');
                 }
             });
