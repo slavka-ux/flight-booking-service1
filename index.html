@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        /* ============================================
-           ГЛОБАЛЬНІ СТИЛІ
-           ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -74,9 +71,6 @@
             width: 100%;
         }
 
-        /* ============================================
-           КНОПКИ
-           ============================================ */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -148,9 +142,6 @@
             justify-content: center;
         }
 
-        /* ============================================
-           HEADER
-           ============================================ */
         .header {
             background: var(--color-white);
             box-shadow: var(--shadow);
@@ -202,7 +193,6 @@
         }
         .nav-links a:hover { color: var(--color-primary); }
 
-        /* ===== USER DROPDOWN ===== */
         .user-dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -329,9 +319,6 @@
             gap: 0.5rem;
         }
 
-        /* ============================================
-           HERO
-           ============================================ */
         .hero {
             background: var(--color-secondary);
             padding: 4rem 0 3rem;
@@ -397,7 +384,6 @@
             margin-bottom: 2rem;
         }
 
-        /* ===== SEARCH FORM ===== */
         .search-wrapper {
             background: var(--color-white);
             border-radius: var(--radius);
@@ -479,7 +465,6 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
-        /* Combobox Styles */
         .combobox-wrapper {
             position: relative;
             width: 100%;
@@ -711,7 +696,6 @@
             cursor: pointer;
         }
 
-        /* ===== POPULAR DESTINATIONS ===== */
         .popular-destinations {
             margin-top: 1.5rem;
             display: flex;
@@ -743,7 +727,6 @@
             transform: translateY(-2px);
         }
 
-        /* ===== FEATURES ===== */
         .features {
             padding: 4rem 0;
             background: var(--color-white);
@@ -812,7 +795,6 @@
             font-weight: 600;
         }
 
-        /* ===== OFFERS ===== */
         .offers {
             padding: 4rem 0;
             background: var(--color-gray-50);
@@ -905,7 +887,6 @@
         }
         .offer-meta i { margin-right: 0.25rem; }
 
-        /* ===== TESTIMONIALS ===== */
         .testimonials {
             padding: 4rem 0;
             background: var(--color-white);
@@ -955,7 +936,6 @@
         .author-name { font-weight: 600; font-size: 0.875rem; }
         .author-info { font-size: 0.75rem; color: var(--color-gray-400); }
 
-        /* ===== CTA ===== */
         .cta-section {
             padding: 4rem 0;
             background: var(--color-secondary);
@@ -985,7 +965,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             background: var(--color-gray-900);
             color: rgba(255,255,255,0.7);
@@ -1020,9 +999,6 @@
         .footer-payment i { transition: color var(--transition); }
         .footer-payment i:hover { color: rgba(255,255,255,0.6); }
 
-        /* ============================================
-           МОДАЛЬНІ ВІКНА
-           ============================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1171,7 +1147,6 @@
         }
         .modal-footer a:hover { text-decoration: underline; }
 
-        /* ===== TOAST ===== */
         .toast-container {
             position: fixed;
             bottom: 2rem;
@@ -1201,9 +1176,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================
-           MOBILE
-           ============================================ */
         .mobile-toggle {
             display: none;
             flex-direction: column;
@@ -1277,9 +1249,6 @@
             color: var(--color-primary);
         }
 
-        /* ============================================
-           АДАПТИВНІСТЬ
-           ============================================ */
         @media (max-width: 1024px) {
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .offers-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1351,13 +1320,11 @@
             </a>
 
             <ul class="nav-links">
-                <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
-                <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
-                <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
-                <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
-                <li class="nav-auth" id="navAuth">
-                    <!-- Заповнюється через JS -->
-                </li>
+                <li><a href="#offers">Пропозиції</a></li>
+                <li><a href="offers.html">Всі пропозиції</a></li>
+                <li><a href="#features">Переваги</a></li>
+                <li><a href="#testimonials">Відгуки</a></li>
+                <li class="nav-auth" id="navAuth"></li>
             </ul>
 
             <button class="mobile-toggle" id="mobileToggle" aria-label="Відкрити меню">
@@ -1370,9 +1337,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <div class="container">
-            <ul id="mobileNavLinks">
-                <!-- Заповнюється через JS -->
-            </ul>
+            <ul id="mobileNavLinks"></ul>
         </div>
     </div>
 </header>
@@ -1609,9 +1574,7 @@
             </a>
         </div>
 
-        <div class="offers-grid" id="mainOffersGrid">
-            <!-- Заповнюється через JS -->
-        </div>
+        <div class="offers-grid" id="mainOffersGrid"></div>
     </div>
 </section>
 
@@ -1714,23 +1677,20 @@
     </div>
 </footer>
 
-<!-- ===== МОДАЛКА ВХОДУ ===== -->
+<!-- ===== МОДАЛКИ ===== -->
 <div class="modal-overlay" id="loginModal">
     <div class="modal">
         <button class="modal-close" onclick="closeModal('loginModal')">
             <i class="fas fa-times"></i>
         </button>
-
         <div class="modal-brand">
             <a href="index.html" class="logo" style="justify-content: center;">
                 <span class="logo-icon">✈️</span>
                 <span class="logo-text">Fly<span>Booking</span></span>
             </a>
         </div>
-
         <h2 class="modal-title">Ласкаво просимо!</h2>
         <p class="modal-subtitle">Увійдіть у свій акаунт, щоб продовжити</p>
-
         <div class="social-login">
             <button class="btn-social" onclick="showToast('🔵 Вхід через Google...', 'info')">
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59A14.5 14.5 0 0 1 9.5 24c0-1.59.28-3.14.76-4.59l-7.98-6.19A23.99 23.99 0 0 0 0 24c0 3.77.87 7.35 2.56 10.56l7.97-5.97z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 5.97C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E" alt="Google" style="width:18px; height:18px;">
@@ -1741,9 +1701,7 @@
                 Facebook
             </button>
         </div>
-
         <div class="divider">або з email</div>
-
         <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
                 <input type="email" class="form-input" placeholder="Email" id="loginEmail" required value="demo@flybooking.com">
@@ -1759,30 +1717,25 @@
                 <i class="fas fa-sign-in-alt"></i> Увійти
             </button>
         </form>
-
         <div class="modal-footer">
             Ще немає акаунта? <a onclick="switchModal('register')">Зареєструватися</a>
         </div>
     </div>
 </div>
 
-<!-- ===== МОДАЛКА РЕЄСТРАЦІЇ ===== -->
 <div class="modal-overlay" id="registerModal">
     <div class="modal">
         <button class="modal-close" onclick="closeModal('registerModal')">
             <i class="fas fa-times"></i>
         </button>
-
         <div class="modal-brand">
             <a href="index.html" class="logo" style="justify-content: center;">
                 <span class="logo-icon">✈️</span>
                 <span class="logo-text">Fly<span>Booking</span></span>
             </a>
         </div>
-
         <h2 class="modal-title">Створіть акаунт</h2>
         <p class="modal-subtitle">Приєднуйтесь та отримуйте бонуси за кожну подорож</p>
-
         <form id="registerForm" onsubmit="handleRegister(event)">
             <div class="form-group">
                 <input type="text" class="form-input" placeholder="Ім'я" id="regFirstName" required>
@@ -1810,7 +1763,6 @@
                 <i class="fas fa-user-plus"></i> Зареєструватися
             </button>
         </form>
-
         <div class="modal-footer">
             Вже маєте акаунт? <a onclick="switchModal('login')">Увійти</a>
         </div>
@@ -1822,438 +1774,423 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-    (function() {
-        'use strict';
+    // ============================================
+    // ДАНІ ДЛЯ АВТОДОПОВНЕННЯ
+    // ============================================
+    const cities = [
+        { name: 'Київ', code: 'KBP', country: 'Україна' },
+        { name: 'Львів', code: 'LWO', country: 'Україна' },
+        { name: 'Одеса', code: 'ODS', country: 'Україна' },
+        { name: 'Дніпро', code: 'DNK', country: 'Україна' },
+        { name: 'Харків', code: 'HRK', country: 'Україна' },
+        { name: 'Варшава', code: 'WAW', country: 'Польща' },
+        { name: 'Краків', code: 'KRK', country: 'Польща' },
+        { name: 'Кишинів', code: 'KIV', country: 'Молдова' },
+        { name: 'Лондон', code: 'LHR', country: 'Велика Британія' },
+        { name: 'Париж', code: 'CDG', country: 'Франція' },
+        { name: 'Франкфурт', code: 'FRA', country: 'Німеччина' },
+        { name: 'Берлін', code: 'BER', country: 'Німеччина' },
+        { name: 'Мюнхен', code: 'MUC', country: 'Німеччина' },
+        { name: 'Нью-Йорк', code: 'JFK', country: 'США' },
+        { name: 'Дубай', code: 'DXB', country: 'ОАЕ' },
+        { name: 'Бангкок', code: 'BKK', country: 'Таїланд' },
+        { name: 'Стамбул', code: 'IST', country: 'Туреччина' },
+        { name: 'Амстердам', code: 'AMS', country: 'Нідерланди' },
+        { name: 'Рим', code: 'FCO', country: 'Італія' },
+        { name: 'Мадрид', code: 'MAD', country: 'Іспанія' },
+        { name: 'Барселона', code: 'BCN', country: 'Іспанія' },
+        { name: 'Лісабон', code: 'LIS', country: 'Португалія' },
+        { name: 'Афіни', code: 'ATH', country: 'Греція' },
+        { name: 'Каїр', code: 'CAI', country: 'Єгипет' },
+        { name: 'Токіо', code: 'NRT', country: 'Японія' },
+        { name: 'Пекін', code: 'PEK', country: 'Китай' },
+        { name: 'Сінгапур', code: 'SIN', country: 'Сінгапур' },
+        { name: 'Сідней', code: 'SYD', country: 'Австралія' },
+        { name: 'Лос-Анджелес', code: 'LAX', country: 'США' },
+        { name: 'Майамі', code: 'MIA', country: 'США' },
+        { name: 'Торонто', code: 'YYZ', country: 'Канада' },
+        { name: 'Мехіко', code: 'MEX', country: 'Мексика' },
+        { name: 'Сан-Паулу', code: 'GRU', country: 'Бразилія' },
+        { name: 'Йоганнесбург', code: 'JNB', country: 'ПАР' },
+        { name: 'Мумбаї', code: 'BOM', country: 'Індія' },
+    ];
 
-        // ============================================
-        // ДАНІ ДЛЯ АВТОДОПОВНЕННЯ (МІСТА)
-        // ============================================
-        const cities = [
-            { name: 'Київ', code: 'KBP', country: 'Україна' },
-            { name: 'Львів', code: 'LWO', country: 'Україна' },
-            { name: 'Одеса', code: 'ODS', country: 'Україна' },
-            { name: 'Дніпро', code: 'DNK', country: 'Україна' },
-            { name: 'Харків', code: 'HRK', country: 'Україна' },
-            { name: 'Варшава', code: 'WAW', country: 'Польща' },
-            { name: 'Краків', code: 'KRK', country: 'Польща' },
-            { name: 'Кишинів', code: 'KIV', country: 'Молдова' },
-            { name: 'Лондон', code: 'LHR', country: 'Велика Британія' },
-            { name: 'Париж', code: 'CDG', country: 'Франція' },
-            { name: 'Франкфурт', code: 'FRA', country: 'Німеччина' },
-            { name: 'Берлін', code: 'BER', country: 'Німеччина' },
-            { name: 'Мюнхен', code: 'MUC', country: 'Німеччина' },
-            { name: 'Нью-Йорк', code: 'JFK', country: 'США' },
-            { name: 'Дубай', code: 'DXB', country: 'ОАЕ' },
-            { name: 'Бангкок', code: 'BKK', country: 'Таїланд' },
-            { name: 'Стамбул', code: 'IST', country: 'Туреччина' },
-            { name: 'Амстердам', code: 'AMS', country: 'Нідерланди' },
-            { name: 'Рим', code: 'FCO', country: 'Італія' },
-            { name: 'Мадрид', code: 'MAD', country: 'Іспанія' },
-            { name: 'Барселона', code: 'BCN', country: 'Іспанія' },
-            { name: 'Лісабон', code: 'LIS', country: 'Португалія' },
-            { name: 'Афіни', code: 'ATH', country: 'Греція' },
-            { name: 'Каїр', code: 'CAI', country: 'Єгипет' },
-            { name: 'Токіо', code: 'NRT', country: 'Японія' },
-            { name: 'Пекін', code: 'PEK', country: 'Китай' },
-            { name: 'Сінгапур', code: 'SIN', country: 'Сінгапур' },
-            { name: 'Сідней', code: 'SYD', country: 'Австралія' },
-            { name: 'Лос-Анджелес', code: 'LAX', country: 'США' },
-            { name: 'Майамі', code: 'MIA', country: 'США' },
-            { name: 'Торонто', code: 'YYZ', country: 'Канада' },
-            { name: 'Мехіко', code: 'MEX', country: 'Мексика' },
-            { name: 'Сан-Паулу', code: 'GRU', country: 'Бразилія' },
-            { name: 'Йоганнесбург', code: 'JNB', country: 'ПАР' },
-            { name: 'Мумбаї', code: 'BOM', country: 'Індія' },
-        ];
+    // ============================================
+    // ДАНІ ПРО ПРОПОЗИЦІЇ
+    // ============================================
+    const offerData = [
+        { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162', airline: 'Ryanair', emoji: '🗼', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
+        { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640', airline: 'Turkish Airlines', emoji: '🗽', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
+        { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301', airline: 'FlyDubai', emoji: '🏝️', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
+    ];
 
-        // ============================================
-        // ДАНІ ПРО ПРОПОЗИЦІЇ (зображення, знижки, ціни)
-        // ============================================
-        const offerData = [
-            { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162', airline: 'Ryanair', emoji: '🗼', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
-            { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640', airline: 'Turkish Airlines', emoji: '🗽', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
-            { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301', airline: 'FlyDubai', emoji: '🏝️', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
-        ];
+    // ============================================
+    // АВТОРИЗАЦІЯ
+    // ============================================
+    function getUser() {
+        return JSON.parse(localStorage.getItem('flybooking_user'));
+    }
 
-        // ============================
-        // 1. ПЕРЕВІРКА АВТОРИЗАЦІЇ
-        // ============================
-        function getUser() {
-            return JSON.parse(localStorage.getItem('flybooking_user'));
-        }
+    function setUser(user) {
+        localStorage.setItem('flybooking_user', JSON.stringify(user));
+    }
 
-        function setUser(user) {
-            localStorage.setItem('flybooking_user', JSON.stringify(user));
-        }
+    function removeUser() {
+        localStorage.removeItem('flybooking_user');
+    }
 
-        function removeUser() {
-            localStorage.removeItem('flybooking_user');
-        }
+    // ============================================
+    // РЕНДЕР НАВІГАЦІЇ
+    // ============================================
+    function renderNav() {
+        const user = getUser();
+        const navAuth = document.getElementById('navAuth');
+        const mobileNav = document.getElementById('mobileNavLinks');
 
-        // ============================
-        // 2. РЕНДЕР НАВІГАЦІЇ
-        // ============================
-        function renderNav() {
-            const user = getUser();
-            const navAuth = document.getElementById('navAuth');
-            const mobileNav = document.getElementById('mobileNavLinks');
+        if (user) {
+            const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
 
-            if (user) {
-                const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
-
-                navAuth.innerHTML = `
-                    <div class="user-dropdown-wrapper">
-                        <button class="user-menu-btn" id="userMenuBtn">
-                            <span class="avatar">${initials}</span>
-                            ${user.firstName}
-                            <i class="fas fa-chevron-down chevron"></i>
-                        </button>
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="profile.html" class="dropdown-item">
-                                <i class="fas fa-user"></i> Мій профіль
-                            </a>
-                            <a href="bookings.html" class="dropdown-item">
-                                <i class="fas fa-ticket-alt"></i> Мої бронювання
-                            </a>
-                            <a href="edit-profile.html" class="dropdown-item">
-                                <i class="fas fa-user-edit"></i> Редагувати профіль
-                            </a>
-                            <a href="bonus.html" class="dropdown-item">
-                                <i class="fas fa-gift"></i> Бонуси
-                            </a>
-                            <a href="settings.html" class="dropdown-item">
-                                <i class="fas fa-cog"></i> Налаштування
-                            </a>
-                            <a href="help.html" class="dropdown-item">
-                                <i class="fas fa-question-circle"></i> Допомога
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item logout" onclick="handleLogout()">
-                                <i class="fas fa-sign-out-alt"></i> Вийти
-                            </button>
-                        </div>
-                    </div>
-                `;
-
-                mobileNav.innerHTML = `
-                    <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
-                    <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
-                    <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
-                    <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
-                    <li><a href="bookings.html"><i class="fas fa-ticket-alt"></i> Мої бронювання</a></li>
-                    <li><a href="edit-profile.html"><i class="fas fa-user-edit"></i> Редагувати профіль</a></li>
-                    <li><a href="bonus.html"><i class="fas fa-gift"></i> Бонуси</a></li>
-                    <li><a href="settings.html"><i class="fas fa-cog"></i> Налаштування</a></li>
-                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Допомога</a></li>
-                    <li>
-                        <button class="btn btn-danger btn-block" onclick="handleLogout()">
+            navAuth.innerHTML = `
+                <div class="user-dropdown-wrapper">
+                    <button class="user-menu-btn" id="userMenuBtn">
+                        <span class="avatar">${initials}</span>
+                        ${user.firstName}
+                        <i class="fas fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Мій профіль
+                        </a>
+                        <a href="bookings.html" class="dropdown-item">
+                            <i class="fas fa-ticket-alt"></i> Мої бронювання
+                        </a>
+                        <a href="edit-profile.html" class="dropdown-item">
+                            <i class="fas fa-user-edit"></i> Редагувати профіль
+                        </a>
+                        <a href="bonus.html" class="dropdown-item">
+                            <i class="fas fa-gift"></i> Бонуси
+                        </a>
+                        <a href="settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Налаштування
+                        </a>
+                        <a href="help.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i> Допомога
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout" onclick="handleLogout()">
                             <i class="fas fa-sign-out-alt"></i> Вийти
                         </button>
-                    </li>
-                `;
+                    </div>
+                </div>
+            `;
 
-                setTimeout(function() {
-                    const menuBtn = document.getElementById('userMenuBtn');
-                    const dropdown = document.getElementById('userDropdown');
-                    if (menuBtn && dropdown) {
-                        menuBtn.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            this.classList.toggle('active');
-                            dropdown.classList.toggle('open');
-                        });
-                        document.addEventListener('click', function(e) {
-                            if (!dropdown.contains(e.target) && !menuBtn.contains(e.target)) {
-                                menuBtn.classList.remove('active');
-                                dropdown.classList.remove('open');
-                            }
-                        });
-                    }
-                }, 50);
-
-            } else {
-                navAuth.innerHTML = `
-                    <button class="btn btn-outline btn-sm" onclick="openModal('login')">
-                        <i class="fas fa-sign-in-alt"></i> Увійти
+            mobileNav.innerHTML = `
+                <li><a href="#offers">Пропозиції</a></li>
+                <li><a href="offers.html">Всі пропозиції</a></li>
+                <li><a href="#features">Переваги</a></li>
+                <li><a href="#testimonials">Відгуки</a></li>
+                <li><a href="profile.html">Мій профіль</a></li>
+                <li><a href="bookings.html">Мої бронювання</a></li>
+                <li><a href="edit-profile.html">Редагувати профіль</a></li>
+                <li><a href="bonus.html">Бонуси</a></li>
+                <li><a href="settings.html">Налаштування</a></li>
+                <li><a href="help.html">Допомога</a></li>
+                <li>
+                    <button class="btn btn-danger btn-block" onclick="handleLogout()">
+                        Вийти
                     </button>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('register')">
-                        <i class="fas fa-user-plus"></i> Реєстрація
-                    </button>
-                `;
+                </li>
+            `;
 
-                mobileNav.innerHTML = `
-                    <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
-                    <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
-                    <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
-                    <li>
-                        <button class="btn btn-outline btn-block" onclick="openModal('login')">
-                            <i class="fas fa-sign-in-alt"></i> Увійти
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-primary btn-block" onclick="openModal('register')">
-                            <i class="fas fa-user-plus"></i> Реєстрація
-                        </button>
-                    </li>
-                `;
-            }
+            setTimeout(function() {
+                const menuBtn = document.getElementById('userMenuBtn');
+                const dropdown = document.getElementById('userDropdown');
+                if (menuBtn && dropdown) {
+                    menuBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('active');
+                        dropdown.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e) {
+                        if (!dropdown.contains(e.target) && !menuBtn.contains(e.target)) {
+                            menuBtn.classList.remove('active');
+                            dropdown.classList.remove('open');
+                        }
+                    });
+                }
+            }, 50);
+
+        } else {
+            navAuth.innerHTML = `
+                <button class="btn btn-outline btn-sm" onclick="openModal('login')">
+                    <i class="fas fa-sign-in-alt"></i> Увійти
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="openModal('register')">
+                    <i class="fas fa-user-plus"></i> Реєстрація
+                </button>
+            `;
+
+            mobileNav.innerHTML = `
+                <li><a href="#offers">Пропозиції</a></li>
+                <li><a href="offers.html">Всі пропозиції</a></li>
+                <li><a href="#features">Переваги</a></li>
+                <li><a href="#testimonials">Відгуки</a></li>
+                <li>
+                    <button class="btn btn-outline btn-block" onclick="openModal('login')">
+                        Увійти
+                    </button>
+                </li>
+                <li>
+                    <button class="btn btn-primary btn-block" onclick="openModal('register')">
+                        Реєстрація
+                    </button>
+                </li>
+            `;
         }
+    }
 
-        // ============================
-        // 3. MOBILE MENU
-        // ============================
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
+    // ============================================
+    // MOBILE MENU
+    // ============================================
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
 
+    if (mobileToggle && mobileMenu) {
         mobileToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             mobileMenu.classList.toggle('open');
             document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
         });
+    }
 
-        // ============================
-        // 4. TOAST
-        // ============================
-        window.showToast = function(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
+    // ============================================
+    // TOAST
+    // ============================================
+    window.showToast = function(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
 
-            setTimeout(function() {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(function() { toast.remove(); }, 300);
-            }, 3500);
-        };
+        setTimeout(function() {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(function() { toast.remove(); }, 300);
+        }, 3500);
+    };
 
-        // ============================
-        // 5. МОДАЛКИ
-        // ============================
-        window.openModal = function(type) {
-            if (type === 'login') {
-                document.getElementById('loginModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else if (type === 'register') {
-                document.getElementById('registerModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        };
+    // ============================================
+    // МОДАЛКИ
+    // ============================================
+    window.openModal = function(type) {
+        if (type === 'login') {
+            document.getElementById('loginModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else if (type === 'register') {
+            document.getElementById('registerModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
 
-        window.closeModal = function(id) {
-            document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = '';
-        };
+    window.closeModal = function(id) {
+        document.getElementById(id).classList.remove('active');
+        document.body.style.overflow = '';
+    };
 
-        window.switchModal = function(type) {
-            closeModal('loginModal');
-            closeModal('registerModal');
-            setTimeout(() => openModal(type), 200);
-        };
+    window.switchModal = function(type) {
+        closeModal('loginModal');
+        closeModal('registerModal');
+        setTimeout(() => openModal(type), 200);
+    };
 
-        document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
-            overlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
-                    modal.classList.remove('active');
-                });
+    document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
+    });
 
-        // ============================
-        // 6. TOGGLE PASSWORD
-        // ============================
-        window.togglePassword = function(inputId, btn) {
-            const input = document.getElementById(inputId);
-            const icon = btn.querySelector('i');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+    });
+
+    // ============================================
+    // TOGGLE PASSWORD
+    // ============================================
+    window.togglePassword = function(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    };
+
+    // ============================================
+    // КОМБОБОКС
+    // ============================================
+    function createCombobox(inputId, dropdownId, clearId) {
+        const input = document.getElementById(inputId);
+        const dropdown = document.getElementById(dropdownId);
+        const clearBtn = document.getElementById(clearId);
+
+        if (!input || !dropdown || !clearBtn) return null;
+
+        function getCityDisplay(city) {
+            return `${city.name} (${city.code})`;
+        }
+
+        function parseInput(text) {
+            const trimmed = text.trim().toLowerCase();
+            if (!trimmed) return null;
+            const codeMatch = trimmed.match(/\(([^)]+)\)$/);
+            if (codeMatch) {
+                const code = codeMatch[1].toUpperCase();
+                const found = cities.find(c => c.code === code);
+                if (found) return found;
+            }
+            const found = cities.find(c =>
+                c.name.toLowerCase() === trimmed ||
+                c.name.toLowerCase().includes(trimmed) ||
+                c.code.toLowerCase() === trimmed
+            );
+            return found || null;
+        }
+
+        function updateDropdown(query) {
+            const trimmed = query.trim().toLowerCase();
+            let filtered = [];
+            if (!trimmed) {
+                filtered = [...cities];
             } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                filtered = cities.filter(c =>
+                    c.name.toLowerCase().includes(trimmed) ||
+                    c.code.toLowerCase().includes(trimmed) ||
+                    c.country.toLowerCase().includes(trimmed)
+                );
+            }
+            if (filtered.length === 0) {
+                dropdown.innerHTML = `<div class="no-results">Міст не знайдено</div>`;
+            } else {
+                dropdown.innerHTML = filtered.map(city => `
+                    <div class="combobox-item" data-city='${JSON.stringify(city)}'>
+                        ${city.name} <span class="city-code">(${city.code})</span>
+                        <span class="country">${city.country}</span>
+                    </div>
+                `).join('');
+            }
+            dropdown.classList.add('open');
+        }
+
+        input.addEventListener('input', function() {
+            const val = this.value;
+            clearBtn.classList.toggle('visible', val.length > 0);
+            updateDropdown(val);
+        });
+
+        input.addEventListener('focus', function() {
+            const val = this.value;
+            if (val.trim()) {
+                updateDropdown(val);
+            } else {
+                updateDropdown('');
+            }
+        });
+
+        dropdown.addEventListener('click', function(e) {
+            const item = e.target.closest('.combobox-item');
+            if (!item) return;
+            const city = JSON.parse(item.dataset.city);
+            const displayValue = getCityDisplay(city);
+            input.value = displayValue;
+            dropdown.classList.remove('open');
+            clearBtn.classList.toggle('visible', true);
+            input.dataset.cityCode = city.code;
+            input.dataset.cityName = city.name;
+        });
+
+        clearBtn.addEventListener('click', function() {
+            input.value = '';
+            this.classList.remove('visible');
+            dropdown.classList.remove('open');
+            input.focus();
+            delete input.dataset.cityCode;
+            delete input.dataset.cityName;
+        });
+
+        document.addEventListener('click', function(e) {
+            const wrapper = input.closest('.combobox-wrapper');
+            if (!wrapper.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+            }
+            if (e.key === 'Enter') {
+                const firstItem = dropdown.querySelector('.combobox-item');
+                if (firstItem) {
+                    const city = JSON.parse(firstItem.dataset.city);
+                    const displayValue = getCityDisplay(city);
+                    input.value = displayValue;
+                    dropdown.classList.remove('open');
+                    clearBtn.classList.toggle('visible', true);
+                    input.dataset.cityCode = city.code;
+                    input.dataset.cityName = city.name;
+                }
+            }
+        });
+
+        const initialValue = input.value;
+        if (initialValue) {
+            const parsed = parseInput(initialValue);
+            if (parsed) {
+                input.dataset.cityCode = parsed.code;
+                input.dataset.cityName = parsed.name;
+            }
+            clearBtn.classList.toggle('visible', true);
+        }
+
+        return {
+            getSelected: function() {
+                const val = input.value.trim();
+                if (!val) return null;
+                const parsed = parseInput(val);
+                if (parsed) return parsed;
+                return null;
             }
         };
+    }
 
-        // ============================
-        // 7. КОМБОБОКС (АВТОДОПОВНЕННЯ)
-        // ============================
-        function createCombobox(inputId, dropdownId, clearId) {
-            const input = document.getElementById(inputId);
-            const dropdown = document.getElementById(dropdownId);
-            const clearBtn = document.getElementById(clearId);
-            let selectedValue = input.value;
+    const originCombobox = createCombobox('origin', 'originDropdown', 'originClear');
+    const destinationCombobox = createCombobox('destination', 'destinationDropdown', 'destinationClear');
 
-            function getCityDisplay(city) {
-                return `${city.name} (${city.code})`;
-            }
+    // ============================================
+    // РЕНДЕР ПРОПОЗИЦІЙ
+    // ============================================
+    function renderOffers() {
+        const grid = document.getElementById('mainOffersGrid');
+        if (!grid) return;
 
-            function parseInput(text) {
-                const trimmed = text.trim().toLowerCase();
-                if (!trimmed) return null;
-                const codeMatch = trimmed.match(/\(([^)]+)\)$/);
-                if (codeMatch) {
-                    const code = codeMatch[1].toUpperCase();
-                    const found = cities.find(c => c.code === code);
-                    if (found) return found;
-                }
-                const found = cities.find(c =>
-                    c.name.toLowerCase() === trimmed ||
-                    c.name.toLowerCase().includes(trimmed) ||
-                    c.code.toLowerCase() === trimmed
-                );
-                return found || null;
-            }
-
-            function updateDropdown(query) {
-                const trimmed = query.trim().toLowerCase();
-                let filtered = [];
-                if (!trimmed) {
-                    filtered = [...cities];
-                } else {
-                    filtered = cities.filter(c =>
-                        c.name.toLowerCase().includes(trimmed) ||
-                        c.code.toLowerCase().includes(trimmed) ||
-                        c.country.toLowerCase().includes(trimmed)
-                    );
-                }
-                if (filtered.length === 0) {
-                    dropdown.innerHTML = `<div class="no-results">Міст не знайдено</div>`;
-                } else {
-                    dropdown.innerHTML = filtered.map(city => `
-                        <div class="combobox-item" data-city='${JSON.stringify(city)}'>
-                            ${city.name} <span class="city-code">(${city.code})</span>
-                            <span class="country">${city.country}</span>
-                        </div>
-                    `).join('');
-                }
-                dropdown.classList.add('open');
-            }
-
-            input.addEventListener('input', function() {
-                const val = this.value;
-                clearBtn.classList.toggle('visible', val.length > 0);
-                updateDropdown(val);
-            });
-
-            input.addEventListener('focus', function() {
-                const val = this.value;
-                if (val.trim()) {
-                    updateDropdown(val);
-                } else {
-                    updateDropdown('');
-                }
-            });
-
-            dropdown.addEventListener('click', function(e) {
-                const item = e.target.closest('.combobox-item');
-                if (!item) return;
-                const city = JSON.parse(item.dataset.city);
-                const displayValue = getCityDisplay(city);
-                input.value = displayValue;
-                selectedValue = displayValue;
-                dropdown.classList.remove('open');
-                clearBtn.classList.toggle('visible', true);
-                input.dataset.cityCode = city.code;
-                input.dataset.cityName = city.name;
-            });
-
-            clearBtn.addEventListener('click', function() {
-                input.value = '';
-                selectedValue = '';
-                this.classList.remove('visible');
-                dropdown.classList.remove('open');
-                input.focus();
-                delete input.dataset.cityCode;
-                delete input.dataset.cityName;
-            });
-
-            document.addEventListener('click', function(e) {
-                const wrapper = input.closest('.combobox-wrapper');
-                if (!wrapper.contains(e.target)) {
-                    dropdown.classList.remove('open');
-                }
-            });
-
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    dropdown.classList.remove('open');
-                }
-                if (e.key === 'Enter') {
-                    const firstItem = dropdown.querySelector('.combobox-item');
-                    if (firstItem) {
-                        const city = JSON.parse(firstItem.dataset.city);
-                        const displayValue = getCityDisplay(city);
-                        input.value = displayValue;
-                        selectedValue = displayValue;
-                        dropdown.classList.remove('open');
-                        clearBtn.classList.toggle('visible', true);
-                        input.dataset.cityCode = city.code;
-                        input.dataset.cityName = city.name;
-                    }
-                }
-            });
-
-            const initialValue = input.value;
-            if (initialValue) {
-                const parsed = parseInput(initialValue);
-                if (parsed) {
-                    input.dataset.cityCode = parsed.code;
-                    input.dataset.cityName = parsed.name;
-                }
-                clearBtn.classList.toggle('visible', true);
-            }
-
-            return {
-                getSelected: function() {
-                    const val = input.value.trim();
-                    if (!val) return null;
-                    const parsed = parseInput(val);
-                    if (parsed) return parsed;
-                    return null;
-                },
-                setValue: function(value) {
-                    input.value = value;
-                    selectedValue = value;
-                    clearBtn.classList.toggle('visible', value.length > 0);
-                    const parsed = parseInput(value);
-                    if (parsed) {
-                        input.dataset.cityCode = parsed.code;
-                        input.dataset.cityName = parsed.name;
-                    }
-                },
-                getInput: function() { return input; }
-            };
-        }
-
-        const originCombobox = createCombobox('origin', 'originDropdown', 'originClear');
-        const destinationCombobox = createCombobox('destination', 'destinationDropdown', 'destinationClear');
-
-        // ============================
-        // 8. РЕНДЕР ПРОПОЗИЦІЙ
-        // ============================
-        function renderOffers() {
-            const grid = document.getElementById('mainOffersGrid');
-            if (!grid) return;
-
-            grid.innerHTML = offerData.map(offer => createOfferCard(offer)).join('');
-        }
-
-        function createOfferCard(offer) {
+        grid.innerHTML = offerData.map(offer => {
             const imageStyle = `background-image: url('${offer.image}'); background-size: cover; background-position: center;`;
             return `
                 <div class="offer-card">
@@ -2281,160 +2218,144 @@
                     </div>
                 </div>
             `;
+        }).join('');
+    }
+
+    function getRandomDate() {
+        const start = new Date(2026, 7, 1);
+        const end = new Date(2026, 9, 31);
+        const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
+    }
+
+    // ============================================
+    // LOGIN / REGISTER / LOGOUT
+    // ============================================
+    window.handleLogin = function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const errorEl = document.getElementById('loginError');
+
+        if (!email || !password) {
+            errorEl.textContent = 'Заповніть всі поля';
+            errorEl.classList.add('visible');
+            return;
         }
 
-        function getRandomDate() {
-            const start = new Date(2026, 7, 1);
-            const end = new Date(2026, 9, 31);
-            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-            return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
-        }
-
-        // ============================
-        // 9. LOGIN
-        // ============================
-        window.handleLogin = function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-
-            if (!email || !password) {
-                errorEl.textContent = 'Заповніть всі поля';
-                errorEl.classList.add('visible');
-                return;
-            }
-
-            if (email === 'demo@flybooking.com' && password === 'password123') {
-                errorEl.classList.remove('visible');
-                const user = {
-                    firstName: 'Олена',
-                    lastName: 'Коваленко',
-                    email: 'demo@flybooking.com',
-                    registeredAt: '2025-08-01'
-                };
-                setUser(user);
-                closeModal('loginModal');
-                showToast('✅ Вхід виконано! Ласкаво просимо!', 'success');
-                renderNav();
-            } else {
-                errorEl.textContent = 'Невірний email або пароль. Спробуйте demo@flybooking.com / password123';
-                errorEl.classList.add('visible');
-            }
-        };
-
-        // ============================
-        // 10. REGISTER
-        // ============================
-        window.handleRegister = function(e) {
-            e.preventDefault();
-            const firstName = document.getElementById('regFirstName').value.trim();
-            const lastName = document.getElementById('regLastName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const confirm = document.getElementById('regPasswordConfirm').value;
-            const errorEl = document.getElementById('registerError');
-
-            if (!firstName || !lastName || !email || !password || !confirm) {
-                errorEl.textContent = 'Заповніть всі поля';
-                errorEl.classList.add('visible');
-                return;
-            }
-
-            if (password !== confirm) {
-                errorEl.textContent = 'Паролі не співпадають';
-                errorEl.classList.add('visible');
-                return;
-            }
-
-            if (password.length < 8) {
-                errorEl.textContent = 'Пароль має містити мінімум 8 символів';
-                errorEl.classList.add('visible');
-                return;
-            }
-
+        if (email === 'demo@flybooking.com' && password === 'password123') {
             errorEl.classList.remove('visible');
             const user = {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                registeredAt: new Date().toISOString().split('T')[0]
+                firstName: 'Олена',
+                lastName: 'Коваленко',
+                email: 'demo@flybooking.com',
+                registeredAt: '2025-08-01'
             };
             setUser(user);
-            closeModal('registerModal');
-            showToast(`✅ Вітаємо, ${firstName}! Акаунт створено!`, 'success');
+            closeModal('loginModal');
+            showToast('✅ Вхід виконано! Ласкаво просимо!', 'success');
             renderNav();
+        } else {
+            errorEl.textContent = 'Невірний email або пароль. Спробуйте demo@flybooking.com / password123';
+            errorEl.classList.add('visible');
+        }
+    };
+
+    window.handleRegister = function(e) {
+        e.preventDefault();
+        const firstName = document.getElementById('regFirstName').value.trim();
+        const lastName = document.getElementById('regLastName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regPasswordConfirm').value;
+        const errorEl = document.getElementById('registerError');
+
+        if (!firstName || !lastName || !email || !password || !confirm) {
+            errorEl.textContent = 'Заповніть всі поля';
+            errorEl.classList.add('visible');
+            return;
+        }
+
+        if (password !== confirm) {
+            errorEl.textContent = 'Паролі не співпадають';
+            errorEl.classList.add('visible');
+            return;
+        }
+
+        if (password.length < 8) {
+            errorEl.textContent = 'Пароль має містити мінімум 8 символів';
+            errorEl.classList.add('visible');
+            return;
+        }
+
+        errorEl.classList.remove('visible');
+        const user = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            registeredAt: new Date().toISOString().split('T')[0]
         };
+        setUser(user);
+        closeModal('registerModal');
+        showToast(`✅ Вітаємо, ${firstName}! Акаунт створено!`, 'success');
+        renderNav();
+    };
 
-        // ============================
-        // 11. LOGOUT
-        // ============================
-        window.handleLogout = function() {
-            if (confirm('Ви впевнені, що хочете вийти?')) {
-                removeUser();
-                showToast('👋 Ви вийшли з акаунта', 'info');
-                renderNav();
-            }
-        };
+    window.handleLogout = function() {
+        if (confirm('Ви впевнені, що хочете вийти?')) {
+            removeUser();
+            showToast('👋 Ви вийшли з акаунта', 'info');
+            renderNav();
+        }
+    };
 
-        // ============================
-        // 12. ПОШУК (демо)
-        // ============================
-        window.swapDestinations = function() {
-            const originInput = document.getElementById('origin');
-            const destInput = document.getElementById('destination');
-            const tempValue = originInput.value;
-            const tempCode = originInput.dataset.cityCode;
-            const tempName = originInput.dataset.cityName;
+    // ============================================
+    // ПОШУК
+    // ============================================
+    window.swapDestinations = function() {
+        const originInput = document.getElementById('origin');
+        const destInput = document.getElementById('destination');
+        const tempValue = originInput.value;
 
-            originInput.value = destInput.value;
-            originInput.dataset.cityCode = destInput.dataset.cityCode || '';
-            originInput.dataset.cityName = destInput.dataset.cityName || '';
+        originInput.value = destInput.value;
+        destInput.value = tempValue;
 
-            destInput.value = tempValue;
-            destInput.dataset.cityCode = tempCode || '';
-            destInput.dataset.cityName = tempName || '';
+        document.getElementById('originClear').classList.toggle('visible', originInput.value.length > 0);
+        document.getElementById('destinationClear').classList.toggle('visible', destInput.value.length > 0);
 
-            document.getElementById('originClear').classList.toggle('visible', originInput.value.length > 0);
-            document.getElementById('destinationClear').classList.toggle('visible', destInput.value.length > 0);
+        showToast('🔄 Напрямки обміняно!', 'info');
+    };
 
-            showToast('🔄 Напрямки обміняно!', 'info');
-        };
+    window.setDestination = function(value) {
+        const destInput = document.getElementById('destination');
+        destInput.value = value;
+        document.getElementById('destinationClear').classList.toggle('visible', true);
+        showToast(`📍 Напрямок змінено на ${value}`, 'success');
+        return false;
+    };
 
-        window.setDestination = function(value) {
-            const destInput = document.getElementById('destination');
-            destInput.value = value;
-            document.getElementById('destinationClear').classList.toggle('visible', true);
-            const parsed = cities.find(c => `${c.name} (${c.code})` === value);
-            if (parsed) {
-                destInput.dataset.cityCode = parsed.code;
-                destInput.dataset.cityName = parsed.name;
-            }
-            showToast(`📍 Напрямок змінено на ${value}`, 'success');
-            return false;
-        };
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('searchBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Пошук...';
+        const originVal = document.getElementById('origin').value;
+        const destVal = document.getElementById('destination').value;
+        setTimeout(function() {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-search"></i> Пошук квитків';
+            showToast(`🔍 Пошук квитків з ${originVal} до ${destVal} виконано!`, 'success');
+        }, 1500);
+    });
 
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('searchBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Пошук...';
-            const originVal = document.getElementById('origin').value;
-            const destVal = document.getElementById('destination').value;
-            setTimeout(function() {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-search"></i> Пошук квитків';
-                showToast(`🔍 Пошук квитків з ${originVal} до ${destVal} виконано!`, 'success');
-            }, 1500);
-        });
+    // ============================================
+    // ПАСАЖИРИ
+    // ============================================
+    const passengerToggle = document.getElementById('passengerToggle');
+    const passengerDropdown = document.getElementById('passengerDropdown');
+    let isPassengerOpen = false;
 
-        // ============================
-        // 13. ПАСАЖИРИ
-        // ============================
-        const passengerToggle = document.getElementById('passengerToggle');
-        const passengerDropdown = document.getElementById('passengerDropdown');
-        let isPassengerOpen = false;
-
+    if (passengerToggle && passengerDropdown) {
         passengerToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             isPassengerOpen = !isPassengerOpen;
@@ -2449,133 +2370,131 @@
                 passengerToggle.setAttribute('aria-expanded', false);
             }
         });
+    }
 
-        let adults = 1, children = 0, infants = 0;
+    let adults = 1, children = 0, infants = 0;
 
-        document.querySelectorAll('.counter-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const type = this.dataset.type;
-                const action = this.dataset.action;
-                let current;
+    document.querySelectorAll('.counter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const type = this.dataset.type;
+            const action = this.dataset.action;
+            let current;
 
-                switch(type) {
-                    case 'adults': current = adults; break;
-                    case 'children': current = children; break;
-                    case 'infants': current = infants; break;
-                    default: return;
-                }
-
-                if (action === 'increase') {
-                    if (type === 'adults' && current >= 9) return;
-                    if (type === 'children' && current >= 8) return;
-                    if (type === 'infants' && current >= 8) return;
-                    current++;
-                } else {
-                    if (current <= 0) return;
-                    if (type === 'adults' && current <= 1) return;
-                    current--;
-                }
-
-                switch(type) {
-                    case 'adults':
-                        adults = current;
-                        document.getElementById('adultsCount').textContent = adults;
-                        document.getElementById('adultsInput').value = adults;
-                        break;
-                    case 'children':
-                        children = current;
-                        document.getElementById('childrenCount').textContent = children;
-                        document.getElementById('childrenInput').value = children;
-                        break;
-                    case 'infants':
-                        infants = current;
-                        document.getElementById('infantsCount').textContent = infants;
-                        document.getElementById('infantsInput').value = infants;
-                        break;
-                }
-                updatePassengerSummary();
-            });
-        });
-
-        document.getElementById('passengerDone').addEventListener('click', function() {
-            isPassengerOpen = false;
-            passengerDropdown.classList.remove('open');
-            passengerToggle.setAttribute('aria-expanded', false);
-        });
-
-        function updatePassengerSummary() {
-            const parts = [];
-            if (adults > 0) parts.push(`${adults} доросл${adults === 1 ? 'ий' : 'их'}`);
-            if (children > 0) parts.push(`${children} діт${children === 1 ? 'я' : 'ей'}`);
-            if (infants > 0) parts.push(`${infants} немовл${infants === 1 ? 'я' : 'ят'}`);
-            document.getElementById('passengerSummary').textContent = parts.join(', ');
-        }
-
-        // ============================
-        // 14. ТИП ПОДОРОЖІ
-        // ============================
-        const tripOptions = document.querySelectorAll('.trip-option input[type="radio"]');
-        const returnDateGroup = document.getElementById('returnDateGroup');
-
-        tripOptions.forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('.trip-option').forEach(function(el) {
-                    el.classList.remove('active');
-                });
-                this.closest('.trip-option').classList.add('active');
-
-                if (this.value === 'roundtrip') {
-                    returnDateGroup.style.display = 'block';
-                } else {
-                    returnDateGroup.style.display = 'none';
-                }
-            });
-        });
-
-        // ============================
-        // 15. ДАТИ
-        // ============================
-        (function setDefaultDates() {
-            const today = new Date();
-            const departure = new Date(today);
-            departure.setDate(today.getDate() + 7);
-            const returnDate = new Date(today);
-            returnDate.setDate(today.getDate() + 14);
-
-            const formatDate = (date) => {
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                return `${year}-${month}-${day}`;
-            };
-
-            const depInput = document.getElementById('departureDate');
-            const retInput = document.getElementById('returnDate');
-            depInput.min = formatDate(today);
-            if (!depInput.value) depInput.value = formatDate(departure);
-            if (!retInput.value) retInput.value = formatDate(returnDate);
-        })();
-
-        // ============================
-        // 16. ІНІЦІАЛІЗАЦІЯ
-        // ============================
-        renderNav();
-        renderOffers();
-
-        setTimeout(function() {
-            const user = getUser();
-            if (user) {
-                showToast(`👋 З поверненням, ${user.firstName}!`, 'success');
-            } else {
-                showToast('✈️ Ласкаво просимо до FlyBooking!', 'info');
+            switch(type) {
+                case 'adults': current = adults; break;
+                case 'children': current = children; break;
+                case 'infants': current = infants; break;
+                default: return;
             }
-        }, 500);
 
-        console.log('✈️ FlyBooking — Головна сторінка завантажена!');
-        console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
-        console.log('📌 Сторінка пропозицій: offers.html');
+            if (action === 'increase') {
+                if (type === 'adults' && current >= 9) return;
+                if (type === 'children' && current >= 8) return;
+                if (type === 'infants' && current >= 8) return;
+                current++;
+            } else {
+                if (current <= 0) return;
+                if (type === 'adults' && current <= 1) return;
+                current--;
+            }
 
+            switch(type) {
+                case 'adults':
+                    adults = current;
+                    document.getElementById('adultsCount').textContent = adults;
+                    document.getElementById('adultsInput').value = adults;
+                    break;
+                case 'children':
+                    children = current;
+                    document.getElementById('childrenCount').textContent = children;
+                    document.getElementById('childrenInput').value = children;
+                    break;
+                case 'infants':
+                    infants = current;
+                    document.getElementById('infantsCount').textContent = infants;
+                    document.getElementById('infantsInput').value = infants;
+                    break;
+            }
+            updatePassengerSummary();
+        });
+    });
+
+    document.getElementById('passengerDone').addEventListener('click', function() {
+        isPassengerOpen = false;
+        passengerDropdown.classList.remove('open');
+        passengerToggle.setAttribute('aria-expanded', false);
+    });
+
+    function updatePassengerSummary() {
+        const parts = [];
+        if (adults > 0) parts.push(`${adults} доросл${adults === 1 ? 'ий' : 'их'}`);
+        if (children > 0) parts.push(`${children} діт${children === 1 ? 'я' : 'ей'}`);
+        if (infants > 0) parts.push(`${infants} немовл${infants === 1 ? 'я' : 'ят'}`);
+        document.getElementById('passengerSummary').textContent = parts.join(', ');
+    }
+
+    // ============================================
+    // ТИП ПОДОРОЖІ
+    // ============================================
+    const tripOptions = document.querySelectorAll('.trip-option input[type="radio"]');
+    const returnDateGroup = document.getElementById('returnDateGroup');
+
+    tripOptions.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.trip-option').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            this.closest('.trip-option').classList.add('active');
+
+            if (this.value === 'roundtrip') {
+                returnDateGroup.style.display = 'block';
+            } else {
+                returnDateGroup.style.display = 'none';
+            }
+        });
+    });
+
+    // ============================================
+    // ДАТИ
+    // ============================================
+    (function setDefaultDates() {
+        const today = new Date();
+        const departure = new Date(today);
+        departure.setDate(today.getDate() + 7);
+        const returnDate = new Date(today);
+        returnDate.setDate(today.getDate() + 14);
+
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+
+        const depInput = document.getElementById('departureDate');
+        const retInput = document.getElementById('returnDate');
+        if (depInput) depInput.min = formatDate(today);
+        if (depInput && !depInput.value) depInput.value = formatDate(departure);
+        if (retInput && !retInput.value) retInput.value = formatDate(returnDate);
     })();
+
+    // ============================================
+    // ІНІЦІАЛІЗАЦІЯ
+    // ============================================
+    renderNav();
+    renderOffers();
+
+    setTimeout(function() {
+        const user = getUser();
+        if (user) {
+            showToast(`👋 З поверненням, ${user.firstName}!`, 'success');
+        } else {
+            showToast('✈️ Ласкаво просимо до FlyBooking!', 'info');
+        }
+    }, 500);
+
+    console.log('✈️ FlyBooking — Головна сторінка завантажена!');
+    console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
 </script>
 
 </body>
