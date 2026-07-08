@@ -20,11 +20,13 @@
                 <button id="loginBtn" class="btn-secondary">Увійти</button>
                 <button id="registerBtn" class="btn-secondary">Реєстрація</button>
                 <button id="logoutBtn" style="display:none;" class="btn-secondary">Вийти</button>
+                <!-- Кнопка адмін-панелі (з'являється для адміністраторів) -->
+                <button id="adminPanelBtn" style="display:none;" class="btn-secondary" onclick="goToAdmin()">👑 Адмін</button>
             </div>
         </div>
     </header>
 
-    <!-- Пошук -->
+    <!-- Секція пошуку -->
     <section class="search-section">
         <div class="container">
             <h1>Знайдіть найкращі авіаквитки</h1>
@@ -46,7 +48,7 @@
         </div>
     </section>
 
-    <!-- Результати -->
+    <!-- Секція результатів -->
     <section class="results-section">
         <div class="container">
             <h2 id="resultsTitle">Доступні рейси</h2>
@@ -55,6 +57,10 @@
             </div>
         </div>
     </section>
+
+    <!-- ============================================================ -->
+    <!--  МОДАЛКИ                                                     -->
+    <!-- ============================================================ -->
 
     <!-- Модалка входу -->
     <div id="loginModal" class="modal">
@@ -139,6 +145,8 @@
             <div id="bookingResult" style="display:none; margin-top:1rem;"></div>
         </div>
     </div>
+
+    <!-- Модалка оплати (якщо потрібна окрема) – можна додати пізніше або використовувати окрему сторінку -->
 
     <!-- Футер -->
     <footer class="footer">
