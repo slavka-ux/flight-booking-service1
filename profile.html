@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій профіль — FlyBooking</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --color-secondary: #0f172a;
+            --color-white: #ffffff;
+            --color-gray-50: #f8fafc;
+            --color-gray-100: #f1f5f9;
+            --color-gray-200: #e2e8f0;
+            --color-gray-300: #cbd5e1;
+            --color-gray-400: #94a3b8;
+            --color-gray-500: #64748b;
+            --color-gray-600: #475569;
+            --color-gray-700: #334155;
+            --color-gray-800: #1e293b;
+            --color-gray-900: #0f172a;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+            --radius: 12px;
+            --radius-full: 9999px;
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 72px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-gray-50);
+            color: var(--color-gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            background: var(--color-white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-gray-900);
+            text-decoration: none;
+        }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text span { color: var(--color-primary); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-family);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+        .btn-outline:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-danger {
+            background: var(--color-danger);
+            color: var(--color-white);
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 0.375rem 1rem;
+            font-size: 0.75rem;
+            min-height: 36px;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Profile Page */
+        .profile-page {
+            padding: 3rem 0;
+            min-height: calc(100vh - var(--header-height) - 80px);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .profile-info h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .profile-info .email {
+            color: var(--color-gray-500);
+            font-size: 1rem;
+        }
+        .profile-info .member-since {
+            color: var(--color-gray-400);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all var(--transition);
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-primary);
+        }
+        .stat-card .label {
+            font-size: 0.875rem;
+            color: var(--color-gray-500);
+            margin-top: 0.25rem;
+        }
+
+        .profile-menu {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--color-gray-100);
+            color: var(--color-gray-700);
+            text-decoration: none;
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .profile-menu-item:last-child {
+            border-bottom: none;
+        }
+        .profile-menu-item:hover {
+            background: var(--color-gray-50);
+            color: var(--color-primary);
+        }
+        .profile-menu-item i {
+            width: 24px;
+            text-align: center;
+            color: var(--color-gray-400);
+        }
+        .profile-menu-item:hover i {
+            color: var(--color-primary);
+        }
+        .profile-menu-item .arrow {
+            margin-left: auto;
+            color: var(--color-gray-300);
+            font-size: 0.75rem;
+        }
+        .profile-menu-item.logout {
+            color: var(--color-danger);
+        }
+        .profile-menu-item.logout:hover {
+            background: #fef2f2;
+            color: var(--color-danger);
+        }
+        .profile-menu-item.logout:hover i {
+            color: var(--color-danger);
+        }
+
+        .bonus-section {
+            background: var(--color-primary-gradient);
+            border-radius: var(--radius);
+            padding: 1.5rem 2rem;
+            color: var(--color-white);
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .bonus-section .bonus-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        .bonus-section .bonus-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        .bonus-section .bonus-progress {
+            flex: 1;
+            min-width: 150px;
+        }
+        .bonus-section .progress-bar {
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.25);
+            overflow: hidden;
+            margin-top: 0.25rem;
+        }
+        .bonus-section .progress-fill {
+            height: 100%;
+            background: var(--color-white);
+            border-radius: var(--radius-full);
+            width: 85%;
+        }
+        .bonus-section .progress-text {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-gray-500);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: color var(--transition);
+        }
+        .back-home:hover {
+            color: var(--color-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-gray-900);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 0 1.5rem;
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color var(--transition);
+            font-size: 0.75rem;
+        }
+        .footer-bottom-links a:hover { color: var(--color-white); }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            .profile-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .bonus-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-bottom-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Fly<span>Booking</span></span>
+            </a>
+            <div id="navUser">
+                <!-- Заповнюється через JS -->
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Profile Page -->
+<main class="profile-page">
+    <div class="container">
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Назад на головну
+        </a>
+
+        <div class="profile-header" id="profileHeader">
+            <!-- Заповнюється через JS -->
+        </div>
+
+        <div class="profile-stats" id="profileStats">
+            <!-- Заповнюється через JS -->
+        </div>
+
+        <div class="profile-menu" id="profileMenu">
+            <!-- Заповнюється через JS -->
+        </div>
+
+        <div class="bonus-section" id="bonusSection">
+            <!-- Заповнюється через JS -->
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="#">Політика конфіденційності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Cookies</a>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+                &copy; 2026 FlyBooking. Всі права захищено.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function() {
+        // ============================
+        // 1. USER
+        // ============================
+        function getUser() {
+            return JSON.parse(localStorage.getItem('flybooking_user'));
+        }
+
+        function removeUser() {
+            localStorage.removeItem('flybooking_user');
+        }
+
+        // ============================
+        // 2. РЕНДЕР ПРОФІЛЮ
+        // ============================
+        function renderProfile() {
+            const user = getUser();
+
+            // Якщо немає користувача - редирект на головну
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
+
+            // Header
+            document.getElementById('navUser').innerHTML = `
+                <span style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--color-gray-700);">
+                    <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${initials}</span>
+                    ${user.firstName}
+                </span>
+            `;
+
+            // Profile header
+            document.getElementById('profileHeader').innerHTML = `
+                <div class="profile-avatar">${initials}</div>
+                <div class="profile-info">
+                    <h1>${user.firstName} ${user.lastName}</h1>
+                    <div class="email"><i class="fas fa-envelope"></i> ${user.email}</div>
+                    <div class="member-since"><i class="fas fa-calendar-alt"></i> Користувач з ${user.registeredAt || '2025-08-01'}</div>
+                </div>
+            `;
+
+            // Stats
+            document.getElementById('profileStats').innerHTML = `
+                <div class="stat-card">
+                    <div class="number">12</div>
+                    <div class="label">Подорожей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4 250</div>
+                    <div class="label">Бонусних балів</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">3</div>
+                    <div class="label">Активні бронювання</div>
+                </div>
+            `;
+
+            // Menu
+            document.getElementById('profileMenu').innerHTML = `
+                <div class="profile-menu-item" onclick="showToast('📋 Мої бронювання', 'info')">
+                    <i class="fas fa-ticket-alt"></i> Мої бронювання
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="profile-menu-item" onclick="showToast('✏️ Редагування профілю', 'info')">
+                    <i class="fas fa-user-edit"></i> Редагувати профіль
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="profile-menu-item" onclick="showToast('🎁 Бонуси та знижки', 'info')">
+                    <i class="fas fa-gift"></i> Бонуси
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="profile-menu-item" onclick="showToast('⚙️ Налаштування', 'info')">
+                    <i class="fas fa-cog"></i> Налаштування
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="profile-menu-item" onclick="showToast('❓ Довідка та підтримка', 'info')">
+                    <i class="fas fa-question-circle"></i> Допомога
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="profile-menu-item logout" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Вийти з акаунта
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+            `;
+
+            // Bonus section
+            document.getElementById('bonusSection').innerHTML = `
+                <div>
+                    <div class="bonus-amount">4 250</div>
+                    <div class="bonus-label">Бонусних балів</div>
+                </div>
+                <div class="bonus-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">4 250 з 5 000 для наступного рівня</div>
+                </div>
+            `;
+        }
+
+        // ============================
+        // 3. TOAST
+        // ============================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer') || createToastContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.style.cssText = `
+                position: fixed; bottom: 2rem; right: 2rem; z-index: 5000;
+                display: flex; flex-direction: column; gap: 0.5rem; max-width: 400px;
+            `;
+            document.body.appendChild(container);
+
+            // Додаємо стилі для тостів
+            const style = document.createElement('style');
+            style.textContent = `
+                .toast { padding: 1rem 1.5rem; border-radius: 12px; color: white; font-weight: 500; font-size: 0.875rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: slideUp 0.3s ease; }
+                .toast-success { background: #10b981; }
+                .toast-error { background: #ef4444; }
+                .toast-info { background: #2563eb; }
+                @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+            `;
+            document.head.appendChild(style);
+
+            return container;
+        }
+
+        // ============================
+        // 4. LOGOUT
+        // ============================
+        function handleLogout() {
+            if (confirm('Ви впевнені, що хочете вийти?')) {
+                removeUser();
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================
+        // 5. INIT
+        // ============================
+        renderProfile();
+
+        // Експортуємо для onclick
+        window.showToast = showToast;
+        window.handleLogout = handleLogout;
+
+        console.log('👤 Сторінка профілю завантажена');
+    })();
+</script>
+
+</body>
+</html>
