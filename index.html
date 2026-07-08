@@ -3,9 +3,391 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>✈️ Flight Booking – пошук та бронювання</title>
+    <title>✈️ Flight Booking – бронювання авіаквитків</title>
+
+    <!-- Google Fonts для сучасної типографіки -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome для іконок (замість емодзі) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="images/favicon.ico" />
+
+    <style>
+        /* ===== ДОДАТКОВІ СТИЛІ ДЛЯ ПОКРАЩЕНОГО ДИЗАЙНУ ===== */
+        /* (можна перенести в style.css) */
+
+        /* Загальні */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Хедер – сучасний */
+        .header {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo-icon {
+            font-size: 1.8rem;
+            margin-right: 6px;
+        }
+        .logo-text {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        #userDisplay {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #userDisplay::before {
+            content: "👤";
+            font-size: 1rem;
+        }
+
+        #adminPanelBtn {
+            background: linear-gradient(135deg, #8e44ad, #6c3483);
+            border-color: #8e44ad;
+        }
+        #adminPanelBtn:hover {
+            background: linear-gradient(135deg, #9b59b6, #7d3c98);
+            border-color: #9b59b6;
+        }
+
+        /* Секція пошуку – з картинкою фону */
+        .search-section {
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+            background-size: cover;
+            background-position: center;
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .search-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 0;
+        }
+        .search-section .container {
+            position: relative;
+            z-index: 1;
+        }
+        .search-section h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+        .search-section .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .search-form {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .search-form .form-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.85;
+        }
+        .search-form .form-group input {
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .search-form .form-group input:focus {
+            box-shadow: 0 0 0 4px rgba(243,156,18,0.3);
+            transform: scale(1.01);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 12px;
+            padding: 14px 36px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+            border: none;
+            box-shadow: 0 8px 25px rgba(243,156,18,0.35);
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(243,156,18,0.5);
+        }
+
+        /* Результати – картки */
+        .results-section {
+            padding: 3rem 0 4rem;
+            background: #f8fafc;
+        }
+        .results-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1a2a3a;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .results-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, transparent);
+        }
+
+        .flight-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .flight-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: rgba(102,126,234,0.15);
+        }
+
+        .flight-route {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .flight-route .arrow {
+            color: #667eea;
+            font-size: 1.6rem;
+            margin: 0 4px;
+        }
+        .flight-airline {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        .flight-number {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .flight-time .time {
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .flight-time .duration {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .flight-price .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+        .flight-price .seats {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .book-btn {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(39,174,96,0.25);
+        }
+        .book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(39,174,96,0.4);
+        }
+
+        /* Модальні вікна – сучасні */
+        .modal-content {
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #ffffff;
+        }
+        .modal-content .close {
+            font-size: 2.2rem;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+        .modal-content .close:hover {
+            color: #1e293b;
+            transform: rotate(90deg);
+        }
+        .modal-content h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 1.8rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: #0f172a;
+            color: rgba(255,255,255,0.6);
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer a {
+            color: rgba(255,255,255,0.6);
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 992px) {
+            .search-form {
+                grid-template-columns: 1fr 1fr;
+                padding: 1.8rem;
+            }
+            .btn-primary {
+                grid-column: span 2;
+            }
+            .search-section h1 {
+                font-size: 2.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            .btn-primary {
+                grid-column: span 1;
+            }
+            .flight-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            .flight-price {
+                align-items: center;
+            }
+            .search-section h1 {
+                font-size: 2rem;
+            }
+            .header .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .auth-buttons {
+                justify-content: center;
+            }
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .search-section {
+                padding: 3rem 0;
+            }
+            .search-section h1 {
+                font-size: 1.6rem;
+            }
+            .flight-price .price {
+                font-size: 1.6rem;
+            }
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -19,50 +401,46 @@
                 <span class="logo-text">Flight Booking</span>
             </div>
             <div class="auth-buttons">
-                <!-- Відображення імені користувача -->
-                <span id="userDisplay" style="display:none; margin-right:15px;"></span>
-
-                <!-- Кнопки аутентифікації -->
-                <button id="loginBtn" class="btn-secondary">Увійти</button>
-                <button id="registerBtn" class="btn-secondary">Реєстрація</button>
-                <button id="logoutBtn" style="display:none;" class="btn-secondary">Вийти</button>
-
-                <!-- Кнопка адмін-панелі (показується тільки для адміністраторів) -->
-                <button id="adminPanelBtn" style="display:none;" class="btn-secondary" onclick="goToAdmin()">👑 Адмін</button>
+                <span id="userDisplay" style="display:none;"></span>
+                <button id="loginBtn" class="btn-secondary"><i class="fas fa-sign-in-alt" style="margin-right:6px;"></i> Увійти</button>
+                <button id="registerBtn" class="btn-secondary"><i class="fas fa-user-plus" style="margin-right:6px;"></i> Реєстрація</button>
+                <button id="logoutBtn" style="display:none;" class="btn-secondary"><i class="fas fa-sign-out-alt" style="margin-right:6px;"></i> Вийти</button>
+                <button id="adminPanelBtn" style="display:none;" class="btn-secondary" onclick="goToAdmin()"><i class="fas fa-crown" style="margin-right:6px;"></i> Адмін</button>
             </div>
         </div>
     </header>
 
     <!-- ============================================================
-    СЕКЦІЯ ПОШУКУ (flight-search)
+    СЕКЦІЯ ПОШУКУ
     ============================================================ -->
     <section class="search-section">
         <div class="container">
-            <h1>Знайдіть найкращі авіаквитки</h1>
+            <h1>Подорожуйте з комфортом</h1>
+            <p class="subtitle">Знайдіть і забронюйте авіаквитки за найкращою ціною</p>
             <form id="searchForm" class="search-form">
                 <div class="form-group">
-                    <label for="origin">✈️ Звідки</label>
+                    <label for="origin"><i class="fas fa-plane-departure"></i> Звідки</label>
                     <input type="text" id="origin" placeholder="Київ" value="Київ" required />
                 </div>
                 <div class="form-group">
-                    <label for="destination">🎯 Куди</label>
+                    <label for="destination"><i class="fas fa-plane-arrival"></i> Куди</label>
                     <input type="text" id="destination" placeholder="Львів" value="Львів" required />
                 </div>
                 <div class="form-group">
-                    <label for="date">📅 Дата</label>
+                    <label for="date"><i class="fas fa-calendar-alt"></i> Дата</label>
                     <input type="date" id="date" />
                 </div>
-                <button type="submit" class="btn-primary">🔍 Пошук</button>
+                <button type="submit" class="btn-primary"><i class="fas fa-search" style="margin-right:8px;"></i> Пошук</button>
             </form>
         </div>
     </section>
 
     <!-- ============================================================
-    СЕКЦІЯ РЕЗУЛЬТАТІВ (flight-search)
+    РЕЗУЛЬТАТИ
     ============================================================ -->
     <section class="results-section">
         <div class="container">
-            <h2 id="resultsTitle">Доступні рейси</h2>
+            <h2 id="resultsTitle"><i class="fas fa-plane" style="color:#667eea;"></i> Доступні рейси</h2>
             <div id="flightList" class="flight-list">
                 <!-- Рейси завантажуються через JavaScript -->
             </div>
@@ -70,24 +448,24 @@
     </section>
 
     <!-- ============================================================
-    МОДАЛКА ВХОДУ (user-auth)
+    МОДАЛКА ВХОДУ
     ============================================================ -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeLogin">&times;</span>
-            <h2>🔐 Вхід</h2>
+            <h2><i class="fas fa-lock" style="color:#667eea; margin-right:12px;"></i> Вхід</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginUsername">Ім'я користувача</label>
-                    <input type="text" id="loginUsername" required />
+                    <input type="text" id="loginUsername" required placeholder="Введіть логін" />
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Пароль</label>
-                    <input type="password" id="loginPassword" required />
+                    <input type="password" id="loginPassword" required placeholder="Введіть пароль" />
                 </div>
-                <button type="submit" class="btn-primary">Увійти</button>
-                <p style="margin-top:10px; text-align:center;">
-                    Немає акаунта? <a href="#" id="switchToRegister">Зареєструватися</a>
+                <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-sign-in-alt" style="margin-right:8px;"></i> Увійти</button>
+                <p style="margin-top:16px; text-align:center; color:#64748b;">
+                    Немає акаунта? <a href="#" id="switchToRegister" style="color:#667eea; font-weight:600;">Зареєструватися</a>
                 </p>
             </form>
             <div id="loginResult" class="auth-result"></div>
@@ -95,37 +473,37 @@
     </div>
 
     <!-- ============================================================
-    МОДАЛКА РЕЄСТРАЦІЇ (user-auth)
+    МОДАЛКА РЕЄСТРАЦІЇ
     ============================================================ -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeRegister">&times;</span>
-            <h2>📝 Реєстрація</h2>
+            <h2><i class="fas fa-user-plus" style="color:#667eea; margin-right:12px;"></i> Реєстрація</h2>
             <form id="registerForm">
                 <div class="form-group">
                     <label for="regUsername">Ім'я користувача</label>
-                    <input type="text" id="regUsername" required />
+                    <input type="text" id="regUsername" required placeholder="Введіть логін" />
                 </div>
                 <div class="form-group">
                     <label for="regEmail">Email</label>
-                    <input type="email" id="regEmail" required />
+                    <input type="email" id="regEmail" required placeholder="example@mail.com" />
                 </div>
                 <div class="form-group">
                     <label for="regPassword">Пароль</label>
-                    <input type="password" id="regPassword" required />
-                    <small>Мінімум 8 символів, велика/мала літера, цифра, спецсимвол</small>
+                    <input type="password" id="regPassword" required placeholder="Міцний пароль" />
+                    <small style="color:#94a3b8; font-size:0.8rem; margin-top:4px;">Мінімум 8 символів, велика/мала літера, цифра, спецсимвол</small>
                 </div>
                 <div class="form-group">
                     <label for="regFullName">Повне ім'я (опціонально)</label>
-                    <input type="text" id="regFullName" />
+                    <input type="text" id="regFullName" placeholder="Іван Петренко" />
                 </div>
                 <div class="form-group">
                     <label for="regPhone">Телефон (опціонально)</label>
                     <input type="tel" id="regPhone" placeholder="+380501234567" />
                 </div>
-                <button type="submit" class="btn-primary">Зареєструватися</button>
-                <p style="margin-top:10px; text-align:center;">
-                    Вже є акаунт? <a href="#" id="switchToLogin">Увійти</a>
+                <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-user-check" style="margin-right:8px;"></i> Зареєструватися</button>
+                <p style="margin-top:16px; text-align:center; color:#64748b;">
+                    Вже є акаунт? <a href="#" id="switchToLogin" style="color:#667eea; font-weight:600;">Увійти</a>
                 </p>
             </form>
             <div id="registerResult" class="auth-result"></div>
@@ -133,57 +511,44 @@
     </div>
 
     <!-- ============================================================
-    МОДАЛКА БРОНЮВАННЯ (booking-system)
+    МОДАЛКА БРОНЮВАННЯ
     ============================================================ -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeBooking">&times;</span>
-            <h2>✈️ Бронювання квитків</h2>
-
-            <!-- Інформація про рейс -->
+            <h2><i class="fas fa-ticket-alt" style="color:#667eea; margin-right:12px;"></i> Бронювання квитків</h2>
             <div id="bookingInfo" class="booking-info"></div>
-
             <form id="bookingForm">
-                <!-- Пасажири -->
                 <div id="passengersContainer">
-                    <label>Пасажири</label>
+                    <label style="font-weight:600; display:block; margin-bottom:8px;"><i class="fas fa-users"></i> Пасажири</label>
                     <div class="passenger-entry">
                         <input type="text" class="passenger-name" placeholder="ПІБ пасажира" required />
                         <input type="text" class="passenger-passport" placeholder="Номер паспорта (AA123456)" required />
                     </div>
                 </div>
-                <button type="button" id="addPassengerBtn" class="btn-secondary">+ Додати пасажира</button>
-
-                <!-- Нотатки -->
+                <button type="button" id="addPassengerBtn" class="btn-secondary" style="margin-bottom:16px;"><i class="fas fa-plus-circle"></i> Додати пасажира</button>
                 <div class="form-group">
                     <label for="bookingNotes">Нотатки (опціонально)</label>
                     <textarea id="bookingNotes" rows="2" placeholder="Особливі побажання..."></textarea>
                 </div>
-
-                <button type="submit" class="btn-primary" id="bookBtn">Забронювати</button>
+                <button type="submit" class="btn-primary" id="bookBtn" style="width:100%;"><i class="fas fa-check-circle" style="margin-right:8px;"></i> Забронювати</button>
             </form>
-
             <div id="bookingResult" style="display:none; margin-top:1rem;"></div>
         </div>
     </div>
 
     <!-- ============================================================
-    МОДАЛКА ОПЛАТИ (payment-integration)
+    МОДАЛКА ОПЛАТИ
     ============================================================ -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closePayment">&times;</span>
-            <h2>💳 Оплата</h2>
-
-            <!-- Інформація про бронювання -->
+            <h2><i class="fas fa-credit-card" style="color:#667eea; margin-right:12px;"></i> Оплата</h2>
             <div id="paymentInfo" class="booking-info"></div>
-
             <form id="paymentForm">
                 <input type="hidden" id="paymentBookingId" />
-
-                <!-- Вибір методу оплати -->
                 <div class="form-group">
-                    <label>Метод оплати</label>
+                    <label style="font-weight:600;">Метод оплати</label>
                     <div class="payment-methods">
                         <label><input type="radio" name="paymentMethod" value="card" checked /> 💳 Картка</label>
                         <label><input type="radio" name="paymentMethod" value="google_pay" /> 📱 Google Pay</label>
@@ -191,8 +556,6 @@
                         <label><input type="radio" name="paymentMethod" value="bank_transfer" /> 🏦 Переказ</label>
                     </div>
                 </div>
-
-                <!-- Дані картки (показуються тільки для методу "card") -->
                 <div id="cardForm">
                     <div class="form-group">
                         <label for="cardNumber">Номер картки</label>
@@ -213,10 +576,8 @@
                         <input type="text" id="cardholderName" placeholder="IVAN PETRENKO" />
                     </div>
                 </div>
-
-                <button type="submit" class="btn-primary" id="payBtn">💳 Оплатити</button>
+                <button type="submit" class="btn-primary" id="payBtn" style="width:100%;"><i class="fas fa-lock" style="margin-right:8px;"></i> Оплатити</button>
             </form>
-
             <div id="paymentResult" style="display:none; margin-top:1rem;"></div>
         </div>
     </div>
@@ -226,19 +587,23 @@
     ============================================================ -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Flight Booking Service &bull;
-                <a href="https://github.com/your-username/flight-booking-service" target="_blank">GitHub</a>
-            </p>
+            <span>&copy; 2024 Flight Booking Service</span>
+            <span>
+                <a href="https://github.com/your-username/flight-booking-service" target="_blank" style="margin:0 10px;">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#" style="margin:0 10px;"><i class="fas fa-envelope"></i> Контакти</a>
+                <a href="#" style="margin:0 10px;"><i class="fas fa-shield-alt"></i> Політика</a>
+            </span>
         </div>
     </footer>
 
     <!-- ============================================================
-    ПІДКЛЮЧЕННЯ JavaScript
+    ПІДКЛЮЧЕННЯ JS
     ============================================================ -->
     <script src="js/app.js"></script>
-
-    <!-- Глобальна функція для переходу в адмін-панель -->
     <script>
+        // Глобальна функція для переходу в адмін-панель
         function goToAdmin() {
             if (window.app && window.app.currentUser && window.app.currentUser.is_admin) {
                 window.location.href = 'admin.html';
