@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Бронювання авіаквитків онлайн — найкращі ціни на авіаперельоти по всьому світу">
+    <title>FlyBooking — Усі пропозиції</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* ============================================
+           ГЛОБАЛЬНІ СТИЛІ
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-dark: #1d4ed8;
+            --color-primary-light: #60a5fa;
+            --color-primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --color-secondary: #0f172a;
+            --color-white: #ffffff;
+            --color-gray-50: #f8fafc;
+            --color-gray-100: #f1f5f9;
+            --color-gray-200: #e2e8f0;
+            --color-gray-300: #cbd5e1;
+            --color-gray-400: #94a3b8;
+            --color-gray-500: #64748b;
+            --color-gray-600: #475569;
+            --color-gray-700: #334155;
+            --color-gray-800: #1e293b;
+            --color-gray-900: #0f172a;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-warning: #f59e0b;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+            --radius: 12px;
+            --radius-full: 9999px;
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 72px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--color-gray-800);
+            background: var(--color-gray-50);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* ============================================
+           КНОПКИ
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-family);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            min-height: 44px;
+            min-width: 44px;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+        .btn-outline:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-success {
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--color-danger);
+            color: var(--color-white);
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 0.375rem 1rem;
+            font-size: 0.75rem;
+            min-height: 36px;
+        }
+        .btn-lg {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            background: var(--color-white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-gray-900);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text span { color: var(--color-primary); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        .nav-links a:hover { color: var(--color-primary); }
+
+        /* ===== USER DROPDOWN ===== */
+        .user-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+            border-radius: var(--radius-full);
+            background: var(--color-gray-100);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-family);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--color-gray-700);
+            position: relative;
+        }
+        .user-menu-btn:hover {
+            background: var(--color-gray-200);
+        }
+
+        .user-menu-btn .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-menu-btn .chevron {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+            transition: transform var(--transition);
+        }
+
+        .user-menu-btn.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 220px;
+            background: var(--color-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl);
+            padding: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all var(--transition);
+            z-index: 1001;
+        }
+
+        .user-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 1rem;
+            border-radius: var(--radius);
+            color: var(--color-gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all var(--transition);
+            width: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-family: var(--font-family);
+        }
+
+        .user-dropdown .dropdown-item:hover {
+            background: var(--color-gray-50);
+            color: var(--color-primary);
+        }
+
+        .user-dropdown .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--color-gray-400);
+        }
+
+        .user-dropdown .dropdown-item:hover i {
+            color: var(--color-primary);
+        }
+
+        .user-dropdown .dropdown-divider {
+            height: 1px;
+            background: var(--color-gray-200);
+            margin: 0.25rem 0.5rem;
+        }
+
+        .user-dropdown .dropdown-item.logout {
+            color: var(--color-danger);
+        }
+        .user-dropdown .dropdown-item.logout:hover {
+            background: #fef2f2;
+            color: var(--color-danger);
+        }
+        .user-dropdown .dropdown-item.logout:hover i {
+            color: var(--color-danger);
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ============================================
+           СТОРІНКА ВСІХ ПРОПОЗИЦІЙ
+           ============================================ */
+        .offers-page {
+            padding: 4rem 0;
+            background: var(--color-gray-50);
+            min-height: 100vh;
+        }
+
+        .offers-page-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .offers-page-header .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border: 2px solid var(--color-gray-200);
+            border-radius: var(--radius);
+            background: var(--color-white);
+            color: var(--color-gray-700);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-family);
+            text-decoration: none;
+        }
+        .offers-page-header .back-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .offers-page-header .page-title {
+            flex: 1;
+        }
+        .offers-page-header .page-title h1 {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--color-gray-900);
+        }
+        .offers-page-header .page-title h1 .gradient-text {
+            background: var(--color-primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .offers-page-header .page-title p {
+            color: var(--color-gray-500);
+            font-size: 1.125rem;
+        }
+
+        .offers-page .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .offers-page .offer-card {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+        }
+        .offers-page .offer-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .offers-page .offer-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .offers-page .offer-image .city-emoji {
+            font-size: 4rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .offers-page .offer-image .offer-discount {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--color-danger);
+            color: var(--color-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .offers-page .offer-body { padding: 1.25rem; }
+        .offers-page .offer-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .offers-page .offer-origin,
+        .offers-page .offer-destination { font-weight: 700; font-size: 0.875rem; }
+        .offers-page .offer-arrow { color: var(--color-gray-400); font-size: 0.75rem; }
+        .offers-page .offer-price {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .offers-page .price-old {
+            color: var(--color-gray-400);
+            text-decoration: line-through;
+            font-size: 0.875rem;
+        }
+        .offers-page .price-new {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-primary);
+        }
+        .offers-page .offer-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--color-gray-500);
+            margin-bottom: 0.75rem;
+        }
+        .offers-page .offer-meta i { margin-right: 0.25rem; }
+
+        /* ============================================
+           МОДАЛЬНІ ВІКНА
+           ============================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            max-width: 440px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--color-gray-400);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color var(--transition);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover { color: var(--color-gray-800); background: var(--color-gray-100); }
+
+        .modal-brand { text-align: center; margin-bottom: 1.5rem; }
+        .modal-brand .logo { justify-content: center; font-size: 1.5rem; }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .modal-subtitle {
+            text-align: center;
+            color: var(--color-gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .social-login .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem;
+            border: 2px solid var(--color-gray-200);
+            border-radius: var(--radius);
+            background: var(--color-white);
+            color: var(--color-gray-700);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            min-height: 44px;
+        }
+        .social-login .btn-social:hover { border-color: var(--color-primary); background: var(--color-gray-50); }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.25rem 0;
+            color: var(--color-gray-400);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--color-gray-200);
+        }
+
+        .password-toggle { position: relative; }
+        .password-toggle .toggle-btn {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--color-gray-400);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        .password-toggle .toggle-btn:hover { color: var(--color-gray-600); }
+
+        .form-error {
+            font-size: 0.75rem;
+            color: var(--color-danger);
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .form-error.visible { display: block; }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--color-gray-200);
+            font-size: 0.875rem;
+            color: var(--color-gray-500);
+        }
+        .modal-footer a {
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-footer a:hover { text-decoration: underline; }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 400px;
+        }
+
+        .toast {
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: var(--color-white);
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success { background: var(--color-success); }
+        .toast-error { background: var(--color-danger); }
+        .toast-info { background: var(--color-primary); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--color-gray-900);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 0 1.5rem;
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color var(--transition);
+            font-size: 0.75rem;
+        }
+        .footer-bottom-links a:hover { color: var(--color-white); }
+        .footer-payment {
+            display: inline-flex;
+            gap: 0.75rem;
+            margin-left: 1rem;
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .footer-payment i { transition: color var(--transition); }
+        .footer-payment i:hover { color: rgba(255,255,255,0.6); }
+
+        /* ============================================
+           АДАПТИВНІСТЬ
+           ============================================ */
+        @media (max-width: 1024px) {
+            .offers-page .offers-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .offers-page .offers-grid { grid-template-columns: 1fr; }
+            .offers-page .offer-image { height: 180px; }
+
+            .offers-page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .offers-page-header .back-btn { align-self: flex-start; }
+
+            .social-login { flex-direction: column; }
+            .modal { padding: 1.5rem; margin: 0.5rem; }
+
+            .toast-container {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                max-width: none;
+            }
+
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+            .footer-payment { margin-left: 0; }
+        }
+
+        @media (max-width: 480px) {
+            .offers-page .offers-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Fly<span>Booking</span></span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                <li><a href="offers.html" class="active"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
+                <li class="nav-auth" id="navAuth">
+                    <!-- Заповнюється через JS -->
+                </li>
+            </ul>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Відкрити меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+            <ul id="mobileNavLinks">
+                <!-- Заповнюється через JS -->
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- ===== СТОРІНКА ВСІХ ПРОПОЗИЦІЙ ===== -->
+<section class="offers-page">
+    <div class="container">
+        <div class="offers-page-header">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> На головну
+            </a>
+            <div class="page-title">
+                <h1>Усі <span class="gradient-text">пропозиції</span></h1>
+                <p>Виберіть ідеальний напрямок для вашої наступної подорожі</p>
+            </div>
+        </div>
+
+        <div class="offers-grid" id="offersGrid">
+            <!-- Заповнюється через JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="#" onclick="showToast('📜 Політика конфіденційності', 'info')">Політика конфіденційності</a>
+                <a href="#" onclick="showToast('📜 Умови використання', 'info')">Умови використання</a>
+                <a href="#" onclick="showToast('🍪 Налаштування cookies', 'info')">Cookies</a>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+                &copy; 2026 FlyBooking. Всі права захищено.
+                <span class="footer-payment">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== МОДАЛКА ВХОДУ ===== -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('loginModal')">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="modal-brand">
+            <a href="index.html" class="logo" style="justify-content: center;">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Fly<span>Booking</span></span>
+            </a>
+        </div>
+
+        <h2 class="modal-title">Ласкаво просимо!</h2>
+        <p class="modal-subtitle">Увійдіть у свій акаунт, щоб продовжити</p>
+
+        <div class="social-login">
+            <button class="btn-social" onclick="showToast('🔵 Вхід через Google...', 'info')">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59A14.5 14.5 0 0 1 9.5 24c0-1.59.28-3.14.76-4.59l-7.98-6.19A23.99 23.99 0 0 0 0 24c0 3.77.87 7.35 2.56 10.56l7.97-5.97z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 5.97C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E" alt="Google" style="width:18px; height:18px;">
+                Google
+            </button>
+            <button class="btn-social" onclick="showToast('🔵 Вхід через Facebook...', 'info')">
+                <i class="fab fa-facebook-f" style="color: #1877f2; font-size: 1.125rem;"></i>
+                Facebook
+            </button>
+        </div>
+
+        <div class="divider">або з email</div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email" id="loginEmail" required value="demo@flybooking.com">
+            </div>
+            <div class="form-group password-toggle">
+                <input type="password" class="form-input" placeholder="Пароль" id="loginPassword" required value="password123">
+                <button type="button" class="toggle-btn" onclick="togglePassword('loginPassword', this)">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="form-error" id="loginError">Невірний email або пароль</div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+                <i class="fas fa-sign-in-alt"></i> Увійти
+            </button>
+        </form>
+
+        <div class="modal-footer">
+            Ще немає акаунта? <a onclick="switchModal('register')">Зареєструватися</a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== МОДАЛКА РЕЄСТРАЦІЇ ===== -->
+<div class="modal-overlay" id="registerModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('registerModal')">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="modal-brand">
+            <a href="index.html" class="logo" style="justify-content: center;">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Fly<span>Booking</span></span>
+            </a>
+        </div>
+
+        <h2 class="modal-title">Створіть акаунт</h2>
+        <p class="modal-subtitle">Приєднуйтесь та отримуйте бонуси за кожну подорож</p>
+
+        <form id="registerForm" onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Ім'я" id="regFirstName" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Прізвище" id="regLastName" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email" id="regEmail" required>
+            </div>
+            <div class="form-group password-toggle">
+                <input type="password" class="form-input" placeholder="Пароль (мінімум 8 символів)" id="regPassword" required minlength="8">
+                <button type="button" class="toggle-btn" onclick="togglePassword('regPassword', this)">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="form-group password-toggle">
+                <input type="password" class="form-input" placeholder="Підтвердіть пароль" id="regPasswordConfirm" required>
+                <button type="button" class="toggle-btn" onclick="togglePassword('regPasswordConfirm', this)">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="form-error" id="registerError">Паролі не співпадають</div>
+            <button type="submit" class="btn btn-success btn-block btn-lg">
+                <i class="fas fa-user-plus"></i> Зареєструватися
+            </button>
+        </form>
+
+        <div class="modal-footer">
+            Вже маєте акаунт? <a onclick="switchModal('login')">Увійти</a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    (function() {
+        'use strict';
+
+        // ============================================
+        // ДАНІ ПРО ПРОПОЗИЦІЇ (зображення, знижки, ціни)
+        // ============================================
+        const offerData = [
+            { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162', airline: 'Ryanair', emoji: '🗼', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640', airline: 'Turkish Airlines', emoji: '🗽', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301', airline: 'FlyDubai', emoji: '🏝️', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Львів (LWO)', dest: 'Варшава (WAW)', discount: 20, oldPrice: '€120', newPrice: '€96', airline: 'LOT', emoji: '🏰', image: 'https://images.unsplash.com/photo-1554260570-e9689a3418b8?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Бангкок (BKK)', discount: 30, oldPrice: '$720', newPrice: '$504', airline: 'Emirates', emoji: '🌴', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Одеса (ODS)', dest: 'Стамбул (IST)', discount: 15, oldPrice: '€180', newPrice: '€153', airline: 'Turkish Airlines', emoji: '🕌', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Лондон (LHR)', discount: 25, oldPrice: '€290', newPrice: '€217', airline: 'British Airways', emoji: '🇬🇧', image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Рим (FCO)', discount: 22, oldPrice: '€210', newPrice: '€164', airline: 'Alitalia', emoji: '🍕', image: 'https://images.unsplash.com/photo-1525874684015-58379d421a52?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Токіо (NRT)', discount: 18, oldPrice: '$950', newPrice: '$779', airline: 'Japan Airlines', emoji: '🌸', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Сідней (SYD)', discount: 32, oldPrice: '$1200', newPrice: '$816', airline: 'Qantas', emoji: '🦘', image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Каїр (CAI)', discount: 27, oldPrice: '€270', newPrice: '€197', airline: 'EgyptAir', emoji: '🏛️', image: 'https://images.unsplash.com/photo-1535463731090-e34f4b5098c5?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Мехіко (MEX)', discount: 40, oldPrice: '$1050', newPrice: '$630', airline: 'Aeromexico', emoji: '🌮', image: 'https://images.unsplash.com/photo-1512937922906-34bc65e70dc3?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Амстердам (AMS)', discount: 30, oldPrice: '€230', newPrice: '€161', airline: 'KLM', emoji: '🌷', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Барселона (BCN)', discount: 25, oldPrice: '€200', newPrice: '€150', airline: 'Vueling', emoji: '🏖️', image: 'https://images.unsplash.com/photo-1583779457094-ab6bace0e8c9?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Лісабон (LIS)', discount: 20, oldPrice: '€280', newPrice: '€224', airline: 'TAP Air', emoji: '🚃', image: 'https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?w=600&h=400&fit=crop&crop=center' },
+            { origin: 'Київ (KBP)', dest: 'Афіни (ATH)', discount: 25, oldPrice: '€210', newPrice: '€157', airline: 'Aegean', emoji: '🏛️', image: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=600&h=400&fit=crop&crop=center' },
+        ];
+
+        // ============================
+        // 1. ПЕРЕВІРКА АВТОРИЗАЦІЇ
+        // ============================
+        function getUser() {
+            return JSON.parse(localStorage.getItem('flybooking_user'));
+        }
+
+        function setUser(user) {
+            localStorage.setItem('flybooking_user', JSON.stringify(user));
+        }
+
+        function removeUser() {
+            localStorage.removeItem('flybooking_user');
+        }
+
+        // ============================
+        // 2. РЕНДЕР НАВІГАЦІЇ
+        // ============================
+        function renderNav() {
+            const user = getUser();
+            const navAuth = document.getElementById('navAuth');
+            const mobileNav = document.getElementById('mobileNavLinks');
+
+            if (user) {
+                const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
+
+                navAuth.innerHTML = `
+                    <div class="user-dropdown-wrapper">
+                        <button class="user-menu-btn" id="userMenuBtn">
+                            <span class="avatar">${initials}</span>
+                            ${user.firstName}
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i> Мій профіль
+                            </a>
+                            <a href="bookings.html" class="dropdown-item">
+                                <i class="fas fa-ticket-alt"></i> Мої бронювання
+                            </a>
+                            <a href="edit-profile.html" class="dropdown-item">
+                                <i class="fas fa-user-edit"></i> Редагувати профіль
+                            </a>
+                            <a href="bonus.html" class="dropdown-item">
+                                <i class="fas fa-gift"></i> Бонуси
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Налаштування
+                            </a>
+                            <a href="help.html" class="dropdown-item">
+                                <i class="fas fa-question-circle"></i> Допомога
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout" onclick="handleLogout()">
+                                <i class="fas fa-sign-out-alt"></i> Вийти
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                mobileNav.innerHTML = `
+                    <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                    <li><a href="offers.html"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                    <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                    <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
+                    <li><a href="bookings.html"><i class="fas fa-ticket-alt"></i> Мої бронювання</a></li>
+                    <li><a href="edit-profile.html"><i class="fas fa-user-edit"></i> Редагувати профіль</a></li>
+                    <li><a href="bonus.html"><i class="fas fa-gift"></i> Бонуси</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Налаштування</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Допомога</a></li>
+                    <li>
+                        <button class="btn btn-danger btn-block" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Вийти
+                        </button>
+                    </li>
+                `;
+
+                setTimeout(function() {
+                    const menuBtn = document.getElementById('userMenuBtn');
+                    const dropdown = document.getElementById('userDropdown');
+                    if (menuBtn && dropdown) {
+                        menuBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            this.classList.toggle('active');
+                            dropdown.classList.toggle('open');
+                        });
+                        document.addEventListener('click', function(e) {
+                            if (!dropdown.contains(e.target) && !menuBtn.contains(e.target)) {
+                                menuBtn.classList.remove('active');
+                                dropdown.classList.remove('open');
+                            }
+                        });
+                    }
+                }, 50);
+
+            } else {
+                navAuth.innerHTML = `
+                    <button class="btn btn-outline btn-sm" onclick="openModal('login')">
+                        <i class="fas fa-sign-in-alt"></i> Увійти
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('register')">
+                        <i class="fas fa-user-plus"></i> Реєстрація
+                    </button>
+                `;
+
+                mobileNav.innerHTML = `
+                    <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                    <li><a href="offers.html"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                    <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                    <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
+                    <li>
+                        <button class="btn btn-outline btn-block" onclick="openModal('login')">
+                            <i class="fas fa-sign-in-alt"></i> Увійти
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-block" onclick="openModal('register')">
+                            <i class="fas fa-user-plus"></i> Реєстрація
+                        </button>
+                    </li>
+                `;
+            }
+        }
+
+        // ============================
+        // 3. MOBILE MENU
+        // ============================
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileToggle && mobileMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('open');
+                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+            });
+        }
+
+        // ============================
+        // 4. TOAST
+        // ============================
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 3500);
+        };
+
+        // ============================
+        // 5. МОДАЛКИ
+        // ============================
+        window.openModal = function(type) {
+            if (type === 'login') {
+                const modal = document.getElementById('loginModal');
+                if (modal) modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else if (type === 'register') {
+                const modal = document.getElementById('registerModal');
+                if (modal) modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.closeModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        window.switchModal = function(type) {
+            closeModal('loginModal');
+            closeModal('registerModal');
+            setTimeout(() => openModal(type), 200);
+        };
+
+        document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================
+        // 6. TOGGLE PASSWORD
+        // ============================
+        window.togglePassword = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        };
+
+        // ============================
+        // 7. РЕНДЕР ПРОПОЗИЦІЙ
+        // ============================
+        function renderOffers() {
+            const grid = document.getElementById('offersGrid');
+            if (!grid) return;
+
+            grid.innerHTML = offerData.map(offer => createOfferCard(offer)).join('');
+        }
+
+        function createOfferCard(offer) {
+            const imageStyle = `background-image: url('${offer.image}'); background-size: cover; background-position: center;`;
+            return `
+                <div class="offer-card">
+                    <div class="offer-image" style="${imageStyle}">
+                        <span class="city-emoji">${offer.emoji}</span>
+                        <span class="offer-discount">-${offer.discount}%</span>
+                    </div>
+                    <div class="offer-body">
+                        <div class="offer-route">
+                            <span class="offer-origin">${offer.origin}</span>
+                            <span class="offer-arrow">✈</span>
+                            <span class="offer-destination">${offer.dest}</span>
+                        </div>
+                        <div class="offer-price">
+                            <span class="price-old">${offer.oldPrice}</span>
+                            <span class="price-new">${offer.newPrice}</span>
+                        </div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-plane"></i> ${offer.airline}</span>
+                            <span><i class="fas fa-calendar"></i> ${getRandomDate()}</span>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-sm" onclick="showToast('✅ Бронювання ${offer.dest} відкрито!', 'success')">
+                            Забронювати
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getRandomDate() {
+            const start = new Date(2026, 7, 1);
+            const end = new Date(2026, 9, 31);
+            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
+        }
+
+        // ============================
+        // 8. LOGIN
+        // ============================
+        window.handleLogin = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (!email || !password) {
+                errorEl.textContent = 'Заповніть всі поля';
+                errorEl.classList.add('visible');
+                return;
+            }
+
+            if (email === 'demo@flybooking.com' && password === 'password123') {
+                errorEl.classList.remove('visible');
+                const user = {
+                    firstName: 'Олена',
+                    lastName: 'Коваленко',
+                    email: 'demo@flybooking.com',
+                    registeredAt: '2025-08-01'
+                };
+                setUser(user);
+                closeModal('loginModal');
+                showToast('✅ Вхід виконано! Ласкаво просимо!', 'success');
+                renderNav();
+            } else {
+                errorEl.textContent = 'Невірний email або пароль. Спробуйте demo@flybooking.com / password123';
+                errorEl.classList.add('visible');
+            }
+        };
+
+        // ============================
+        // 9. REGISTER
+        // ============================
+        window.handleRegister = function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('regFirstName').value.trim();
+            const lastName = document.getElementById('regLastName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regPasswordConfirm').value;
+            const errorEl = document.getElementById('registerError');
+
+            if (!firstName || !lastName || !email || !password || !confirm) {
+                errorEl.textContent = 'Заповніть всі поля';
+                errorEl.classList.add('visible');
+                return;
+            }
+
+            if (password !== confirm) {
+                errorEl.textContent = 'Паролі не співпадають';
+                errorEl.classList.add('visible');
+                return;
+            }
+
+            if (password.length < 8) {
+                errorEl.textContent = 'Пароль має містити мінімум 8 символів';
+                errorEl.classList.add('visible');
+                return;
+            }
+
+            errorEl.classList.remove('visible');
+            const user = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                registeredAt: new Date().toISOString().split('T')[0]
+            };
+            setUser(user);
+            closeModal('registerModal');
+            showToast(`✅ Вітаємо, ${firstName}! Акаунт створено!`, 'success');
+            renderNav();
+        };
+
+        // ============================
+        // 10. LOGOUT
+        // ============================
+        window.handleLogout = function() {
+            if (confirm('Ви впевнені, що хочете вийти?')) {
+                removeUser();
+                showToast('👋 Ви вийшли з акаунта', 'info');
+                renderNav();
+            }
+        };
+
+        // ============================
+        // 11. ІНІЦІАЛІЗАЦІЯ
+        // ============================
+        renderNav();
+        renderOffers();
+
+        setTimeout(function() {
+            const user = getUser();
+            if (user) {
+                showToast(`👋 З поверненням, ${user.firstName}!`, 'success');
+            } else {
+                showToast('✈️ Ласкаво просимо до сторінки пропозицій!', 'info');
+            }
+        }, 500);
+
+        console.log('✈️ FlyBooking — Сторінка пропозицій завантажена!');
+        console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
+
+    })();
+</script>
+
+</body>
+</html>
