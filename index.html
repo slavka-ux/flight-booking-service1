@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✈️ Бронювання авіаквитків</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">Flight Booking</span>
+            </div>
+            <div class="auth-buttons">
+                <span id="userDisplay" style="display:none; margin-right:15px;"></span>
+                <button id="loginBtn" class="btn-secondary">Увійти</button>
+                <button id="registerBtn" class="btn-secondary">Реєстрація</button>
+                <button id="logoutBtn" style="display:none;" class="btn-secondary">Вийти</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <h1>Пошук та бронювання</h1>
+            <form id="searchForm" class="search-form">
+                <div class="form-group">
+                    <label for="origin">✈️ Звідки</label>
+                    <input type="text" id="origin" placeholder="Київ" value="Київ" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination">🎯 Куди</label>
+                    <input type="text" id="destination" placeholder="Львів" value="Львів" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">📅 Дата</label>
+                    <input type="date" id="date">
+                </div>
+                <button type="submit" class="btn-primary">🔍 Пошук</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="container">
+            <h2 id="resultsTitle">Доступні рейси</h2>
+            <div id="flightList" class="flight-list"></div>
+        </div>
+    </section>
+
+    <!-- Модалка логіну -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>Вхід</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Ім'я користувача</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Увійти</button>
+                <p style="margin-top:10px; text-align:center;">
+                    Немає акаунта? <a href="#" id="switchToRegister">Зареєструватися</a>
+                </p>
+            </form>
+            <div id="loginResult"></div>
+        </div>
+    </div>
+
+    <!-- Модалка реєстрації -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister">&times;</span>
+            <h2>Реєстрація</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Ім'я користувача</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" required>
+                    <small>Мінімум 8 символів, велика/мала літера, цифра, спецсимвол</small>
+                </div>
+                <div class="form-group">
+                    <label for="regFullName">Повне ім'я (опціонально)</label>
+                    <input type="text" id="regFullName">
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Телефон (опціонально)</label>
+                    <input type="tel" id="regPhone" placeholder="+380501234567">
+                </div>
+                <button type="submit" class="btn-primary">Зареєструватися</button>
+                <p style="margin-top:10px; text-align:center;">
+                    Вже є акаунт? <a href="#" id="switchToLogin">Увійти</a>
+                </p>
+            </form>
+            <div id="registerResult"></div>
+        </div>
+    </div>
+
+    <!-- Модалка бронювання (як у попередній гілці) -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeBooking">&times;</span>
+            <h2>✈️ Бронювання квитків</h2>
+            <div id="bookingInfo" class="booking-info"></div>
+            <form id="bookingForm">
+                <div id="passengersContainer">
+                    <label>Пасажири</label>
+                    <div class="passenger-entry">
+                        <input type="text" class="passenger-name" placeholder="ПІБ пасажира" required>
+                        <input type="text" class="passenger-passport" placeholder="Номер паспорта (AA123456)" required>
+                    </div>
+                </div>
+                <button type="button" id="addPassengerBtn" class="btn-secondary">+ Додати пасажира</button>
+                <div class="form-group">
+                    <label for="bookingNotes">Нотатки (опціонально)</label>
+                    <textarea id="bookingNotes" rows="2" placeholder="Особливі побажання..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" id="bookBtn">Забронювати</button>
+            </form>
+            <div id="bookingResult" style="display:none; margin-top:1rem;"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Flight Booking Service</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
