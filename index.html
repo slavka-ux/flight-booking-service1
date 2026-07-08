@@ -855,6 +855,10 @@
             justify-content: center;
             font-size: 3rem;
         }
+        .offer-image .city-emoji {
+            font-size: 3.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
         .offer-discount {
             position: absolute;
             top: 1rem;
@@ -1348,6 +1352,7 @@
 
             <ul class="nav-links">
                 <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
                 <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
                 <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                 <li class="nav-auth" id="navAuth">
@@ -1599,86 +1604,13 @@
                 <h2 class="section-title">Спеціальні <span class="gradient-text">пропозиції</span></h2>
                 <p class="section-subtitle">Найкращі ціни на популярні напрямки</p>
             </div>
-            <button class="btn btn-outline" onclick="showToast('Відкриваю всі пропозиції...', 'info')">
+            <a href="offers.html" class="btn btn-outline">
                 Всі пропозиції <i class="fas fa-arrow-right"></i>
-            </button>
+            </a>
         </div>
 
-        <div class="offers-grid">
-            <div class="offer-card">
-                <div class="offer-image" style="background: linear-gradient(135deg, #2563eb, #7c3aed);">
-                    🏰
-                    <span class="offer-discount">-35%</span>
-                </div>
-                <div class="offer-body">
-                    <div class="offer-route">
-                        <span class="offer-origin">Київ (KBP)</span>
-                        <span class="offer-arrow">✈</span>
-                        <span class="offer-destination">Париж (CDG)</span>
-                    </div>
-                    <div class="offer-price">
-                        <span class="price-old">€250</span>
-                        <span class="price-new">€162</span>
-                    </div>
-                    <div class="offer-meta">
-                        <span><i class="fas fa-calendar"></i> 15-22 серпня</span>
-                        <span><i class="fas fa-plane"></i> Ryanair</span>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-sm" onclick="showToast('✅ Бронювання Париж відкрито!', 'success')">
-                        Забронювати
-                    </button>
-                </div>
-            </div>
-
-            <div class="offer-card">
-                <div class="offer-image" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
-                    🗽
-                    <span class="offer-discount">-28%</span>
-                </div>
-                <div class="offer-body">
-                    <div class="offer-route">
-                        <span class="offer-origin">Київ (KBP)</span>
-                        <span class="offer-arrow">✈</span>
-                        <span class="offer-destination">Нью-Йорк (JFK)</span>
-                    </div>
-                    <div class="offer-price">
-                        <span class="price-old">$890</span>
-                        <span class="price-new">$640</span>
-                    </div>
-                    <div class="offer-meta">
-                        <span><i class="fas fa-calendar"></i> 1-15 вересня</span>
-                        <span><i class="fas fa-plane"></i> Turkish Airlines</span>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-sm" onclick="showToast('✅ Бронювання Нью-Йорк відкрито!', 'success')">
-                        Забронювати
-                    </button>
-                </div>
-            </div>
-
-            <div class="offer-card">
-                <div class="offer-image" style="background: linear-gradient(135deg, #10b981, #059669);">
-                    🏝️
-                    <span class="offer-discount">-42%</span>
-                </div>
-                <div class="offer-body">
-                    <div class="offer-route">
-                        <span class="offer-origin">Київ (KBP)</span>
-                        <span class="offer-arrow">✈</span>
-                        <span class="offer-destination">Дубай (DXB)</span>
-                    </div>
-                    <div class="offer-price">
-                        <span class="price-old">$520</span>
-                        <span class="price-new">$301</span>
-                    </div>
-                    <div class="offer-meta">
-                        <span><i class="fas fa-calendar"></i> 10-20 жовтня</span>
-                        <span><i class="fas fa-plane"></i> FlyDubai</span>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-sm" onclick="showToast('✅ Бронювання Дубай відкрито!', 'success')">
-                        Забронювати
-                    </button>
-                </div>
-            </div>
+        <div class="offers-grid" id="mainOffersGrid">
+            <!-- Заповнюється через JS -->
         </div>
     </div>
 </section>
@@ -1934,6 +1866,15 @@
             { name: 'Мумбаї', code: 'BOM', country: 'Індія' },
         ];
 
+        // ============================================
+        // ДАНІ ПРО ПРОПОЗИЦІЇ (зображення, знижки, ціни)
+        // ============================================
+        const offerData = [
+            { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162', airline: 'Ryanair', emoji: '🗼', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
+            { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640', airline: 'Turkish Airlines', emoji: '🗽', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
+            { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301', airline: 'FlyDubai', emoji: '🏝️', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
+        ];
+
         // ============================
         // 1. ПЕРЕВІРКА АВТОРИЗАЦІЇ
         // ============================
@@ -1996,6 +1937,7 @@
 
                 mobileNav.innerHTML = `
                     <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                    <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
                     <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
                     <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                     <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
@@ -2041,6 +1983,7 @@
 
                 mobileNav.innerHTML = `
                     <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
+                    <li><a href="offers.html"><i class="fas fa-list"></i> Всі пропозиції</a></li>
                     <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
                     <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                     <li>
@@ -2155,25 +2098,19 @@
             const clearBtn = document.getElementById(clearId);
             let selectedValue = input.value;
 
-            // Функція для отримання відображуваного значення міста
             function getCityDisplay(city) {
                 return `${city.name} (${city.code})`;
             }
 
-            // Функція для парсингу введеного тексту
             function parseInput(text) {
                 const trimmed = text.trim().toLowerCase();
                 if (!trimmed) return null;
-
-                // Спершу пробуємо точний збіг за кодом у дужках
                 const codeMatch = trimmed.match(/\(([^)]+)\)$/);
                 if (codeMatch) {
                     const code = codeMatch[1].toUpperCase();
                     const found = cities.find(c => c.code === code);
                     if (found) return found;
                 }
-
-                // Потім пошук за назвою міста
                 const found = cities.find(c =>
                     c.name.toLowerCase() === trimmed ||
                     c.name.toLowerCase().includes(trimmed) ||
@@ -2182,13 +2119,10 @@
                 return found || null;
             }
 
-            // Функція для оновлення випадаючого списку
             function updateDropdown(query) {
                 const trimmed = query.trim().toLowerCase();
                 let filtered = [];
-
                 if (!trimmed) {
-                    // Показуємо ВСІ міста, якщо нічого не введено
                     filtered = [...cities];
                 } else {
                     filtered = cities.filter(c =>
@@ -2197,7 +2131,6 @@
                         c.country.toLowerCase().includes(trimmed)
                     );
                 }
-
                 if (filtered.length === 0) {
                     dropdown.innerHTML = `<div class="no-results">Міст не знайдено</div>`;
                 } else {
@@ -2208,29 +2141,24 @@
                         </div>
                     `).join('');
                 }
-
                 dropdown.classList.add('open');
             }
 
-            // Обробник введення
             input.addEventListener('input', function() {
                 const val = this.value;
                 clearBtn.classList.toggle('visible', val.length > 0);
                 updateDropdown(val);
             });
 
-            // Обробник фокусу - показуємо ВСІ міста
             input.addEventListener('focus', function() {
                 const val = this.value;
                 if (val.trim()) {
                     updateDropdown(val);
                 } else {
-                    // Показуємо всі міста при фокусі
                     updateDropdown('');
                 }
             });
 
-            // Клік по пункту списку
             dropdown.addEventListener('click', function(e) {
                 const item = e.target.closest('.combobox-item');
                 if (!item) return;
@@ -2240,12 +2168,10 @@
                 selectedValue = displayValue;
                 dropdown.classList.remove('open');
                 clearBtn.classList.toggle('visible', true);
-                // Зберігаємо повне значення в data-атрибуті
                 input.dataset.cityCode = city.code;
                 input.dataset.cityName = city.name;
             });
 
-            // Очищення
             clearBtn.addEventListener('click', function() {
                 input.value = '';
                 selectedValue = '';
@@ -2256,7 +2182,6 @@
                 delete input.dataset.cityName;
             });
 
-            // Закриття при кліку поза
             document.addEventListener('click', function(e) {
                 const wrapper = input.closest('.combobox-wrapper');
                 if (!wrapper.contains(e.target)) {
@@ -2264,7 +2189,6 @@
                 }
             });
 
-            // Закриття по Escape
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     dropdown.classList.remove('open');
@@ -2284,7 +2208,6 @@
                 }
             });
 
-            // Ініціалізація початкового значення
             const initialValue = input.value;
             if (initialValue) {
                 const parsed = parseInput(initialValue);
@@ -2295,7 +2218,6 @@
                 clearBtn.classList.toggle('visible', true);
             }
 
-            // Повертаємо функцію для отримання вибраного міста
             return {
                 getSelected: function() {
                     const val = input.value.trim();
@@ -2318,12 +2240,58 @@
             };
         }
 
-        // Ініціалізація комбобоксів
         const originCombobox = createCombobox('origin', 'originDropdown', 'originClear');
         const destinationCombobox = createCombobox('destination', 'destinationDropdown', 'destinationClear');
 
         // ============================
-        // 8. LOGIN
+        // 8. РЕНДЕР ПРОПОЗИЦІЙ
+        // ============================
+        function renderOffers() {
+            const grid = document.getElementById('mainOffersGrid');
+            if (!grid) return;
+
+            grid.innerHTML = offerData.map(offer => createOfferCard(offer)).join('');
+        }
+
+        function createOfferCard(offer) {
+            const imageStyle = `background-image: url('${offer.image}'); background-size: cover; background-position: center;`;
+            return `
+                <div class="offer-card">
+                    <div class="offer-image" style="${imageStyle}">
+                        <span class="city-emoji">${offer.emoji}</span>
+                        <span class="offer-discount">-${offer.discount}%</span>
+                    </div>
+                    <div class="offer-body">
+                        <div class="offer-route">
+                            <span class="offer-origin">${offer.origin}</span>
+                            <span class="offer-arrow">✈</span>
+                            <span class="offer-destination">${offer.dest}</span>
+                        </div>
+                        <div class="offer-price">
+                            <span class="price-old">${offer.oldPrice}</span>
+                            <span class="price-new">${offer.newPrice}</span>
+                        </div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-plane"></i> ${offer.airline}</span>
+                            <span><i class="fas fa-calendar"></i> ${getRandomDate()}</span>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-sm" onclick="showToast('✅ Бронювання ${offer.dest} відкрито!', 'success')">
+                            Забронювати
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getRandomDate() {
+            const start = new Date(2026, 7, 1);
+            const end = new Date(2026, 9, 31);
+            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
+        }
+
+        // ============================
+        // 9. LOGIN
         // ============================
         window.handleLogin = function(e) {
             e.preventDefault();
@@ -2339,7 +2307,6 @@
 
             if (email === 'demo@flybooking.com' && password === 'password123') {
                 errorEl.classList.remove('visible');
-
                 const user = {
                     firstName: 'Олена',
                     lastName: 'Коваленко',
@@ -2347,12 +2314,9 @@
                     registeredAt: '2025-08-01'
                 };
                 setUser(user);
-
                 closeModal('loginModal');
                 showToast('✅ Вхід виконано! Ласкаво просимо!', 'success');
-
                 renderNav();
-
             } else {
                 errorEl.textContent = 'Невірний email або пароль. Спробуйте demo@flybooking.com / password123';
                 errorEl.classList.add('visible');
@@ -2360,7 +2324,7 @@
         };
 
         // ============================
-        // 9. REGISTER
+        // 10. REGISTER
         // ============================
         window.handleRegister = function(e) {
             e.preventDefault();
@@ -2390,7 +2354,6 @@
             }
 
             errorEl.classList.remove('visible');
-
             const user = {
                 firstName: firstName,
                 lastName: lastName,
@@ -2398,15 +2361,13 @@
                 registeredAt: new Date().toISOString().split('T')[0]
             };
             setUser(user);
-
             closeModal('registerModal');
             showToast(`✅ Вітаємо, ${firstName}! Акаунт створено!`, 'success');
-
             renderNav();
         };
 
         // ============================
-        // 10. LOGOUT
+        // 11. LOGOUT
         // ============================
         window.handleLogout = function() {
             if (confirm('Ви впевнені, що хочете вийти?')) {
@@ -2417,7 +2378,7 @@
         };
 
         // ============================
-        // 11. ПОШУК (демо)
+        // 12. ПОШУК (демо)
         // ============================
         window.swapDestinations = function() {
             const originInput = document.getElementById('origin');
@@ -2434,7 +2395,6 @@
             destInput.dataset.cityCode = tempCode || '';
             destInput.dataset.cityName = tempName || '';
 
-            // Оновлюємо кнопки очищення
             document.getElementById('originClear').classList.toggle('visible', originInput.value.length > 0);
             document.getElementById('destinationClear').classList.toggle('visible', destInput.value.length > 0);
 
@@ -2445,7 +2405,6 @@
             const destInput = document.getElementById('destination');
             destInput.value = value;
             document.getElementById('destinationClear').classList.toggle('visible', true);
-            // Парсимо значення для збереження коду
             const parsed = cities.find(c => `${c.name} (${c.code})` === value);
             if (parsed) {
                 destInput.dataset.cityCode = parsed.code;
@@ -2460,11 +2419,8 @@
             const btn = document.getElementById('searchBtn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Пошук...';
-
-            // Отримуємо значення з комбобоксів
             const originVal = document.getElementById('origin').value;
             const destVal = document.getElementById('destination').value;
-
             setTimeout(function() {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-search"></i> Пошук квитків';
@@ -2473,7 +2429,7 @@
         });
 
         // ============================
-        // 12. ПАСАЖИРИ
+        // 13. ПАСАЖИРИ
         // ============================
         const passengerToggle = document.getElementById('passengerToggle');
         const passengerDropdown = document.getElementById('passengerDropdown');
@@ -2537,7 +2493,6 @@
                         document.getElementById('infantsInput').value = infants;
                         break;
                 }
-
                 updatePassengerSummary();
             });
         });
@@ -2557,7 +2512,7 @@
         }
 
         // ============================
-        // 13. ТИП ПОДОРОЖІ
+        // 14. ТИП ПОДОРОЖІ
         // ============================
         const tripOptions = document.querySelectorAll('.trip-option input[type="radio"]');
         const returnDateGroup = document.getElementById('returnDateGroup');
@@ -2578,7 +2533,7 @@
         });
 
         // ============================
-        // 14. ДАТИ
+        // 15. ДАТИ
         // ============================
         (function setDefaultDates() {
             const today = new Date();
@@ -2602,9 +2557,10 @@
         })();
 
         // ============================
-        // 15. ІНІЦІАЛІЗАЦІЯ
+        // 16. ІНІЦІАЛІЗАЦІЯ
         // ============================
         renderNav();
+        renderOffers();
 
         setTimeout(function() {
             const user = getUser();
@@ -2617,13 +2573,7 @@
 
         console.log('✈️ FlyBooking — Головна сторінка завантажена!');
         console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
-        console.log('📌 Посилання на сторінки:');
-        console.log('  - Профіль: profile.html');
-        console.log('  - Бронювання: bookings.html');
-        console.log('  - Редагування: edit-profile.html');
-        console.log('  - Бонуси: bonus.html');
-        console.log('  - Налаштування: settings.html');
-        console.log('  - Допомога: help.html');
+        console.log('📌 Сторінка пропозицій: offers.html');
 
     })();
 </script>
