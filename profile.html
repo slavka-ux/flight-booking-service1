@@ -242,6 +242,13 @@
             text-decoration: none;
             transition: all var(--transition);
             cursor: pointer;
+            background: none;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            width: 100%;
+            font-family: var(--font-family);
+            font-size: 0.875rem;
         }
         .profile-menu-item:last-child {
             border-bottom: none;
@@ -357,6 +364,35 @@
         }
         .footer-bottom-links a:hover { color: var(--color-white); }
 
+        /* Toast */
+        #toastContainer {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 400px;
+        }
+        .toast {
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: white;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success { background: var(--color-success); }
+        .toast-error { background: var(--color-danger); }
+        .toast-info { background: var(--color-primary); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
@@ -450,6 +486,9 @@
     </div>
 </footer>
 
+<!-- Toast Container -->
+<div id="toastContainer"></div>
+
 <script>
     (function() {
         // ============================
@@ -464,12 +503,29 @@
         }
 
         // ============================
-        // 2. РЕНДЕР ПРОФІЛЮ
+        // 2. TOAST
+        // ============================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // ============================
+        // 3. РЕНДЕР ПРОФІЛЮ
         // ============================
         function renderProfile() {
             const user = getUser();
 
-            // Якщо немає користувача - редирект на головну
             if (!user) {
                 window.location.href = 'index.html';
                 return;
@@ -511,32 +567,38 @@
                 </div>
             `;
 
-            // Menu
+            // Menu - ТУТ ПОСИЛАННЯ НА БРОНЮВАННЯ ТА РЕДАГУВАННЯ
             document.getElementById('profileMenu').innerHTML = `
-                <div class="profile-menu-item" onclick="showToast('📋 Мої бронювання', 'info')">
+                <!-- ⭐ ПОСИЛАННЯ НА СТОРІНКУ БРОНЮВАНЬ -->
+                <button class="profile-menu-item" onclick="window.location.href='bookings.html'">
                     <i class="fas fa-ticket-alt"></i> Мої бронювання
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
-                <div class="profile-menu-item" onclick="showToast('✏️ Редагування профілю', 'info')">
+                </button>
+
+                <!-- ⭐ ПОСИЛАННЯ НА СТОРІНКУ РЕДАГУВАННЯ -->
+                <button class="profile-menu-item" onclick="window.location.href='edit-profile.html'">
                     <i class="fas fa-user-edit"></i> Редагувати профіль
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
-                <div class="profile-menu-item" onclick="showToast('🎁 Бонуси та знижки', 'info')">
+                </button>
+
+                <button class="profile-menu-item" onclick="showToast('🎁 Бонуси та знижки', 'info')">
                     <i class="fas fa-gift"></i> Бонуси
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
-                <div class="profile-menu-item" onclick="showToast('⚙️ Налаштування', 'info')">
+                </button>
+                <button class="profile-menu-item" onclick="showToast('⚙️ Налаштування', 'info')">
                     <i class="fas fa-cog"></i> Налаштування
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
-                <div class="profile-menu-item" onclick="showToast('❓ Довідка та підтримка', 'info')">
+                </button>
+                <button class="profile-menu-item" onclick="showToast('❓ Довідка та підтримка', 'info')">
                     <i class="fas fa-question-circle"></i> Допомога
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
-                <div class="profile-menu-item logout" onclick="handleLogout()">
+                </button>
+
+                <!-- Вихід -->
+                <button class="profile-menu-item logout" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i> Вийти з акаунта
                     <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-                </div>
+                </button>
             `;
 
             // Bonus section
@@ -552,47 +614,6 @@
                     <div class="progress-text">4 250 з 5 000 для наступного рівня</div>
                 </div>
             `;
-        }
-
-        // ============================
-        // 3. TOAST
-        // ============================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer') || createToastContainer();
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        function createToastContainer() {
-            const container = document.createElement('div');
-            container.id = 'toastContainer';
-            container.style.cssText = `
-                position: fixed; bottom: 2rem; right: 2rem; z-index: 5000;
-                display: flex; flex-direction: column; gap: 0.5rem; max-width: 400px;
-            `;
-            document.body.appendChild(container);
-
-            // Додаємо стилі для тостів
-            const style = document.createElement('style');
-            style.textContent = `
-                .toast { padding: 1rem 1.5rem; border-radius: 12px; color: white; font-weight: 500; font-size: 0.875rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: slideUp 0.3s ease; }
-                .toast-success { background: #10b981; }
-                .toast-error { background: #ef4444; }
-                .toast-info { background: #2563eb; }
-                @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-            `;
-            document.head.appendChild(style);
-
-            return container;
         }
 
         // ============================
@@ -615,6 +636,8 @@
         window.handleLogout = handleLogout;
 
         console.log('👤 Сторінка профілю завантажена');
+        console.log('📌 Посилання на бронювання: bookings.html');
+        console.log('📌 Посилання на редагування: edit-profile.html');
     })();
 </script>
 
