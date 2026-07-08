@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Бронювання авіаквитків онлайн — найкращі ціни на авіаперельоти по всьому світу">
     <title>FlyBooking — Пошук та бронювання авіаквитків</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+
     <style>
         /* ============================================
            ГЛОБАЛЬНІ СТИЛІ
@@ -456,7 +456,9 @@
         }
         .form-label i { margin-right: 0.25rem; }
 
-        .search-input-wrapper { position: relative; }
+        .search-input-wrapper {
+            position: relative;
+        }
 
         .form-input,
         .form-select {
@@ -479,89 +481,17 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
-        /* Custom Select */
-        .custom-select {
+        /* ===== AUTOCOMPLETE ===== */
+        .autocomplete-wrapper {
             position: relative;
             width: 100%;
         }
 
-        .custom-select .select-trigger {
-            width: 100%;
-            padding: 0.625rem 1rem;
-            font-family: var(--font-family);
-            font-size: 0.875rem;
-            color: var(--color-gray-800);
-            background: var(--color-gray-50);
-            border: 2px solid var(--color-gray-200);
-            border-radius: var(--radius);
-            transition: all var(--transition);
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            user-select: none;
-        }
-        .custom-select .select-trigger:hover {
-            border-color: var(--color-gray-300);
-        }
-        .custom-select .select-trigger:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-        .custom-select .select-trigger .arrow {
-            font-size: 0.75rem;
-            color: var(--color-gray-400);
-            transition: transform var(--transition);
-        }
-        .custom-select .select-trigger.open .arrow {
-            transform: rotate(180deg);
+        .autocomplete-wrapper .form-input {
+            padding-right: 2.5rem;
         }
 
-        .custom-select .select-options {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background: var(--color-white);
-            border: 2px solid var(--color-gray-200);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            z-index: 100;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 0.25rem;
-        }
-        .custom-select .select-options.open {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .custom-select .select-option {
-            padding: 0.5rem 0.75rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all var(--transition);
-            font-size: 0.875rem;
-            color: var(--color-gray-700);
-        }
-        .custom-select .select-option:hover {
-            background: var(--color-gray-100);
-            color: var(--color-primary);
-        }
-        .custom-select .select-option.selected {
-            background: var(--color-primary);
-            color: var(--color-white);
-        }
-
-        .input-clear {
+        .autocomplete-wrapper .input-clear {
             position: absolute;
             right: 0.5rem;
             top: 50%;
@@ -573,10 +503,80 @@
             padding: 0.25rem;
             font-size: 0.875rem;
             display: none;
+            z-index: 5;
         }
-        .search-input-wrapper .form-input:not(:placeholder-shown) ~ .input-clear { display: block; }
-        .input-clear:hover { color: var(--color-gray-600); }
+        .autocomplete-wrapper .form-input:not(:placeholder-shown) ~ .input-clear {
+            display: block;
+        }
+        .autocomplete-wrapper .input-clear:hover {
+            color: var(--color-gray-600);
+        }
 
+        .autocomplete-list {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--color-white);
+            border: 2px solid var(--color-gray-200);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 0.25rem;
+        }
+
+        .autocomplete-list.open {
+            display: block;
+            animation: fadeIn 0.15s ease;
+        }
+
+        .autocomplete-item {
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 0.875rem;
+            color: var(--color-gray-700);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .autocomplete-item:hover {
+            background: var(--color-gray-100);
+            color: var(--color-primary);
+        }
+
+        .autocomplete-item .airport-code {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+            font-weight: 600;
+        }
+
+        .autocomplete-item .highlight {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .autocomplete-item.selected {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .autocomplete-item.selected .airport-code {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .autocomplete-empty {
+            padding: 0.75rem;
+            text-align: center;
+            color: var(--color-gray-400);
+            font-size: 0.875rem;
+        }
+
+        /* ===== SWAP BUTTON ===== */
         .swap-btn {
             display: flex;
             align-items: center;
@@ -598,6 +598,7 @@
             transform: rotate(180deg);
         }
 
+        /* ===== PASSENGER ===== */
         .return-date-group { display: block; }
 
         .passenger-selector {
@@ -1411,39 +1412,33 @@
 
                     <div class="search-grid">
                         <div class="form-group">
-                            <label for="origin" class="form-label">
+                            <label for="originInput" class="form-label">
                                 <i class="fas fa-circle-dot"></i> Звідки
                             </label>
-                            <div class="custom-select" id="originSelect">
-                                <div class="select-trigger" id="originTrigger">
-                                    <span id="originDisplay">Київ (KBP)</span>
-                                    <i class="fas fa-chevron-down arrow"></i>
-                                </div>
-                                <div class="select-options" id="originOptions">
-                                    <div class="select-option selected" data-value="Київ (KBP)">Київ (KBP)</div>
-                                    <div class="select-option" data-value="Львів (LWO)">Львів (LWO)</div>
-                                    <div class="select-option" data-value="Варшава (WAW)">Варшава (WAW)</div>
-                                    <div class="select-option" data-value="Кишинів (KIV)">Кишинів (KIV)</div>
-                                    <div class="select-option" data-value="Краків (KRK)">Краків (KRK)</div>
-                                    <div class="select-option" data-value="Одеса (ODS)">Одеса (ODS)</div>
-                                    <div class="select-option" data-value="Дніпро (DNK)">Дніпро (DNK)</div>
-                                    <div class="select-option" data-value="Харків (HRK)">Харків (HRK)</div>
-                                </div>
-                                <input type="hidden" id="origin" name="origin" value="Київ (KBP)">
+                            <div class="autocomplete-wrapper">
+                                <input type="text" id="originInput" class="form-input"
+                                       placeholder="Місто або аеропорт" value="Київ (KBP)" autocomplete="off">
+                                <button type="button" class="input-clear" onclick="clearAutocomplete(this)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <div class="autocomplete-list" id="originAutocompleteList"></div>
                             </div>
+                            <input type="hidden" id="origin" name="origin" value="Київ (KBP)">
                         </div>
 
                         <div class="form-group">
-                            <label for="destination" class="form-label">
+                            <label for="destinationInput" class="form-label">
                                 <i class="fas fa-location-dot"></i> Куди
                             </label>
-                            <div class="search-input-wrapper">
-                                <input type="text" id="destination" name="destination" class="form-input"
-                                       placeholder="Місто або аеропорт" value="Лондон (LHR)" required>
-                                <button type="button" class="input-clear" onclick="clearInput(this)">
+                            <div class="autocomplete-wrapper">
+                                <input type="text" id="destinationInput" class="form-input"
+                                       placeholder="Місто або аеропорт" value="Лондон (LHR)" autocomplete="off">
+                                <button type="button" class="input-clear" onclick="clearAutocomplete(this)">
                                     <i class="fas fa-times"></i>
                                 </button>
+                                <div class="autocomplete-list" id="destinationAutocompleteList"></div>
                             </div>
+                            <input type="hidden" id="destination" name="destination" value="Лондон (LHR)">
                         </div>
 
                         <button type="button" class="swap-btn" onclick="swapDestinations()" aria-label="Обміняти напрямки">
@@ -1908,6 +1903,81 @@
     (function() {
         'use strict';
 
+        // ============================================
+        // БАЗА ДАНИХ МІСТ (розширена)
+        // ============================================
+        const CITIES = [
+            { name: 'Київ', code: 'KBP' },
+            { name: 'Львів', code: 'LWO' },
+            { name: 'Одеса', code: 'ODS' },
+            { name: 'Дніпро', code: 'DNK' },
+            { name: 'Харків', code: 'HRK' },
+            { name: 'Запоріжжя', code: 'OZH' },
+            { name: 'Вінниця', code: 'VIN' },
+            { name: 'Івано-Франківськ', code: 'IFO' },
+            { name: 'Ужгород', code: 'UDJ' },
+            { name: 'Чернівці', code: 'CWC' },
+            { name: 'Кривий Ріг', code: 'KWG' },
+            { name: 'Миколаїв', code: 'NLV' },
+            { name: 'Херсон', code: 'KHE' },
+            { name: 'Суми', code: 'UMY' },
+            { name: 'Черкаси', code: 'CKC' },
+            { name: 'Житомир', code: 'ZTR' },
+            { name: 'Кропивницький', code: 'KGO' },
+            { name: 'Рівне', code: 'RWN' },
+            { name: 'Луцьк', code: 'UCK' },
+            { name: 'Тернопіль', code: 'TNL' },
+            { name: 'Хмельницький', code: 'HMJ' },
+            { name: 'Полтава', code: 'PLV' },
+            { name: 'Лондон', code: 'LHR' },
+            { name: 'Париж', code: 'CDG' },
+            { name: 'Берлін', code: 'BER' },
+            { name: 'Франкфурт', code: 'FRA' },
+            { name: 'Мюнхен', code: 'MUC' },
+            { name: 'Відень', code: 'VIE' },
+            { name: 'Цюрих', code: 'ZRH' },
+            { name: 'Женева', code: 'GVA' },
+            { name: 'Брюссель', code: 'BRU' },
+            { name: 'Амстердам', code: 'AMS' },
+            { name: 'Рим', code: 'FCO' },
+            { name: 'Мілан', code: 'MXP' },
+            { name: 'Барселона', code: 'BCN' },
+            { name: 'Мадрид', code: 'MAD' },
+            { name: 'Лісабон', code: 'LIS' },
+            { name: 'Афіни', code: 'ATH' },
+            { name: 'Стамбул', code: 'IST' },
+            { name: 'Дубай', code: 'DXB' },
+            { name: 'Абу-Дабі', code: 'AUH' },
+            { name: 'Доха', code: 'DOH' },
+            { name: 'Ріяд', code: 'RUH' },
+            { name: 'Нью-Йорк', code: 'JFK' },
+            { name: 'Лос-Анджелес', code: 'LAX' },
+            { name: 'Чикаго', code: 'ORD' },
+            { name: 'Маямі', code: 'MIA' },
+            { name: 'Торонто', code: 'YYZ' },
+            { name: 'Ванкувер', code: 'YVR' },
+            { name: 'Монреаль', code: 'YUL' },
+            { name: 'Сідней', code: 'SYD' },
+            { name: 'Мельбурн', code: 'MEL' },
+            { name: 'Окленд', code: 'AKL' },
+            { name: 'Сінгапур', code: 'SIN' },
+            { name: 'Гонконг', code: 'HKG' },
+            { name: 'Токіо', code: 'NRT' },
+            { name: 'Осака', code: 'KIX' },
+            { name: 'Сеул', code: 'ICN' },
+            { name: 'Пекін', code: 'PEK' },
+            { name: 'Шанхай', code: 'PVG' },
+            { name: 'Бангкок', code: 'BKK' },
+            { name: 'Куала-Лумпур', code: 'KUL' },
+            { name: 'Мумбаї', code: 'BOM' },
+            { name: 'Делі', code: 'DEL' },
+            { name: 'Каїр', code: 'CAI' },
+            { name: 'Кейптаун', code: 'CPT' },
+            { name: 'Йоганнесбург', code: 'JNB' },
+            { name: 'Найробі', code: 'NBO' },
+            { name: 'Лагос', code: 'LOS' }
+        ];
+
         // ============================
         // 1. ПЕРЕВІРКА АВТОРИЗАЦІЇ
         // ============================
@@ -1934,7 +2004,6 @@
             if (user) {
                 const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
 
-                // Десктоп - випадаючий список з усіма посиланнями
                 navAuth.innerHTML = `
                     <div class="user-dropdown-wrapper">
                         <button class="user-menu-btn" id="userMenuBtn">
@@ -1943,32 +2012,25 @@
                             <i class="fas fa-chevron-down chevron"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <!-- ⭐ ПРОФІЛЬ -->
                             <a href="profile.html" class="dropdown-item">
                                 <i class="fas fa-user"></i> Мій профіль
                             </a>
-                            <!-- ⭐ БРОНЮВАННЯ -->
                             <a href="bookings.html" class="dropdown-item">
                                 <i class="fas fa-ticket-alt"></i> Мої бронювання
                             </a>
-                            <!-- ⭐ РЕДАГУВАННЯ ПРОФІЛЮ -->
                             <a href="edit-profile.html" class="dropdown-item">
                                 <i class="fas fa-user-edit"></i> Редагувати профіль
                             </a>
-                            <!-- ⭐ БОНУСИ -->
                             <a href="bonus.html" class="dropdown-item">
                                 <i class="fas fa-gift"></i> Бонуси
                             </a>
-                            <!-- ⭐ НАЛАШТУВАННЯ -->
                             <a href="settings.html" class="dropdown-item">
                                 <i class="fas fa-cog"></i> Налаштування
                             </a>
-                            <!-- ⭐ ДОПОМОГА -->
                             <a href="help.html" class="dropdown-item">
                                 <i class="fas fa-question-circle"></i> Допомога
                             </a>
                             <div class="dropdown-divider"></div>
-                            <!-- ⭐ ВИХІД -->
                             <button class="dropdown-item logout" onclick="handleLogout()">
                                 <i class="fas fa-sign-out-alt"></i> Вийти
                             </button>
@@ -1976,7 +2038,6 @@
                     </div>
                 `;
 
-                // Мобільне меню
                 mobileNav.innerHTML = `
                     <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
                     <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
@@ -1994,7 +2055,6 @@
                     </li>
                 `;
 
-                // Додаємо обробник для випадаючого списку
                 setTimeout(function() {
                     const menuBtn = document.getElementById('userMenuBtn');
                     const dropdown = document.getElementById('userDropdown');
@@ -2014,7 +2074,6 @@
                 }, 50);
 
             } else {
-                // Десктоп
                 navAuth.innerHTML = `
                     <button class="btn btn-outline btn-sm" onclick="openModal('login')">
                         <i class="fas fa-sign-in-alt"></i> Увійти
@@ -2024,7 +2083,6 @@
                     </button>
                 `;
 
-                // Мобільне меню
                 mobileNav.innerHTML = `
                     <li><a href="#offers"><i class="fas fa-tags"></i> Пропозиції</a></li>
                     <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
@@ -2133,47 +2191,180 @@
         };
 
         // ============================
-        // 7. CUSTOM SELECT (ЗВІДКИ)
+        // 7. AUTOCOMPLETE (Компонент)
         // ============================
-        (function initCustomSelect() {
-            const trigger = document.getElementById('originTrigger');
-            const options = document.getElementById('originOptions');
-            const display = document.getElementById('originDisplay');
-            const hiddenInput = document.getElementById('origin');
-            let isOpen = false;
+        function createAutocomplete(inputId, listId, hiddenId) {
+            const input = document.getElementById(inputId);
+            const list = document.getElementById(listId);
+            const hidden = document.getElementById(hiddenId);
 
-            trigger.addEventListener('click', function(e) {
-                e.stopPropagation();
-                isOpen = !isOpen;
-                this.classList.toggle('open');
-                options.classList.toggle('open');
-            });
+            let selectedIndex = -1;
+            let currentItems = [];
 
-            options.querySelectorAll('.select-option').forEach(function(opt) {
-                opt.addEventListener('click', function() {
-                    const value = this.dataset.value;
-                    display.textContent = value;
-                    hiddenInput.value = value;
+            function getFilteredItems(query) {
+                if (!query || query.length < 1) {
+                    return CITIES.slice(0, 10);
+                }
+                const q = query.toLowerCase();
+                return CITIES
+                    .filter(city =>
+                        city.name.toLowerCase().includes(q) ||
+                        city.code.toLowerCase().includes(q)
+                    )
+                    .slice(0, 12);
+            }
 
-                    options.querySelectorAll('.select-option').forEach(function(el) {
-                        el.classList.remove('selected');
+            function renderItems(items) {
+                list.innerHTML = '';
+                if (items.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'autocomplete-empty';
+                    empty.textContent = 'Нічого не знайдено';
+                    list.appendChild(empty);
+                    list.classList.add('open');
+                    return;
+                }
+
+                currentItems = items;
+                items.forEach((city, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'autocomplete-item';
+                    if (index === selectedIndex) div.classList.add('selected');
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = city.name;
+
+                    const codeSpan = document.createElement('span');
+                    codeSpan.className = 'airport-code';
+                    codeSpan.textContent = city.code;
+
+                    div.appendChild(nameSpan);
+                    div.appendChild(codeSpan);
+
+                    div.addEventListener('click', function() {
+                        selectItem(city);
                     });
-                    this.classList.add('selected');
 
-                    isOpen = false;
-                    trigger.classList.remove('open');
-                    options.classList.remove('open');
+                    div.addEventListener('mouseenter', function() {
+                        clearSelection();
+                        selectedIndex = index;
+                        this.classList.add('selected');
+                    });
+
+                    list.appendChild(div);
                 });
-            });
+                list.classList.add('open');
+            }
 
-            document.addEventListener('click', function() {
-                if (isOpen) {
-                    isOpen = false;
-                    trigger.classList.remove('open');
-                    options.classList.remove('open');
+            function selectItem(city) {
+                const displayValue = `${city.name} (${city.code})`;
+                input.value = displayValue;
+                hidden.value = displayValue;
+                list.classList.remove('open');
+                selectedIndex = -1;
+                currentItems = [];
+                input.blur();
+            }
+
+            function clearSelection() {
+                list.querySelectorAll('.autocomplete-item').forEach(el => el.classList.remove('selected'));
+            }
+
+            function handleInput() {
+                const query = input.value.trim();
+                if (query === '') {
+                    list.classList.remove('open');
+                    selectedIndex = -1;
+                    hidden.value = '';
+                    return;
+                }
+
+                // Перевіряємо чи введене значення точно співпадає з містом
+                const exactMatch = CITIES.find(c =>
+                    `${c.name} (${c.code})`.toLowerCase() === query.toLowerCase()
+                );
+                if (exactMatch) {
+                    hidden.value = query;
+                } else {
+                    hidden.value = '';
+                }
+
+                const items = getFilteredItems(query);
+                renderItems(items);
+                selectedIndex = -1;
+            }
+
+            input.addEventListener('input', handleInput);
+
+            input.addEventListener('keydown', function(e) {
+                const items = list.querySelectorAll('.autocomplete-item:not(.autocomplete-empty)');
+                if (items.length === 0) return;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex + 1) % items.length;
+                    clearSelection();
+                    items[selectedIndex].classList.add('selected');
+                    items[selectedIndex].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+                    clearSelection();
+                    items[selectedIndex].classList.add('selected');
+                    items[selectedIndex].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (selectedIndex >= 0 && currentItems[selectedIndex]) {
+                        selectItem(currentItems[selectedIndex]);
+                    } else if (items.length > 0 && currentItems[0]) {
+                        selectItem(currentItems[0]);
+                    }
+                } else if (e.key === 'Escape') {
+                    list.classList.remove('open');
+                    input.blur();
                 }
             });
-        })();
+
+            input.addEventListener('focus', function() {
+                if (input.value.trim() !== '') {
+                    const items = getFilteredItems(input.value.trim());
+                    renderItems(items);
+                } else {
+                    const items = CITIES.slice(0, 10);
+                    renderItems(items);
+                }
+            });
+
+            input.addEventListener('blur', function() {
+                setTimeout(function() {
+                    list.classList.remove('open');
+                }, 200);
+            });
+
+            // Закриття при кліку поза
+            document.addEventListener('click', function(e) {
+                const wrapper = input.closest('.autocomplete-wrapper');
+                if (wrapper && !wrapper.contains(e.target)) {
+                    list.classList.remove('open');
+                }
+            });
+
+            // Ініціалізація початкового значення
+            if (input.value) {
+                hidden.value = input.value;
+            }
+        }
+
+        window.clearAutocomplete = function(btn) {
+            const wrapper = btn.closest('.autocomplete-wrapper');
+            const input = wrapper.querySelector('.form-input');
+            const hidden = wrapper.parentElement.querySelector('input[type="hidden"]');
+            input.value = '';
+            if (hidden) hidden.value = '';
+            input.focus();
+            const list = wrapper.querySelector('.autocomplete-list');
+            if (list) list.classList.remove('open');
+        };
 
         // ============================
         // 8. LOGIN
@@ -2270,55 +2461,55 @@
         };
 
         // ============================
-        // 11. ПОШУК (демо)
+        // 11. SWAP DESTINATIONS
         // ============================
-        window.clearInput = function(btn) {
-            const input = btn.closest('.search-input-wrapper').querySelector('input');
-            input.value = '';
-            input.focus();
-        };
-
         window.swapDestinations = function() {
-            const originDisplay = document.getElementById('originDisplay');
+            const originInput = document.getElementById('originInput');
+            const destInput = document.getElementById('destinationInput');
             const originHidden = document.getElementById('origin');
-            const destination = document.getElementById('destination');
-            const tempDisplay = originDisplay.textContent;
-            const tempHidden = originHidden.value;
-            const tempDest = destination.value;
+            const destHidden = document.getElementById('destination');
 
-            originDisplay.textContent = tempDest;
-            originHidden.value = tempDest;
-            destination.value = tempDisplay;
+            const tempValue = originInput.value;
+            originInput.value = destInput.value;
+            destInput.value = tempValue;
 
-            const options = document.querySelectorAll('#originOptions .select-option');
-            options.forEach(function(opt) {
-                opt.classList.toggle('selected', opt.dataset.value === tempDest);
-            });
+            originHidden.value = originInput.value;
+            destHidden.value = destInput.value;
 
             showToast('🔄 Напрямки обміняно!', 'info');
         };
 
         window.setDestination = function(value) {
-            document.getElementById('destination').value = value;
+            const destInput = document.getElementById('destinationInput');
+            const destHidden = document.getElementById('destination');
+            destInput.value = value;
+            destHidden.value = value;
             showToast(`📍 Напрямок змінено на ${value}`, 'success');
             return false;
         };
 
+        // ============================
+        // 12. ПОШУК (демо)
+        // ============================
         document.getElementById('searchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('searchBtn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Пошук...';
 
+            // Отримуємо значення з інпутів
+            const origin = document.getElementById('originInput').value;
+            const destination = document.getElementById('destinationInput').value;
+
             setTimeout(function() {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-search"></i> Пошук квитків';
-                showToast('🔍 Пошук виконано!', 'success');
+                showToast(`🔍 Пошук квитків: ${origin} → ${destination}`, 'success');
             }, 1500);
         });
 
         // ============================
-        // 12. ПАСАЖИРИ
+        // 13. ПАСАЖИРИ
         // ============================
         const passengerToggle = document.getElementById('passengerToggle');
         const passengerDropdown = document.getElementById('passengerDropdown');
@@ -2402,7 +2593,7 @@
         }
 
         // ============================
-        // 13. ТИП ПОДОРОЖІ
+        // 14. ТИП ПОДОРОЖІ
         // ============================
         const tripOptions = document.querySelectorAll('.trip-option input[type="radio"]');
         const returnDateGroup = document.getElementById('returnDateGroup');
@@ -2423,7 +2614,7 @@
         });
 
         // ============================
-        // 14. ДАТИ
+        // 15. ДАТИ
         // ============================
         (function setDefaultDates() {
             const today = new Date();
@@ -2447,8 +2638,13 @@
         })();
 
         // ============================
-        // 15. ІНІЦІАЛІЗАЦІЯ
+        // 16. ІНІЦІАЛІЗАЦІЯ
         // ============================
+
+        // Створюємо автокомплети після завантаження DOM
+        createAutocomplete('originInput', 'originAutocompleteList', 'origin');
+        createAutocomplete('destinationInput', 'destinationAutocompleteList', 'destination');
+
         renderNav();
 
         setTimeout(function() {
