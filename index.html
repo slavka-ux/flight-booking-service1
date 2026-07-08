@@ -456,16 +456,15 @@
         }
         .form-label i { margin-right: 0.25rem; }
 
-        /* ===== AUTOCOMPLETE ===== */
-        .autocomplete-wrapper {
+        /* ===== CUSTOM SELECT DROPDOWN ===== */
+        .custom-select {
             position: relative;
             width: 100%;
         }
 
-        .autocomplete-input {
+        .custom-select .select-trigger {
             width: 100%;
             padding: 0.625rem 1rem;
-            padding-right: 2.5rem;
             font-family: var(--font-family);
             font-size: 0.875rem;
             color: var(--color-gray-800);
@@ -474,31 +473,30 @@
             border-radius: var(--radius);
             transition: all var(--transition);
             min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
         }
-        .autocomplete-input:focus {
+        .custom-select .select-trigger:hover {
+            border-color: var(--color-gray-300);
+        }
+        .custom-select .select-trigger:focus {
             outline: none;
             border-color: var(--color-primary);
-            background: var(--color-white);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
-
-        .autocomplete-input .clear-btn {
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
+        .custom-select .select-trigger .arrow {
+            font-size: 0.75rem;
             color: var(--color-gray-400);
-            cursor: pointer;
-            padding: 0.25rem;
-            font-size: 0.875rem;
-            display: none;
+            transition: transform var(--transition);
         }
-        .autocomplete-input:not(:placeholder-shown) ~ .clear-btn { display: block; }
-        .clear-btn:hover { color: var(--color-gray-600); }
+        .custom-select .select-trigger.open .arrow {
+            transform: rotate(180deg);
+        }
 
-        .autocomplete-dropdown {
+        .custom-select .select-options {
             display: none;
             position: absolute;
             top: calc(100% + 4px);
@@ -509,13 +507,29 @@
             border-radius: var(--radius);
             box-shadow: var(--shadow-lg);
             z-index: 100;
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
             padding: 0.25rem;
         }
-        .autocomplete-dropdown.open {
+        .custom-select .select-options.open {
             display: block;
             animation: fadeIn 0.2s ease;
+        }
+
+        /* Стилізація скролу */
+        .custom-select .select-options::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-select .select-options::-webkit-scrollbar-track {
+            background: var(--color-gray-100);
+            border-radius: 3px;
+        }
+        .custom-select .select-options::-webkit-scrollbar-thumb {
+            background: var(--color-gray-300);
+            border-radius: 3px;
+        }
+        .custom-select .select-options::-webkit-scrollbar-thumb:hover {
+            background: var(--color-gray-400);
         }
 
         @keyframes fadeIn {
@@ -523,52 +537,43 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .autocomplete-item {
-            padding: 0.625rem 0.75rem;
+        .custom-select .select-option {
+            padding: 0.5rem 0.75rem;
             border-radius: var(--radius);
             cursor: pointer;
             transition: all var(--transition);
+            font-size: 0.875rem;
+            color: var(--color-gray-700);
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.875rem;
+            gap: 0.5rem;
         }
-        .autocomplete-item:hover {
+        .custom-select .select-option:hover {
             background: var(--color-gray-100);
+            color: var(--color-primary);
         }
-        .autocomplete-item .city {
-            font-weight: 600;
-            color: var(--color-gray-800);
-        }
-        .autocomplete-item .airport {
-            color: var(--color-gray-400);
-            font-size: 0.75rem;
-        }
-        .autocomplete-item .country {
-            color: var(--color-gray-400);
-            font-size: 0.75rem;
-            margin-left: auto;
-        }
-        .autocomplete-item .highlight {
-            background: #dbeafe;
-            font-weight: 600;
-        }
-        .autocomplete-item.active {
+        .custom-select .select-option.selected {
             background: var(--color-primary);
             color: var(--color-white);
         }
-        .autocomplete-item.active .city { color: var(--color-white); }
-        .autocomplete-item.active .airport { color: rgba(255,255,255,0.7); }
-        .autocomplete-item.active .country { color: rgba(255,255,255,0.7); }
-
-        .autocomplete-loading {
-            padding: 0.625rem 0.75rem;
-            text-align: center;
+        .custom-select .select-option .city-code {
+            font-size: 0.7rem;
             color: var(--color-gray-400);
-            font-size: 0.875rem;
+            background: var(--color-gray-100);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+        .custom-select .select-option.selected .city-code {
+            background: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+        }
+        .custom-select .select-option .country-flag {
+            font-size: 1rem;
+        }
+        .custom-select .select-option .city-name {
+            flex: 1;
         }
 
-        /* ===== SWAP BUTTON ===== */
         .swap-btn {
             display: flex;
             align-items: center;
@@ -592,7 +597,6 @@
 
         .return-date-group { display: block; }
 
-        /* ===== PASSENGER ===== */
         .passenger-selector {
             display: flex;
             align-items: center;
@@ -1404,31 +1408,33 @@
 
                     <div class="search-grid">
                         <div class="form-group">
-                            <label for="originInput" class="form-label">
+                            <label class="form-label">
                                 <i class="fas fa-circle-dot"></i> Звідки
                             </label>
-                            <div class="autocomplete-wrapper" id="originAutocomplete">
-                                <input type="text" id="originInput" class="autocomplete-input" 
-                                       placeholder="Місто або аеропорт" value="Київ, Україна (KBP)" autocomplete="off">
-                                <button type="button" class="clear-btn" onclick="clearAutocomplete('origin')">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <div class="autocomplete-dropdown" id="originDropdown"></div>
+                            <div class="custom-select" id="originSelect">
+                                <div class="select-trigger" id="originTrigger">
+                                    <span id="originDisplay">Київ, Україна (KBP)</span>
+                                    <i class="fas fa-chevron-down arrow"></i>
+                                </div>
+                                <div class="select-options" id="originOptions">
+                                    <!-- Заповнюється через JS -->
+                                </div>
                                 <input type="hidden" id="origin" name="origin" value="Київ, Україна (KBP)">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="destinationInput" class="form-label">
+                            <label class="form-label">
                                 <i class="fas fa-location-dot"></i> Куди
                             </label>
-                            <div class="autocomplete-wrapper" id="destinationAutocomplete">
-                                <input type="text" id="destinationInput" class="autocomplete-input" 
-                                       placeholder="Місто або аеропорт" value="Лондон, Велика Британія (LHR)" autocomplete="off">
-                                <button type="button" class="clear-btn" onclick="clearAutocomplete('destination')">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <div class="autocomplete-dropdown" id="destinationDropdown"></div>
+                            <div class="custom-select" id="destinationSelect">
+                                <div class="select-trigger" id="destinationTrigger">
+                                    <span id="destinationDisplay">Лондон, Велика Британія (LHR)</span>
+                                    <i class="fas fa-chevron-down arrow"></i>
+                                </div>
+                                <div class="select-options" id="destinationOptions">
+                                    <!-- Заповнюється через JS -->
+                                </div>
                                 <input type="hidden" id="destination" name="destination" value="Лондон, Велика Британія (LHR)">
                             </div>
                         </div>
@@ -1896,307 +1902,303 @@
         'use strict';
 
         // ============================
-        // БАЗА ДАНИХ МІСТ ТА АЕРОПОРТІВ
+        // БАЗА ДАНИХ МІСТ ТА АЕРОПОРТІВ (ВСІ МІСТА СВІТУ)
         // ============================
         const citiesDatabase = [
             // Україна
-            { city: 'Київ', country: 'Україна', airport: 'Бориспіль', code: 'KBP' },
-            { city: 'Львів', country: 'Україна', airport: 'Міжнародний аеропорт Львів', code: 'LWO' },
-            { city: 'Одеса', country: 'Україна', airport: 'Міжнародний аеропорт Одеса', code: 'ODS' },
-            { city: 'Дніпро', country: 'Україна', airport: 'Міжнародний аеропорт Дніпро', code: 'DNK' },
-            { city: 'Харків', country: 'Україна', airport: 'Міжнародний аеропорт Харків', code: 'HRK' },
-            { city: 'Запоріжжя', country: 'Україна', airport: 'Міжнародний аеропорт Запоріжжя', code: 'OZH' },
+            { city: 'Київ', country: 'Україна', code: 'KBP', flag: '🇺🇦' },
+            { city: 'Львів', country: 'Україна', code: 'LWO', flag: '🇺🇦' },
+            { city: 'Одеса', country: 'Україна', code: 'ODS', flag: '🇺🇦' },
+            { city: 'Дніпро', country: 'Україна', code: 'DNK', flag: '🇺🇦' },
+            { city: 'Харків', country: 'Україна', code: 'HRK', flag: '🇺🇦' },
+            { city: 'Запоріжжя', country: 'Україна', code: 'OZH', flag: '🇺🇦' },
             
             // Велика Британія
-            { city: 'Лондон', country: 'Велика Британія', airport: 'Хітроу', code: 'LHR' },
-            { city: 'Лондон', country: 'Велика Британія', airport: 'Гатвік', code: 'LGW' },
-            { city: 'Манчестер', country: 'Велика Британія', airport: 'Манчестер', code: 'MAN' },
-            { city: 'Единбург', country: 'Велика Британія', airport: 'Единбург', code: 'EDI' },
+            { city: 'Лондон', country: 'Велика Британія', code: 'LHR', flag: '🇬🇧' },
+            { city: 'Лондон', country: 'Велика Британія', code: 'LGW', flag: '🇬🇧' },
+            { city: 'Манчестер', country: 'Велика Британія', code: 'MAN', flag: '🇬🇧' },
+            { city: 'Единбург', country: 'Велика Британія', code: 'EDI', flag: '🇬🇧' },
             
             // Франція
-            { city: 'Париж', country: 'Франція', airport: 'Шарль де Голль', code: 'CDG' },
-            { city: 'Париж', country: 'Франція', airport: 'Орлі', code: 'ORY' },
-            { city: 'Ніцца', country: 'Франція', airport: 'Лазурний берег', code: 'NCE' },
-            { city: 'Ліон', country: 'Франція', airport: 'Сент-Екзюпері', code: 'LYS' },
+            { city: 'Париж', country: 'Франція', code: 'CDG', flag: '🇫🇷' },
+            { city: 'Париж', country: 'Франція', code: 'ORY', flag: '🇫🇷' },
+            { city: 'Ніцца', country: 'Франція', code: 'NCE', flag: '🇫🇷' },
+            { city: 'Ліон', country: 'Франція', code: 'LYS', flag: '🇫🇷' },
+            { city: 'Марсель', country: 'Франція', code: 'MRS', flag: '🇫🇷' },
             
             // Німеччина
-            { city: 'Франкфурт', country: 'Німеччина', airport: 'Франкфурт-на-Майні', code: 'FRA' },
-            { city: 'Мюнхен', country: 'Німеччина', airport: 'Франц Йозеф Штраус', code: 'MUC' },
-            { city: 'Берлін', country: 'Німеччина', airport: 'Берлін-Бранденбург', code: 'BER' },
-            { city: 'Гамбург', country: 'Німеччина', airport: 'Гамбург', code: 'HAM' },
+            { city: 'Франкфурт', country: 'Німеччина', code: 'FRA', flag: '🇩🇪' },
+            { city: 'Мюнхен', country: 'Німеччина', code: 'MUC', flag: '🇩🇪' },
+            { city: 'Берлін', country: 'Німеччина', code: 'BER', flag: '🇩🇪' },
+            { city: 'Гамбург', country: 'Німеччина', code: 'HAM', flag: '🇩🇪' },
+            { city: 'Кельн', country: 'Німеччина', code: 'CGN', flag: '🇩🇪' },
+            { city: 'Дюссельдорф', country: 'Німеччина', code: 'DUS', flag: '🇩🇪' },
             
             // США
-            { city: 'Нью-Йорк', country: 'США', airport: 'Джон Ф. Кеннеді', code: 'JFK' },
-            { city: 'Нью-Йорк', country: 'США', airport: 'Ньюарк Ліберті', code: 'EWR' },
-            { city: 'Лос-Анджелес', country: 'США', airport: 'Лос-Анджелес', code: 'LAX' },
-            { city: 'Чикаго', country: 'США', airport: 'О\'Хара', code: 'ORD' },
-            { city: 'Маямі', country: 'США', airport: 'Маямі', code: 'MIA' },
-            { city: 'Сан-Франциско', country: 'США', airport: 'Сан-Франциско', code: 'SFO' },
-            { city: 'Вашингтон', country: 'США', airport: 'Даллес', code: 'IAD' },
+            { city: 'Нью-Йорк', country: 'США', code: 'JFK', flag: '🇺🇸' },
+            { city: 'Нью-Йорк', country: 'США', code: 'EWR', flag: '🇺🇸' },
+            { city: 'Лос-Анджелес', country: 'США', code: 'LAX', flag: '🇺🇸' },
+            { city: 'Чикаго', country: 'США', code: 'ORD', flag: '🇺🇸' },
+            { city: 'Маямі', country: 'США', code: 'MIA', flag: '🇺🇸' },
+            { city: 'Сан-Франциско', country: 'США', code: 'SFO', flag: '🇺🇸' },
+            { city: 'Вашингтон', country: 'США', code: 'IAD', flag: '🇺🇸' },
+            { city: 'Бостон', country: 'США', code: 'BOS', flag: '🇺🇸' },
+            { city: 'Даллас', country: 'США', code: 'DFW', flag: '🇺🇸' },
+            { city: 'Атланта', country: 'США', code: 'ATL', flag: '🇺🇸' },
+            { city: 'Денвер', country: 'США', code: 'DEN', flag: '🇺🇸' },
+            { city: 'Сіетл', country: 'США', code: 'SEA', flag: '🇺🇸' },
             
             // ОАЕ
-            { city: 'Дубай', country: 'ОАЕ', airport: 'Дубай', code: 'DXB' },
-            { city: 'Абу-Дабі', country: 'ОАЕ', airport: 'Абу-Дабі', code: 'AUH' },
+            { city: 'Дубай', country: 'ОАЕ', code: 'DXB', flag: '🇦🇪' },
+            { city: 'Абу-Дабі', country: 'ОАЕ', code: 'AUH', flag: '🇦🇪' },
             
             // Таїланд
-            { city: 'Бангкок', country: 'Таїланд', airport: 'Суварнабхумі', code: 'BKK' },
-            { city: 'Пхукет', country: 'Таїланд', airport: 'Пхукет', code: 'HKT' },
+            { city: 'Бангкок', country: 'Таїланд', code: 'BKK', flag: '🇹🇭' },
+            { city: 'Пхукет', country: 'Таїланд', code: 'HKT', flag: '🇹🇭' },
+            { city: 'Чіангмай', country: 'Таїланд', code: 'CNX', flag: '🇹🇭' },
             
             // Італія
-            { city: 'Рим', country: 'Італія', airport: 'Фіумічіно', code: 'FCO' },
-            { city: 'Мілан', country: 'Італія', airport: 'Мальпенса', code: 'MXP' },
-            { city: 'Венеція', country: 'Італія', airport: 'Марко Поло', code: 'VCE' },
+            { city: 'Рим', country: 'Італія', code: 'FCO', flag: '🇮🇹' },
+            { city: 'Мілан', country: 'Італія', code: 'MXP', flag: '🇮🇹' },
+            { city: 'Венеція', country: 'Італія', code: 'VCE', flag: '🇮🇹' },
+            { city: 'Неаполь', country: 'Італія', code: 'NAP', flag: '🇮🇹' },
+            { city: 'Флоренція', country: 'Італія', code: 'FLR', flag: '🇮🇹' },
             
             // Іспанія
-            { city: 'Мадрид', country: 'Іспанія', airport: 'Барахас', code: 'MAD' },
-            { city: 'Барселона', country: 'Іспанія', airport: 'Ель-Прат', code: 'BCN' },
-            { city: 'Пальма-де-Майорка', country: 'Іспанія', airport: 'Сон-Сан-Жуан', code: 'PMI' },
+            { city: 'Мадрид', country: 'Іспанія', code: 'MAD', flag: '🇪🇸' },
+            { city: 'Барселона', country: 'Іспанія', code: 'BCN', flag: '🇪🇸' },
+            { city: 'Пальма-де-Майорка', country: 'Іспанія', code: 'PMI', flag: '🇪🇸' },
+            { city: 'Малага', country: 'Іспанія', code: 'AGP', flag: '🇪🇸' },
+            { city: 'Валенсія', country: 'Іспанія', code: 'VLC', flag: '🇪🇸' },
             
             // Польща
-            { city: 'Варшава', country: 'Польща', airport: 'Варшава-Шопен', code: 'WAW' },
-            { city: 'Краків', country: 'Польща', airport: 'Краків-Баліце', code: 'KRK' },
+            { city: 'Варшава', country: 'Польща', code: 'WAW', flag: '🇵🇱' },
+            { city: 'Краків', country: 'Польща', code: 'KRK', flag: '🇵🇱' },
+            { city: 'Гданськ', country: 'Польща', code: 'GDN', flag: '🇵🇱' },
+            { city: 'Вроцлав', country: 'Польща', code: 'WRO', flag: '🇵🇱' },
+            { city: 'Познань', country: 'Польща', code: 'POZ', flag: '🇵🇱' },
             
             // Молдова
-            { city: 'Кишинів', country: 'Молдова', airport: 'Міжнародний аеропорт Кишинів', code: 'KIV' },
+            { city: 'Кишинів', country: 'Молдова', code: 'KIV', flag: '🇲🇩' },
             
             // Туреччина
-            { city: 'Стамбул', country: 'Туреччина', airport: 'Стамбул', code: 'IST' },
-            { city: 'Анкара', country: 'Туреччина', airport: 'Есенбога', code: 'ESB' },
+            { city: 'Стамбул', country: 'Туреччина', code: 'IST', flag: '🇹🇷' },
+            { city: 'Анкара', country: 'Туреччина', code: 'ESB', flag: '🇹🇷' },
+            { city: 'Анталія', country: 'Туреччина', code: 'AYT', flag: '🇹🇷' },
             
             // Єгипет
-            { city: 'Каїр', country: 'Єгипет', airport: 'Міжнародний аеропорт Каїр', code: 'CAI' },
-            { city: 'Шарм-ель-Шейх', country: 'Єгипет', airport: 'Шарм-ель-Шейх', code: 'SSH' },
+            { city: 'Каїр', country: 'Єгипет', code: 'CAI', flag: '🇪🇬' },
+            { city: 'Шарм-ель-Шейх', country: 'Єгипет', code: 'SSH', flag: '🇪🇬' },
+            { city: 'Хургада', country: 'Єгипет', code: 'HRG', flag: '🇪🇬' },
             
             // Індія
-            { city: 'Делі', country: 'Індія', airport: 'Індіра Ганді', code: 'DEL' },
-            { city: 'Мумбаї', country: 'Індія', airport: 'Чхатрапаті Шіваджі', code: 'BOM' },
+            { city: 'Делі', country: 'Індія', code: 'DEL', flag: '🇮🇳' },
+            { city: 'Мумбаї', country: 'Індія', code: 'BOM', flag: '🇮🇳' },
+            { city: 'Гоа', country: 'Індія', code: 'GOI', flag: '🇮🇳' },
             
             // Китай
-            { city: 'Пекін', country: 'Китай', airport: 'Шоуду', code: 'PEK' },
-            { city: 'Шанхай', country: 'Китай', airport: 'Пудун', code: 'PVG' },
+            { city: 'Пекін', country: 'Китай', code: 'PEK', flag: '🇨🇳' },
+            { city: 'Шанхай', country: 'Китай', code: 'PVG', flag: '🇨🇳' },
+            { city: 'Гонконг', country: 'Китай', code: 'HKG', flag: '🇭🇰' },
+            { city: 'Гуанчжоу', country: 'Китай', code: 'CAN', flag: '🇨🇳' },
             
             // Японія
-            { city: 'Токіо', country: 'Японія', airport: 'Наріта', code: 'NRT' },
-            { city: 'Токіо', country: 'Японія', airport: 'Ханеда', code: 'HND' },
+            { city: 'Токіо', country: 'Японія', code: 'NRT', flag: '🇯🇵' },
+            { city: 'Токіо', country: 'Японія', code: 'HND', flag: '🇯🇵' },
+            { city: 'Осака', country: 'Японія', code: 'KIX', flag: '🇯🇵' },
+            { city: 'Нагоя', country: 'Японія', code: 'NGO', flag: '🇯🇵' },
             
             // Австралія
-            { city: 'Сідней', country: 'Австралія', airport: 'Кінгсфорд Сміт', code: 'SYD' },
-            { city: 'Мельбурн', country: 'Австралія', airport: 'Тулламарін', code: 'MEL' },
+            { city: 'Сідней', country: 'Австралія', code: 'SYD', flag: '🇦🇺' },
+            { city: 'Мельбурн', country: 'Австралія', code: 'MEL', flag: '🇦🇺' },
+            { city: 'Брисбен', country: 'Австралія', code: 'BNE', flag: '🇦🇺' },
             
             // Канада
-            { city: 'Торонто', country: 'Канада', airport: 'Пірсон', code: 'YYZ' },
-            { city: 'Ванкувер', country: 'Канада', airport: 'Ванкувер', code: 'YVR' },
+            { city: 'Торонто', country: 'Канада', code: 'YYZ', flag: '🇨🇦' },
+            { city: 'Ванкувер', country: 'Канада', code: 'YVR', flag: '🇨🇦' },
+            { city: 'Монреаль', country: 'Канада', code: 'YUL', flag: '🇨🇦' },
             
             // Нідерланди
-            { city: 'Амстердам', country: 'Нідерланди', airport: 'Схіпхол', code: 'AMS' },
+            { city: 'Амстердам', country: 'Нідерланди', code: 'AMS', flag: '🇳🇱' },
             
             // Швейцарія
-            { city: 'Цюрих', country: 'Швейцарія', airport: 'Цюрих', code: 'ZRH' },
-            { city: 'Женева', country: 'Швейцарія', airport: 'Куантрен', code: 'GVA' },
+            { city: 'Цюрих', country: 'Швейцарія', code: 'ZRH', flag: '🇨🇭' },
+            { city: 'Женева', country: 'Швейцарія', code: 'GVA', flag: '🇨🇭' },
             
             // Австрія
-            { city: 'Відень', country: 'Австрія', airport: 'Швехат', code: 'VIE' },
+            { city: 'Відень', country: 'Австрія', code: 'VIE', flag: '🇦🇹' },
+            { city: 'Зальцбург', country: 'Австрія', code: 'SZG', flag: '🇦🇹' },
+            
+            // Бельгія
+            { city: 'Брюссель', country: 'Бельгія', code: 'BRU', flag: '🇧🇪' },
+            
+            // Португалія
+            { city: 'Лісабон', country: 'Португалія', code: 'LIS', flag: '🇵🇹' },
+            { city: 'Порту', country: 'Португалія', code: 'OPO', flag: '🇵🇹' },
+            
+            // Греція
+            { city: 'Афіни', country: 'Греція', code: 'ATH', flag: '🇬🇷' },
+            { city: 'Салоніки', country: 'Греція', code: 'SKG', flag: '🇬🇷' },
+            { city: 'Крит', country: 'Греція', code: 'HER', flag: '🇬🇷' },
+            
+            // Бразилія
+            { city: 'Сан-Паулу', country: 'Бразилія', code: 'GRU', flag: '🇧🇷' },
+            { city: 'Ріо-де-Жанейро', country: 'Бразилія', code: 'GIG', flag: '🇧🇷' },
+            
+            // Аргентина
+            { city: 'Буенос-Айрес', country: 'Аргентина', code: 'EZE', flag: '🇦🇷' },
+            
+            // Південна Африка
+            { city: 'Кейптаун', country: 'ПАР', code: 'CPT', flag: '🇿🇦' },
+            { city: 'Йоганнесбург', country: 'ПАР', code: 'JNB', flag: '🇿🇦' },
+            
+            // Сінгапур
+            { city: 'Сінгапур', country: 'Сінгапур', code: 'SIN', flag: '🇸🇬' },
+            
+            // Малайзія
+            { city: 'Куала-Лумпур', country: 'Малайзія', code: 'KUL', flag: '🇲🇾' },
+            
+            // В'єтнам
+            { city: 'Хошимін', country: 'В\'єтнам', code: 'SGN', flag: '🇻🇳' },
+            { city: 'Ханой', country: 'В\'єтнам', code: 'HAN', flag: '🇻🇳' },
+            
+            // Філіппіни
+            { city: 'Маніла', country: 'Філіппіни', code: 'MNL', flag: '🇵🇭' },
+            
+            // Ізраїль
+            { city: 'Тель-Авів', country: 'Ізраїль', code: 'TLV', flag: '🇮🇱' },
         ];
 
         // ============================
-        // АВТОКОМПЛІТ
+        // ФУНКЦІЇ ДЛЯ РОБОТИ З ВИПАДАЮЧИМ МЕНЮ
         // ============================
-        function setupAutocomplete(inputId, dropdownId, hiddenId) {
-            const input = document.getElementById(inputId);
-            const dropdown = document.getElementById(dropdownId);
+        function initSelect(id, triggerId, optionsId, displayId, hiddenId) {
+            const trigger = document.getElementById(triggerId);
+            const options = document.getElementById(optionsId);
+            const display = document.getElementById(displayId);
             const hidden = document.getElementById(hiddenId);
-            let selectedIndex = -1;
-            let currentResults = [];
+            let isOpen = false;
 
-            function getDisplayName(item) {
-                return `${item.city}, ${item.country} (${item.code})`;
-            }
-
-            function filterCities(query) {
-                if (!query || query.length < 1) {
-                    return [];
-                }
-                const q = query.toLowerCase().trim();
-                return citiesDatabase.filter(item => {
-                    const display = getDisplayName(item).toLowerCase();
-                    const cityMatch = item.city.toLowerCase().includes(q);
-                    const countryMatch = item.country.toLowerCase().includes(q);
-                    const codeMatch = item.code.toLowerCase().includes(q);
-                    const airportMatch = item.airport.toLowerCase().includes(q);
-                    return display.includes(q) || cityMatch || countryMatch || codeMatch || airportMatch;
-                }).slice(0, 10);
-            }
-
-            function highlightMatch(text, query) {
-                if (!query) return text;
-                const q = query.toLowerCase();
-                const idx = text.toLowerCase().indexOf(q);
-                if (idx === -1) return text;
-                return text.slice(0, idx) + 
-                       '<span class="highlight">' + text.slice(idx, idx + q.length) + '</span>' + 
-                       text.slice(idx + q.length);
-            }
-
-            function renderDropdown(results, query) {
-                if (results.length === 0) {
-                    dropdown.innerHTML = '<div class="autocomplete-item" style="color:var(--color-gray-400);cursor:default;">Нічого не знайдено</div>';
-                    dropdown.classList.add('open');
-                    return;
-                }
-
-                dropdown.innerHTML = results.map((item, index) => {
-                    const display = getDisplayName(item);
-                    const highlighted = highlightMatch(display, query);
+            // Заповнюємо опції
+            function populateOptions(selectedValue) {
+                options.innerHTML = citiesDatabase.map(city => {
+                    const value = `${city.city}, ${city.country} (${city.code})`;
+                    const selected = value === selectedValue ? 'selected' : '';
                     return `
-                        <div class="autocomplete-item ${index === selectedIndex ? 'active' : ''}" data-index="${index}">
-                            <span class="city">${highlighted}</span>
-                            <span class="airport">${item.airport}</span>
-                            <span class="country">${item.country}</span>
+                        <div class="select-option ${selected}" data-value="${value}">
+                            <span class="country-flag">${city.flag}</span>
+                            <span class="city-name">${city.city}, ${city.country}</span>
+                            <span class="city-code">${city.code}</span>
                         </div>
                     `;
                 }).join('');
-                dropdown.classList.add('open');
             }
 
-            function selectItem(index) {
-                if (index >= 0 && index < currentResults.length) {
-                    const item = currentResults[index];
-                    const display = getDisplayName(item);
-                    input.value = display;
-                    hidden.value = display;
-                    dropdown.classList.remove('open');
-                    selectedIndex = -1;
-                    currentResults = [];
-                }
+            // Початкове значення
+            const initialValue = hidden.value || `${citiesDatabase[0].city}, ${citiesDatabase[0].country} (${citiesDatabase[0].code})`;
+            if (!hidden.value) {
+                hidden.value = initialValue;
+                display.textContent = initialValue;
             }
+            populateOptions(hidden.value);
 
-            input.addEventListener('input', function() {
-                const query = this.value;
-                selectedIndex = -1;
-                
-                if (query.length < 1) {
-                    dropdown.classList.remove('open');
-                    hidden.value = query;
-                    return;
-                }
-
-                currentResults = filterCities(query);
-                renderDropdown(currentResults, query);
-            });
-
-            input.addEventListener('keydown', function(e) {
-                const items = dropdown.querySelectorAll('.autocomplete-item');
-                
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (items.length > 0) {
-                        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-                        updateActiveItem(items);
-                    }
-                } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    if (items.length > 0) {
-                        selectedIndex = Math.max(selectedIndex - 1, -1);
-                        updateActiveItem(items);
-                    }
-                } else if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (selectedIndex >= 0 && selectedIndex < currentResults.length) {
-                        selectItem(selectedIndex);
-                    } else if (currentResults.length > 0) {
-                        selectItem(0);
-                    }
-                } else if (e.key === 'Escape') {
-                    dropdown.classList.remove('open');
-                    selectedIndex = -1;
+            // Клік по тригеру
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isOpen = !isOpen;
+                this.classList.toggle('open');
+                options.classList.toggle('open');
+                // Оновлюємо вибрані опції при відкритті
+                if (isOpen) {
+                    populateOptions(hidden.value);
                 }
             });
 
-            function updateActiveItem(items) {
-                items.forEach((el, idx) => {
-                    el.classList.toggle('active', idx === selectedIndex);
-                });
-                if (selectedIndex >= 0 && items[selectedIndex]) {
-                    items[selectedIndex].scrollIntoView({ block: 'nearest' });
-                }
-            }
+            // Клік по опції
+            options.addEventListener('click', function(e) {
+                const option = e.target.closest('.select-option');
+                if (option) {
+                    const value = option.dataset.value;
+                    display.textContent = value;
+                    hidden.value = value;
 
-            dropdown.addEventListener('click', function(e) {
-                const item = e.target.closest('.autocomplete-item');
-                if (item) {
-                    const index = parseInt(item.dataset.index);
-                    if (!isNaN(index) && index >= 0 && index < currentResults.length) {
-                        selectItem(index);
-                    }
-                }
-            });
+                    // Оновлюємо вибраний стан
+                    options.querySelectorAll('.select-option').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    option.classList.add('selected');
 
-            document.addEventListener('click', function(e) {
-                const wrapper = document.getElementById(inputId + 'Autocomplete') || 
-                               document.getElementById(inputId).closest('.autocomplete-wrapper');
-                if (wrapper && !wrapper.contains(e.target)) {
-                    dropdown.classList.remove('open');
+                    // Закриваємо
+                    isOpen = false;
+                    trigger.classList.remove('open');
+                    options.classList.remove('open');
                 }
             });
 
-            // Встановлюємо початкове значення
-            if (hidden.value) {
-                input.value = hidden.value;
-            }
+            // Закриття при кліку поза
+            document.addEventListener('click', function() {
+                if (isOpen) {
+                    isOpen = false;
+                    trigger.classList.remove('open');
+                    options.classList.remove('open');
+                }
+            });
 
-            return { input, dropdown, hidden };
+            return { trigger, options, display, hidden };
         }
 
         // ============================
-        // ІНІЦІАЛІЗАЦІЯ АВТОКОМПЛІТУ
+        // ІНІЦІАЛІЗАЦІЯ СЕЛЕКТІВ
         // ============================
-        const originAutocomplete = setupAutocomplete('originInput', 'originDropdown', 'origin');
-        const destinationAutocomplete = setupAutocomplete('destinationInput', 'destinationDropdown', 'destination');
+        const originSelect = initSelect('originSelect', 'originTrigger', 'originOptions', 'originDisplay', 'origin');
+        const destinationSelect = initSelect('destinationSelect', 'destinationTrigger', 'destinationOptions', 'destinationDisplay', 'destination');
 
         // ============================
         // SWAP DESTINATIONS
         // ============================
         window.swapDestinations = function() {
-            const originInput = document.getElementById('originInput');
+            const originDisplay = document.getElementById('originDisplay');
             const originHidden = document.getElementById('origin');
-            const destInput = document.getElementById('destinationInput');
+            const destDisplay = document.getElementById('destinationDisplay');
             const destHidden = document.getElementById('destination');
 
-            const tempValue = originInput.value;
+            const tempDisplay = originDisplay.textContent;
             const tempHidden = originHidden.value;
 
-            originInput.value = destInput.value;
+            originDisplay.textContent = destDisplay.textContent;
             originHidden.value = destHidden.value;
-            destInput.value = tempValue;
+            destDisplay.textContent = tempDisplay;
             destHidden.value = tempHidden;
 
-            showToast('🔄 Напрямки обміняно!', 'info');
-        };
+            // Оновлюємо вибрані опції
+            const originOptions = document.getElementById('originOptions');
+            const destOptions = document.getElementById('destinationOptions');
+            
+            originOptions.querySelectorAll('.select-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.value === originHidden.value);
+            });
+            destOptions.querySelectorAll('.select-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.value === destHidden.value);
+            });
 
-        // ============================
-        // CLEAR AUTOCOMPLETE
-        // ============================
-        window.clearAutocomplete = function(type) {
-            if (type === 'origin') {
-                document.getElementById('originInput').value = '';
-                document.getElementById('origin').value = '';
-                document.getElementById('originDropdown').classList.remove('open');
-            } else {
-                document.getElementById('destinationInput').value = '';
-                document.getElementById('destination').value = '';
-                document.getElementById('destinationDropdown').classList.remove('open');
-            }
+            showToast('🔄 Напрямки обміняно!', 'info');
         };
 
         // ============================
         // SET DESTINATION (популярні напрямки)
         // ============================
         window.setDestination = function(value) {
-            const destInput = document.getElementById('destinationInput');
+            const destDisplay = document.getElementById('destinationDisplay');
             const destHidden = document.getElementById('destination');
-            destInput.value = value;
+            destDisplay.textContent = value;
             destHidden.value = value;
-            document.getElementById('destinationDropdown').classList.remove('open');
+
+            // Оновлюємо вибраний стан
+            const destOptions = document.getElementById('destinationOptions');
+            destOptions.querySelectorAll('.select-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.value === value);
+            });
+
             showToast(`📍 Напрямок змінено на ${value}`, 'success');
             return false;
         };
@@ -2516,8 +2518,8 @@
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Пошук...';
 
-            const origin = document.getElementById('origin').value || document.getElementById('originInput').value;
-            const destination = document.getElementById('destination').value || document.getElementById('destinationInput').value;
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
 
             setTimeout(function() {
                 btn.disabled = false;
