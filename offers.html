@@ -184,7 +184,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+            padding: 0.25rem 0.75rem 0.25rem 0.25rem;
             border-radius: var(--radius-full);
             background: var(--color-gray-100);
             border: none;
@@ -607,6 +607,79 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-gray-700);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: var(--color-white);
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-gray-200);
+            box-shadow: var(--shadow-lg);
+            position: absolute;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .mobile-menu ul li a,
+        .mobile-menu ul li button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0;
+            color: var(--color-gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            width: 100%;
+            font-family: var(--font-family);
+        }
+        .mobile-menu ul li a:hover,
+        .mobile-menu ul li button:hover {
+            color: var(--color-primary);
+        }
+
         .footer {
             background: var(--color-gray-900);
             color: rgba(255,255,255,0.7);
@@ -646,6 +719,9 @@
         }
 
         @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: flex; }
+
             .offers-page .offers-grid { grid-template-columns: 1fr; }
             .offers-page .offer-image { height: 180px; }
 
@@ -683,10 +759,10 @@
             </a>
 
             <ul class="nav-links">
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="offers.html" style="color: var(--color-primary); font-weight: 700;">Всі пропозиції</a></li>
-                <li><a href="index.html#features">Переваги</a></li>
-                <li><a href="index.html#testimonials">Відгуки</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                <li><a href="offers.html" style="color: var(--color-primary); font-weight: 700;"><i class="fas fa-tags"></i> Всі пропозиції</a></li>
+                <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                 <li class="nav-auth" id="navAuth"></li>
             </ul>
 
@@ -893,7 +969,7 @@
                 <div class="user-dropdown-wrapper">
                     <button class="user-menu-btn" id="userMenuBtn">
                         <span class="avatar">${initials}</span>
-                        ${user.firstName}
+                        <span>${user.firstName}</span>
                         <i class="fas fa-chevron-down chevron"></i>
                     </button>
                     <div class="user-dropdown" id="userDropdown">
@@ -924,19 +1000,19 @@
             `;
 
             mobileNav.innerHTML = `
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="offers.html">Всі пропозиції</a></li>
-                <li><a href="index.html#features">Переваги</a></li>
-                <li><a href="index.html#testimonials">Відгуки</a></li>
-                <li><a href="profile.html">Мій профіль</a></li>
-                <li><a href="bookings.html">Мої бронювання</a></li>
-                <li><a href="edit-profile.html">Редагувати профіль</a></li>
-                <li><a href="bonus.html">Бонуси</a></li>
-                <li><a href="settings.html">Налаштування</a></li>
-                <li><a href="help.html">Допомога</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                <li><a href="offers.html"><i class="fas fa-tags"></i> Всі пропозиції</a></li>
+                <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
+                <li><a href="bookings.html"><i class="fas fa-ticket-alt"></i> Мої бронювання</a></li>
+                <li><a href="edit-profile.html"><i class="fas fa-user-edit"></i> Редагувати профіль</a></li>
+                <li><a href="bonus.html"><i class="fas fa-gift"></i> Бонуси</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Налаштування</a></li>
+                <li><a href="help.html"><i class="fas fa-question-circle"></i> Допомога</a></li>
                 <li>
                     <button class="btn btn-danger btn-block" onclick="handleLogout()">
-                        Вийти
+                        <i class="fas fa-sign-out-alt"></i> Вийти
                     </button>
                 </li>
             `;
@@ -970,18 +1046,18 @@
             `;
 
             mobileNav.innerHTML = `
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="offers.html">Всі пропозиції</a></li>
-                <li><a href="index.html#features">Переваги</a></li>
-                <li><a href="index.html#testimonials">Відгуки</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> Головна</a></li>
+                <li><a href="offers.html"><i class="fas fa-tags"></i> Всі пропозиції</a></li>
+                <li><a href="index.html#features"><i class="fas fa-star"></i> Переваги</a></li>
+                <li><a href="index.html#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                 <li>
                     <button class="btn btn-outline btn-block" onclick="openModal('login')">
-                        Увійти
+                        <i class="fas fa-sign-in-alt"></i> Увійти
                     </button>
                 </li>
                 <li>
                     <button class="btn btn-primary btn-block" onclick="openModal('register')">
-                        Реєстрація
+                        <i class="fas fa-user-plus"></i> Реєстрація
                     </button>
                 </li>
             `;
