@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Налаштування — FlyBooking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --color-white: #ffffff;
+            --color-gray-50: #f8fafc;
+            --color-gray-200: #e2e8f0;
+            --color-gray-400: #94a3b8;
+            --color-gray-500: #64748b;
+            --color-gray-600: #475569;
+            --color-gray-700: #334155;
+            --color-gray-800: #1e293b;
+            --color-gray-900: #0f172a;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --radius: 12px;
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', sans-serif;
+            --header-height: 72px;
+        }
+        body { font-family: var(--font-family); background: var(--color-gray-50); color: var(--color-gray-800); }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+        .header { background: var(--color-white); box-shadow: 0 1px 3px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 1000; height: var(--header-height); display: flex; align-items: center; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; color: var(--color-gray-900); text-decoration: none; }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text span { color: var(--color-primary); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.625rem 1.5rem; border: none; border-radius: var(--radius); font-family: var(--font-family); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all var(--transition); text-decoration: none; min-height: 44px; }
+        .btn-primary { background: var(--color-primary-gradient); color: var(--color-white); box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45); }
+        .page { padding: 3rem 0; min-height: calc(100vh - var(--header-height) - 80px); }
+        .back-home { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-gray-500); text-decoration: none; font-weight: 500; transition: color var(--transition); margin-bottom: 1.5rem; }
+        .back-home:hover { color: var(--color-primary); }
+        .page-title { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .page-title span { background: var(--color-primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { color: var(--color-gray-500); font-size: 1.125rem; margin-bottom: 2rem; }
+        .settings-card { background: var(--color-white); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-bottom: 1rem; }
+        .settings-card .label { font-weight: 600; margin-bottom: 0.25rem; }
+        .settings-card .desc { font-size: 0.875rem; color: var(--color-gray-500); }
+        .toggle { position: relative; width: 48px; height: 28px; background: var(--color-gray-200); border-radius: 9999px; cursor: pointer; transition: background var(--transition); border: none; }
+        .toggle.active { background: var(--color-primary); }
+        .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; background: var(--color-white); border-radius: 50%; transition: transform var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle.active::after { transform: translateX(20px); }
+        .settings-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer { background: var(--color-gray-900); color: rgba(255,255,255,0.7); padding: 2rem 0 1.5rem; }
+        .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom-links { display: flex; gap: 1.5rem; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--transition); font-size: 0.75rem; }
+        .footer-bottom-links a:hover { color: var(--color-white); }
+        @media (max-width: 768px) { .footer-bottom { flex-direction: column; text-align: center; } .footer-bottom-links { flex-wrap: wrap; justify-content: center; } }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo"><span class="logo-icon">✈️</span><span class="logo-text">Fly<span>Booking</span></span></a>
+            <div id="navUser"></div>
+        </nav>
+    </div>
+</header>
+<main class="page">
+    <div class="container">
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Назад на головну</a>
+        <h1 class="page-title">Налаштування <span>акаунту</span></h1>
+        <p class="page-subtitle">Керуйте своїми налаштуваннями та вподобаннями</p>
+        <div class="settings-card">
+            <div class="settings-row">
+                <div><div class="label">🔔 Сповіщення</div><div class="desc">Отримувати сповіщення про знижки та акції</div></div>
+                <button class="toggle active" onclick="this.classList.toggle('active')"></button>
+            </div>
+        </div>
+        <div class="settings-card">
+            <div class="settings-row">
+                <div><div class="label">🌙 Темна тема</div><div class="desc">Використовувати темну тему інтерфейсу</div></div>
+                <button class="toggle" onclick="this.classList.toggle('active')"></button>
+            </div>
+        </div>
+        <div class="settings-card">
+            <div class="settings-row">
+                <div><div class="label">🌐 Мова</div><div class="desc">Українська</div></div>
+                <button class="btn btn-primary btn-sm" onclick="alert('Зміна мови...')">Змінити</button>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-bottom-links"><a href="#">Політика конфіденційності</a><a href="#">Умови використання</a></div>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">&copy; 2026 FlyBooking. Всі права захищено.</p>
+        </div>
+    </div>
+</footer>
+<script>
+    const user = JSON.parse(localStorage.getItem('flybooking_user'));
+    if (!user) window.location.href = 'index.html';
+    const initials = (user?.firstName?.charAt(0) || '') + (user?.lastName?.charAt(0) || '');
+    document.getElementById('navUser').innerHTML = `
+        <span style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--color-gray-700);">
+            <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${initials || 'U'}</span>
+            ${user?.firstName || 'Користувач'}
+        </span>
+    `;
+</script>
+</body>
+</html>
