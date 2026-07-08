@@ -1934,7 +1934,7 @@
             if (user) {
                 const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
 
-                // Десктоп - випадаючий список з посиланням на бронювання
+                // Десктоп - випадаючий список з усіма посиланнями
                 navAuth.innerHTML = `
                     <div class="user-dropdown-wrapper">
                         <button class="user-menu-btn" id="userMenuBtn">
@@ -1943,15 +1943,32 @@
                             <i class="fas fa-chevron-down chevron"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <!-- ⭐ ПОСИЛАННЯ НА ПРОФІЛЬ -->
+                            <!-- ⭐ ПРОФІЛЬ -->
                             <a href="profile.html" class="dropdown-item">
                                 <i class="fas fa-user"></i> Мій профіль
                             </a>
-                            <!-- ⭐ ПОСИЛАННЯ НА БРОНЮВАННЯ -->
+                            <!-- ⭐ БРОНЮВАННЯ -->
                             <a href="bookings.html" class="dropdown-item">
                                 <i class="fas fa-ticket-alt"></i> Мої бронювання
                             </a>
+                            <!-- ⭐ РЕДАГУВАННЯ ПРОФІЛЮ -->
+                            <a href="edit-profile.html" class="dropdown-item">
+                                <i class="fas fa-user-edit"></i> Редагувати профіль
+                            </a>
+                            <!-- ⭐ БОНУСИ -->
+                            <a href="bonus.html" class="dropdown-item">
+                                <i class="fas fa-gift"></i> Бонуси
+                            </a>
+                            <!-- ⭐ НАЛАШТУВАННЯ -->
+                            <a href="settings.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Налаштування
+                            </a>
+                            <!-- ⭐ ДОПОМОГА -->
+                            <a href="help.html" class="dropdown-item">
+                                <i class="fas fa-question-circle"></i> Допомога
+                            </a>
                             <div class="dropdown-divider"></div>
+                            <!-- ⭐ ВИХІД -->
                             <button class="dropdown-item logout" onclick="handleLogout()">
                                 <i class="fas fa-sign-out-alt"></i> Вийти
                             </button>
@@ -1966,6 +1983,10 @@
                     <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                     <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
                     <li><a href="bookings.html"><i class="fas fa-ticket-alt"></i> Мої бронювання</a></li>
+                    <li><a href="edit-profile.html"><i class="fas fa-user-edit"></i> Редагувати профіль</a></li>
+                    <li><a href="bonus.html"><i class="fas fa-gift"></i> Бонуси</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Налаштування</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Допомога</a></li>
                     <li>
                         <button class="btn btn-danger btn-block" onclick="handleLogout()">
                             <i class="fas fa-sign-out-alt"></i> Вийти
@@ -2441,8 +2462,13 @@
 
         console.log('✈️ FlyBooking — Головна сторінка завантажена!');
         console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
-        console.log('📌 Посилання на бронювання: bookings.html');
-        console.log('📌 Посилання на профіль: profile.html');
+        console.log('📌 Посилання на сторінки:');
+        console.log('  - Профіль: profile.html');
+        console.log('  - Бронювання: bookings.html');
+        console.log('  - Редагування: edit-profile.html');
+        console.log('  - Бонуси: bonus.html');
+        console.log('  - Налаштування: settings.html');
+        console.log('  - Допомога: help.html');
 
     })();
 </script>
