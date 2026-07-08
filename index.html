@@ -202,7 +202,7 @@
         }
         .nav-links a:hover { color: var(--color-primary); }
 
-        /* ===== USER DROPDOWN (замість бічної панелі) ===== */
+        /* ===== USER DROPDOWN ===== */
         .user-dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -255,7 +255,7 @@
             position: absolute;
             top: calc(100% + 8px);
             right: 0;
-            min-width: 200px;
+            min-width: 220px;
             background: var(--color-white);
             border-radius: var(--radius);
             box-shadow: var(--shadow-xl);
@@ -479,7 +479,7 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
-        /* ===== CUSTOM SELECT DROPDOWN ===== */
+        /* Custom Select */
         .custom-select {
             position: relative;
             width: 100%;
@@ -1024,7 +1024,7 @@
         .footer-payment i:hover { color: rgba(255,255,255,0.6); }
 
         /* ============================================
-           МОДАЛЬНІ ВІКНА (для входу/реєстрації)
+           МОДАЛЬНІ ВІКНА
            ============================================ */
         .modal-overlay {
             display: none;
@@ -1205,6 +1205,82 @@
         }
 
         /* ============================================
+           MOBILE
+           ============================================ */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-gray-700);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: var(--color-white);
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-gray-200);
+            box-shadow: var(--shadow-lg);
+            position: absolute;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .mobile-menu ul li a,
+        .mobile-menu ul li button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0;
+            color: var(--color-gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            width: 100%;
+            font-family: var(--font-family);
+        }
+        .mobile-menu ul li a:hover,
+        .mobile-menu ul li button:hover {
+            color: var(--color-primary);
+        }
+
+        /* ============================================
            АДАПТИВНІСТЬ
            ============================================ */
         @media (max-width: 1024px) {
@@ -1259,75 +1335,6 @@
             .offers-header { flex-direction: column; text-align: center; }
             .cta-buttons { flex-direction: column; align-items: center; }
             .cta-buttons .btn { width: 100%; max-width: 300px; }
-        }
-
-        /* Mobile toggle */
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-            width: 36px;
-            height: 36px;
-            align-items: center;
-            justify-content: center;
-        }
-        .mobile-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--color-gray-700);
-            border-radius: 2px;
-            transition: all var(--transition);
-        }
-        .mobile-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .mobile-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .mobile-menu {
-            display: none;
-            background: var(--color-white);
-            padding: 1rem 0;
-            border-top: 1px solid var(--color-gray-200);
-            box-shadow: var(--shadow-lg);
-        }
-        .mobile-menu.open {
-            display: block;
-        }
-        .mobile-menu ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .mobile-menu ul li a,
-        .mobile-menu ul li button {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.625rem 0;
-            color: var(--color-gray-700);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            width: 100%;
-            font-family: var(--font-family);
-        }
-        .mobile-menu ul li a:hover,
-        .mobile-menu ul li button:hover {
-            color: var(--color-primary);
         }
 
         @media (max-width: 768px) {
@@ -1927,7 +1934,7 @@
             if (user) {
                 const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
 
-                // Десктоп - випадаючий список
+                // Десктоп - випадаючий список з посиланням на бронювання
                 navAuth.innerHTML = `
                     <div class="user-dropdown-wrapper">
                         <button class="user-menu-btn" id="userMenuBtn">
@@ -1936,9 +1943,15 @@
                             <i class="fas fa-chevron-down chevron"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
+                            <!-- ⭐ ПОСИЛАННЯ НА ПРОФІЛЬ -->
                             <a href="profile.html" class="dropdown-item">
                                 <i class="fas fa-user"></i> Мій профіль
                             </a>
+                            <!-- ⭐ ПОСИЛАННЯ НА БРОНЮВАННЯ -->
+                            <a href="bookings.html" class="dropdown-item">
+                                <i class="fas fa-ticket-alt"></i> Мої бронювання
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <button class="dropdown-item logout" onclick="handleLogout()">
                                 <i class="fas fa-sign-out-alt"></i> Вийти
                             </button>
@@ -1952,6 +1965,7 @@
                     <li><a href="#features"><i class="fas fa-star"></i> Переваги</a></li>
                     <li><a href="#testimonials"><i class="fas fa-comment"></i> Відгуки</a></li>
                     <li><a href="profile.html"><i class="fas fa-user"></i> Мій профіль</a></li>
+                    <li><a href="bookings.html"><i class="fas fa-ticket-alt"></i> Мої бронювання</a></li>
                     <li>
                         <button class="btn btn-danger btn-block" onclick="handleLogout()">
                             <i class="fas fa-sign-out-alt"></i> Вийти
@@ -2107,7 +2121,6 @@
             const hiddenInput = document.getElementById('origin');
             let isOpen = false;
 
-            // Клік по тригеру
             trigger.addEventListener('click', function(e) {
                 e.stopPropagation();
                 isOpen = !isOpen;
@@ -2115,27 +2128,23 @@
                 options.classList.toggle('open');
             });
 
-            // Клік по опції
             options.querySelectorAll('.select-option').forEach(function(opt) {
                 opt.addEventListener('click', function() {
                     const value = this.dataset.value;
                     display.textContent = value;
                     hiddenInput.value = value;
 
-                    // Оновлюємо вибраний стан
                     options.querySelectorAll('.select-option').forEach(function(el) {
                         el.classList.remove('selected');
                     });
                     this.classList.add('selected');
 
-                    // Закриваємо
                     isOpen = false;
                     trigger.classList.remove('open');
                     options.classList.remove('open');
                 });
             });
 
-            // Закриття при кліку поза
             document.addEventListener('click', function() {
                 if (isOpen) {
                     isOpen = false;
@@ -2256,12 +2265,10 @@
             const tempHidden = originHidden.value;
             const tempDest = destination.value;
 
-            // Міняємо місцями
             originDisplay.textContent = tempDest;
             originHidden.value = tempDest;
             destination.value = tempDisplay;
 
-            // Оновлюємо вибраний стан в селекті
             const options = document.querySelectorAll('#originOptions .select-option');
             options.forEach(function(opt) {
                 opt.classList.toggle('selected', opt.dataset.value === tempDest);
@@ -2311,7 +2318,6 @@
             }
         });
 
-        // Лічильники пасажирів
         let adults = 1, children = 0, infants = 0;
 
         document.querySelectorAll('.counter-btn').forEach(function(btn) {
@@ -2435,6 +2441,8 @@
 
         console.log('✈️ FlyBooking — Головна сторінка завантажена!');
         console.log('📧 Для входу використовуйте: demo@flybooking.com / password123');
+        console.log('📌 Посилання на бронювання: bookings.html');
+        console.log('📌 Посилання на профіль: profile.html');
 
     })();
 </script>
