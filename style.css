@@ -1,0 +1,51 @@
+/* ======= Додаткові стилі для аутентифікації ======= */
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: white;
+}
+
+#userDisplay {
+    color: white;
+    font-weight: 500;
+}
+
+/* Повідомлення про помилку/успіх у модалках */
+.auth-result {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+}
+.auth-result.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.auth-result.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Адаптивність для кнопок */
+@media (max-width: 768px) {
+    .auth-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
