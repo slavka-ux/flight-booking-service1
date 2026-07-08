@@ -1,0 +1,17 @@
+[
+  {
+    "user_id": "USR-001",
+    "username": "admin",
+    "email": "admin@flightbooking.com",
+    "password_hash": "hL+g3b8K5xUjN2l9P4mQ1vX6tR7wE0y=",
+    "full_name": "Адміністратор",
+    "phone": "+380501234567",
+    "created_at": "2024-01-01T00:00:00",
+    "last_login": null,
+    "is_active": true,
+    "is_admin": true,
+    "is_verified": true,
+    "preferences": {},
+    "bookings_history": []
+  }
+]
