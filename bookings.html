@@ -676,7 +676,8 @@
                 if (booking) {
                     booking.status = 'cancelled';
                     showToast(`❌ Бронювання ${id} скасовано`, 'error');
-                    renderBookings(document.querySelector('.filter-btn.active')?.dataset?.filter || 'all');
+                    const activeFilter = document.querySelector('.filter-btn.active')?.dataset?.filter || 'all';
+                    renderBookings(activeFilter);
                 }
             }
         };
@@ -722,11 +723,11 @@
         // ============================
         // 7. HEADER
         // ============================
-        const initials = (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
+        const initials = (user.firstName?.charAt(0) || '') + (user.lastName?.charAt(0) || '');
         document.getElementById('navUser').innerHTML = `
             <span style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--color-gray-700);">
-                <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${initials}</span>
-                ${user.firstName}
+                <span style="width:36px;height:36px;border-radius:50%;background:var(--color-primary-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;">${initials || 'U'}</span>
+                ${user.firstName || 'Користувач'}
             </span>
         `;
 
